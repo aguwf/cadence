@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Home, Compass, History, Settings, Music2 } from "lucide-react";
 import { cn } from "@/lib/utils"; // Assuming utils exists, if not I'll standardly use a local helper or clsx/tailwind-merge
 
-export export const navItems = [
+export const navItems = [
   { label: "Home", href: "/", icon: Home },
   { label: "Explore", href: "/explore", icon: Compass },
   { label: "History", href: "/history", icon: History },

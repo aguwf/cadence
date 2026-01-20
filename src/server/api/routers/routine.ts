@@ -1,4 +1,5 @@
 
+import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
 export const routineRouter = createTRPCRouter({
@@ -12,4 +13,15 @@ export const routineRouter = createTRPCRouter({
       },
     });
   }),
+
+  getById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return ctx.db.danceRoutine.findUnique({
+        where: { id: input.id },
+        include: {
+          category: true,
+        },
+      });
+    }),
 });
