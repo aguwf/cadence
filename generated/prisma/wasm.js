@@ -139,31 +139,53 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.VideoScalarFieldEnum = {
+exports.Prisma.UserProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  level: 'level',
+  currentXp: 'currentXp',
+  totalCalories: 'totalCalories',
+  totalMinutes: 'totalMinutes',
+  weightKg: 'weightKg',
+  heightCm: 'heightCm',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  image: 'image'
+};
+
+exports.Prisma.DanceRoutineScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  url: 'url',
-  thumbnail: 'thumbnail',
+  videoUrl: 'videoUrl',
+  thumbnailUrl: 'thumbnailUrl',
   duration: 'duration',
   difficulty: 'difficulty',
-  tags: 'tags',
-  createdAt: 'createdAt'
+  bpm: 'bpm',
+  caloriesPerMin: 'caloriesPerMin',
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PracticeLogScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  videoId: 'videoId',
+  routineId: 'routineId',
   durationPlayed: 'durationPlayed',
-  score: 'score',
+  caloriesBurned: 'caloriesBurned',
   completedAt: 'completedAt'
 };
 
 exports.Prisma.PlaylistScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  description: 'description',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -172,34 +194,8 @@ exports.Prisma.PlaylistScalarFieldEnum = {
 exports.Prisma.PlaylistVideoScalarFieldEnum = {
   id: 'id',
   playlistId: 'playlistId',
-  videoId: 'videoId',
+  routineId: 'routineId',
   addedAt: 'addedAt'
-};
-
-exports.Prisma.CategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-};
-
-exports.Prisma.WorkoutScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  description: 'description',
-  videoUrl: 'videoUrl',
-  duration: 'duration',
-  difficulty: 'difficulty',
-  thumbnailUrl: 'thumbnailUrl',
-  categoryId: 'categoryId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.UserWorkoutHistoryScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  workoutId: 'workoutId',
-  completedAt: 'completedAt',
-  score: 'score'
 };
 
 exports.Prisma.SortOrder = {
@@ -217,9 +213,10 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.Difficulty = exports.$Enums.Difficulty = {
-  EASY: 'EASY',
-  MEDIUM: 'MEDIUM',
-  HARD: 'HARD'
+  BEGINNER: 'BEGINNER',
+  INTERMEDIATE: 'INTERMEDIATE',
+  ADVANCED: 'ADVANCED',
+  EXPERT: 'EXPERT'
 };
 
 exports.Prisma.ModelName = {
@@ -227,13 +224,12 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  Video: 'Video',
+  UserProfile: 'UserProfile',
+  Category: 'Category',
+  DanceRoutine: 'DanceRoutine',
   PracticeLog: 'PracticeLog',
   Playlist: 'Playlist',
-  PlaylistVideo: 'PlaylistVideo',
-  Category: 'Category',
-  Workout: 'Workout',
-  UserWorkoutHistory: 'UserWorkoutHistory'
+  PlaylistVideo: 'PlaylistVideo'
 };
 /**
  * Create the Client
@@ -282,13 +278,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// Prisma schema for Better Auth\n// learn more: https://better-auth.com/docs/concepts/database\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\n// NOTE: When using mysql or sqlserver, uncomment the //@db.Text annotations in model Account below\n// Further reading:\n// https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String    @id\n  name          String //@db.Text\n  email         String\n  emailVerified Boolean   @default(false)\n  image         String? //@db.Text\n  createdAt     DateTime  @default(now())\n  updatedAt     DateTime  @default(now()) @updatedAt\n  sessions      Session[]\n  accounts      Account[]\n\n  practiceLogs   PracticeLog[]\n  playlists      Playlist[]\n  workoutHistory UserWorkoutHistory[]\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  ipAddress String? //@db.Text\n  userAgent String? //@db.Text\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String //@db.Text\n  providerId            String //@db.Text\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String? //@db.Text\n  refreshToken          String? //@db.Text\n  idToken               String? //@db.Text\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String? //@db.Text\n  password              String? //@db.Text\n  createdAt             DateTime  @default(now())\n  updatedAt             DateTime  @updatedAt\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String   @id\n  identifier String //@db.Text\n  value      String //@db.Text\n  expiresAt  DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @default(now()) @updatedAt\n\n  @@map(\"verification\")\n}\n\nenum Difficulty {\n  EASY\n  MEDIUM\n  HARD\n}\n\nmodel Video {\n  id             String          @id @default(cuid())\n  title          String\n  description    String?\n  url            String\n  thumbnail      String\n  duration       Int\n  difficulty     Difficulty\n  tags           String[]\n  createdAt      DateTime        @default(now())\n  practiceLogs   PracticeLog[]\n  playlistVideos PlaylistVideo[]\n\n  @@map(\"video\")\n}\n\nmodel PracticeLog {\n  id             String   @id @default(cuid())\n  userId         String\n  user           User     @relation(fields: [userId], references: [id])\n  videoId        String\n  video          Video    @relation(fields: [videoId], references: [id])\n  durationPlayed Int\n  score          Int?\n  completedAt    DateTime @default(now())\n\n  @@index([userId])\n  @@index([videoId])\n  @@map(\"practice_log\")\n}\n\nmodel Playlist {\n  id          String          @id @default(cuid())\n  name        String\n  description String?\n  userId      String\n  user        User            @relation(fields: [userId], references: [id])\n  createdAt   DateTime        @default(now())\n  updatedAt   DateTime        @updatedAt\n  videos      PlaylistVideo[]\n\n  @@map(\"playlist\")\n}\n\nmodel PlaylistVideo {\n  id         String   @id @default(cuid())\n  playlistId String\n  playlist   Playlist @relation(fields: [playlistId], references: [id])\n  videoId    String\n  video      Video    @relation(fields: [videoId], references: [id])\n  addedAt    DateTime @default(now())\n\n  @@unique([playlistId, videoId])\n  @@map(\"playlist_video\")\n}\n\nmodel Category {\n  id       String    @id @default(cuid())\n  name     String    @unique\n  workouts Workout[]\n}\n\nmodel Workout {\n  id           String               @id @default(cuid())\n  title        String\n  description  String?\n  videoUrl     String\n  duration     Int\n  difficulty   String\n  thumbnailUrl String?\n  categoryId   String\n  category     Category             @relation(fields: [categoryId], references: [id])\n  history      UserWorkoutHistory[]\n  createdAt    DateTime             @default(now())\n  updatedAt    DateTime             @updatedAt\n}\n\nmodel UserWorkoutHistory {\n  id          String   @id @default(cuid())\n  userId      String\n  workoutId   String\n  completedAt DateTime @default(now())\n  score       Int?\n  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  workout     Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)\n\n  @@unique([userId, workoutId, completedAt])\n}\n",
-  "inlineSchemaHash": "a7c8cfaec86b1635d9bbf61342fd200cde6d4f73b35450d99c0c4e93de938e6c",
+  "inlineSchema": "// prisma/schema.prisma\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\" // or sqlite for local dev if you prefer\n  url      = env(\"DATABASE_URL\")\n}\n\n// --- AUTHENTICATION (Better-Auth) ---\nmodel User {\n  id            String   @id\n  name          String\n  email         String\n  emailVerified Boolean  @default(false)\n  image         String?\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n\n  sessions Session[]\n  accounts Account[]\n\n  // App Specific\n  profile      UserProfile?\n  practiceLogs PracticeLog[]\n  playlists    Playlist[]\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime  @default(now())\n  updatedAt             DateTime  @updatedAt\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String   @id\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  @@map(\"verification\")\n}\n\n// --- DOMAIN MODELS ---\n\nenum Difficulty {\n  BEGINNER\n  INTERMEDIATE\n  ADVANCED\n  EXPERT\n}\n\nmodel UserProfile {\n  id     String @id @default(cuid())\n  userId String @unique\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  // Gamification & Stats\n  level         Int @default(1)\n  currentXp     Int @default(0)\n  totalCalories Int @default(0) // Burned\n  totalMinutes  Int @default(0) // Danced\n\n  // Body Stats (Optional, for calorie calc)\n  weightKg Float?\n  heightCm Float?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Category {\n  id       String         @id @default(cuid())\n  name     String         @unique\n  slug     String         @unique\n  image    String?\n  routines DanceRoutine[]\n}\n\nmodel DanceRoutine {\n  id          String  @id @default(cuid())\n  title       String\n  description String?\n\n  videoUrl     String // YouTube or Mux URL\n  thumbnailUrl String\n\n  duration   Int // Seconds\n  difficulty Difficulty\n  bpm        Int? // Beats per minute (good for sorting)\n\n  caloriesPerMin Int @default(5) // Base MET calculation\n\n  categoryId String\n  category   Category @relation(fields: [categoryId], references: [id])\n\n  logs      PracticeLog[]\n  playlists PlaylistVideo[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map(\"dance_routine\")\n}\n\nmodel PracticeLog {\n  id     String @id @default(cuid())\n  userId String\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  routineId String\n  routine   DanceRoutine @relation(fields: [routineId], references: [id])\n\n  durationPlayed Int // Seconds actual played\n  caloriesBurned Int?\n  completedAt    DateTime @default(now())\n\n  @@index([userId])\n  @@map(\"practice_log\")\n}\n\nmodel Playlist {\n  id     String          @id @default(cuid())\n  name   String\n  userId String\n  user   User            @relation(fields: [userId], references: [id], onDelete: Cascade)\n  videos PlaylistVideo[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map(\"playlist\")\n}\n\nmodel PlaylistVideo {\n  id         String   @id @default(cuid())\n  playlistId String\n  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)\n\n  routineId String\n  routine   DanceRoutine @relation(fields: [routineId], references: [id])\n\n  addedAt DateTime @default(now())\n\n  @@unique([playlistId, routineId])\n  @@map(\"playlist_video\")\n}\n",
+  "inlineSchemaHash": "b165356ec7474d99a0166ecea48c331bc66260c834abd6368bae2b6656fc2129",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"practiceLogs\",\"kind\":\"object\",\"type\":\"PracticeLog\",\"relationName\":\"PracticeLogToUser\"},{\"name\":\"playlists\",\"kind\":\"object\",\"type\":\"Playlist\",\"relationName\":\"PlaylistToUser\"},{\"name\":\"workoutHistory\",\"kind\":\"object\",\"type\":\"UserWorkoutHistory\",\"relationName\":\"UserToUserWorkoutHistory\"}],\"dbName\":\"user\"},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":\"session\"},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"},{\"name\":\"accessToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refreshToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"idToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"refreshTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"account\"},\"Verification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"value\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"verification\"},\"Video\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"thumbnail\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"difficulty\",\"kind\":\"enum\",\"type\":\"Difficulty\"},{\"name\":\"tags\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"practiceLogs\",\"kind\":\"object\",\"type\":\"PracticeLog\",\"relationName\":\"PracticeLogToVideo\"},{\"name\":\"playlistVideos\",\"kind\":\"object\",\"type\":\"PlaylistVideo\",\"relationName\":\"PlaylistVideoToVideo\"}],\"dbName\":\"video\"},\"PracticeLog\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PracticeLogToUser\"},{\"name\":\"videoId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"video\",\"kind\":\"object\",\"type\":\"Video\",\"relationName\":\"PracticeLogToVideo\"},{\"name\":\"durationPlayed\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"score\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"completedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"practice_log\"},\"Playlist\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PlaylistToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"videos\",\"kind\":\"object\",\"type\":\"PlaylistVideo\",\"relationName\":\"PlaylistToPlaylistVideo\"}],\"dbName\":\"playlist\"},\"PlaylistVideo\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playlistId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playlist\",\"kind\":\"object\",\"type\":\"Playlist\",\"relationName\":\"PlaylistToPlaylistVideo\"},{\"name\":\"videoId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"video\",\"kind\":\"object\",\"type\":\"Video\",\"relationName\":\"PlaylistVideoToVideo\"},{\"name\":\"addedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"playlist_video\"},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"workouts\",\"kind\":\"object\",\"type\":\"Workout\",\"relationName\":\"CategoryToWorkout\"}],\"dbName\":null},\"Workout\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"videoUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"difficulty\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"thumbnailUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToWorkout\"},{\"name\":\"history\",\"kind\":\"object\",\"type\":\"UserWorkoutHistory\",\"relationName\":\"UserWorkoutHistoryToWorkout\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"UserWorkoutHistory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"workoutId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"completedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"score\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserWorkoutHistory\"},{\"name\":\"workout\",\"kind\":\"object\",\"type\":\"Workout\",\"relationName\":\"UserWorkoutHistoryToWorkout\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"profile\",\"kind\":\"object\",\"type\":\"UserProfile\",\"relationName\":\"UserToUserProfile\"},{\"name\":\"practiceLogs\",\"kind\":\"object\",\"type\":\"PracticeLog\",\"relationName\":\"PracticeLogToUser\"},{\"name\":\"playlists\",\"kind\":\"object\",\"type\":\"Playlist\",\"relationName\":\"PlaylistToUser\"}],\"dbName\":\"user\"},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":\"session\"},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"},{\"name\":\"accessToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refreshToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"idToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"refreshTokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"account\"},\"Verification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"value\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"verification\"},\"UserProfile\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserProfile\"},{\"name\":\"level\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"currentXp\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"totalCalories\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"totalMinutes\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"weightKg\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"heightCm\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"routines\",\"kind\":\"object\",\"type\":\"DanceRoutine\",\"relationName\":\"CategoryToDanceRoutine\"}],\"dbName\":null},\"DanceRoutine\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"videoUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"thumbnailUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"difficulty\",\"kind\":\"enum\",\"type\":\"Difficulty\"},{\"name\":\"bpm\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"caloriesPerMin\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToDanceRoutine\"},{\"name\":\"logs\",\"kind\":\"object\",\"type\":\"PracticeLog\",\"relationName\":\"DanceRoutineToPracticeLog\"},{\"name\":\"playlists\",\"kind\":\"object\",\"type\":\"PlaylistVideo\",\"relationName\":\"DanceRoutineToPlaylistVideo\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"dance_routine\"},\"PracticeLog\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PracticeLogToUser\"},{\"name\":\"routineId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"routine\",\"kind\":\"object\",\"type\":\"DanceRoutine\",\"relationName\":\"DanceRoutineToPracticeLog\"},{\"name\":\"durationPlayed\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"caloriesBurned\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"completedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"practice_log\"},\"Playlist\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PlaylistToUser\"},{\"name\":\"videos\",\"kind\":\"object\",\"type\":\"PlaylistVideo\",\"relationName\":\"PlaylistToPlaylistVideo\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"playlist\"},\"PlaylistVideo\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playlistId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playlist\",\"kind\":\"object\",\"type\":\"Playlist\",\"relationName\":\"PlaylistToPlaylistVideo\"},{\"name\":\"routineId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"routine\",\"kind\":\"object\",\"type\":\"DanceRoutine\",\"relationName\":\"DanceRoutineToPlaylistVideo\"},{\"name\":\"addedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"playlist_video\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

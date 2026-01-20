@@ -16,13 +16,17 @@ const geist = Geist({
   variable: "--font-geist-sans",
 });
 
+import { MainLayout } from "@/components/layout/MainLayout";
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          <MainLayout>{children}</MainLayout>
+        </TRPCReactProvider>
       </body>
     </html>
   );

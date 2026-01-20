@@ -167,31 +167,53 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.VideoScalarFieldEnum = {
+exports.Prisma.UserProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  level: 'level',
+  currentXp: 'currentXp',
+  totalCalories: 'totalCalories',
+  totalMinutes: 'totalMinutes',
+  weightKg: 'weightKg',
+  heightCm: 'heightCm',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  image: 'image'
+};
+
+exports.Prisma.DanceRoutineScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  url: 'url',
-  thumbnail: 'thumbnail',
+  videoUrl: 'videoUrl',
+  thumbnailUrl: 'thumbnailUrl',
   duration: 'duration',
   difficulty: 'difficulty',
-  tags: 'tags',
-  createdAt: 'createdAt'
+  bpm: 'bpm',
+  caloriesPerMin: 'caloriesPerMin',
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PracticeLogScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  videoId: 'videoId',
+  routineId: 'routineId',
   durationPlayed: 'durationPlayed',
-  score: 'score',
+  caloriesBurned: 'caloriesBurned',
   completedAt: 'completedAt'
 };
 
 exports.Prisma.PlaylistScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  description: 'description',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -200,34 +222,8 @@ exports.Prisma.PlaylistScalarFieldEnum = {
 exports.Prisma.PlaylistVideoScalarFieldEnum = {
   id: 'id',
   playlistId: 'playlistId',
-  videoId: 'videoId',
+  routineId: 'routineId',
   addedAt: 'addedAt'
-};
-
-exports.Prisma.CategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-};
-
-exports.Prisma.WorkoutScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  description: 'description',
-  videoUrl: 'videoUrl',
-  duration: 'duration',
-  difficulty: 'difficulty',
-  thumbnailUrl: 'thumbnailUrl',
-  categoryId: 'categoryId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.UserWorkoutHistoryScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  workoutId: 'workoutId',
-  completedAt: 'completedAt',
-  score: 'score'
 };
 
 exports.Prisma.SortOrder = {
@@ -245,9 +241,10 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.Difficulty = exports.$Enums.Difficulty = {
-  EASY: 'EASY',
-  MEDIUM: 'MEDIUM',
-  HARD: 'HARD'
+  BEGINNER: 'BEGINNER',
+  INTERMEDIATE: 'INTERMEDIATE',
+  ADVANCED: 'ADVANCED',
+  EXPERT: 'EXPERT'
 };
 
 exports.Prisma.ModelName = {
@@ -255,13 +252,12 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  Video: 'Video',
+  UserProfile: 'UserProfile',
+  Category: 'Category',
+  DanceRoutine: 'DanceRoutine',
   PracticeLog: 'PracticeLog',
   Playlist: 'Playlist',
-  PlaylistVideo: 'PlaylistVideo',
-  Category: 'Category',
-  Workout: 'Workout',
-  UserWorkoutHistory: 'UserWorkoutHistory'
+  PlaylistVideo: 'PlaylistVideo'
 };
 
 /**

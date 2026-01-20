@@ -1,25 +1,84 @@
-@import "tailwindcss";
-
-@theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
-    --background: 257 60% 97%;
-    --foreground: 257 30% 25%;
-    --card: 257 60% 100%;
-    --card-foreground: 257 30% 25%;
-    --primary: 257 88% 76%;
-    --primary-foreground: 257 40% 15%;
-    --secondary: 300 80% 85%;
-    --secondary-foreground: 300 40% 15%;
-    --accent: 230 90% 80%;
-    --accent-foreground: 230 40% 15%;
-    --radius: 0.75rem;
+    /* Base - Light/Pastel Mode defaults */
+    --background: 270 50% 98%; /* Very light purple tint white */
+    --foreground: 270 60% 15%; /* Dark purple text */
+
+    /* Card - Pure White with subtle tint */
+    --card: 0 0% 100%;
+    --card-foreground: 270 60% 15%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 270 60% 15%;
+
+    /* Primary - The main Pastel Purple */
+    --primary: 265 89% 78%; /* #C471ED approx - Vibrant Pastel Purple */
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Soft Pink/Lavender for accents */
+    --secondary: 300 70% 92%;
+    --secondary-foreground: 300 50% 20%;
+
+    /* Muted - For backgrounds/inactive items */
+    --muted: 270 30% 94%;
+    --muted-foreground: 270 20% 40%;
+
+    /* Accent - For hover states */
+    --accent: 265 89% 90%;
+    --accent-foreground: 270 60% 15%;
+
+    /* Destructive - Soft Red */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 270 30% 90%;
+    --input: 270 30% 90%;
+    --ring: 265 89% 78%;
+
+    --radius: 1rem; /* More rounded for "Playful/Modern" look */
   }
 
+  .dark {
+    /* Dark Mode - Deep Purple/Night theme */
+    --background: 270 50% 5%; /* Very dark purple */
+    --foreground: 270 30% 95%;
+
+    --card: 270 50% 8%;
+    --card-foreground: 270 30% 95%;
+
+    --popover: 270 50% 8%;
+    --popover-foreground: 270 30% 95%;
+
+    --primary: 265 80% 70%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 270 30% 15%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 270 30% 15%;
+    --muted-foreground: 270 20% 65%;
+
+    --accent: 270 30% 15%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 270 30% 15%;
+    --input: 270 30% 15%;
+    --ring: 265 80% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
   body {
     @apply bg-background text-foreground;
   }
