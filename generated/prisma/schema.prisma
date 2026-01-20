@@ -1,45 +1,32 @@
-// Prisma schema for Better Auth
-// learn more: https://better-auth.com/docs/concepts/database
+// prisma/schema.prisma
 
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
-// NOTE: When using mysql or sqlserver, uncomment the //@db.Text annotations in model Account below
-// Further reading:
-// https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-
 datasource db {
-  provider = "postgresql"
+  provider = "postgresql" // or sqlite for local dev if you prefer
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  createdBy   User   @relation(fields: [createdById], references: [id])
-  createdById String
-
-  @@index([name])
-}
-
+// --- AUTHENTICATION (Better-Auth) ---
 model User {
-  id            String        @id
-  name          String //@db.Text
+  id            String   @id
+  name          String
   email         String
-  emailVerified Boolean       @default(false)
-  image         String? //@db.Text
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @default(now()) @updatedAt
-  sessions      Session[]
-  accounts      Account[]
-  posts         Post[]
-  practiceLogs  PracticeLog[]
-  playlists     Playlist[]
+  emailVerified Boolean  @default(false)
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  sessions Session[]
+  accounts Account[]
+
+  // App Specific
+  profile      UserProfile?
+  practiceLogs PracticeLog[]
+  playlists    Playlist[]
 
   @@unique([email])
   @@map("user")
@@ -51,8 +38,8 @@ model Session {
   token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  ipAddress String? //@db.Text
-  userAgent String? //@db.Text
+  ipAddress String?
+  userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -62,17 +49,17 @@ model Session {
 
 model Account {
   id                    String    @id
-  accountId             String //@db.Text
-  providerId            String //@db.Text
+  accountId             String
+  providerId            String
   userId                String
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String? //@db.Text
-  refreshToken          String? //@db.Text
-  idToken               String? //@db.Text
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
   accessTokenExpiresAt  DateTime?
   refreshTokenExpiresAt DateTime?
-  scope                 String? //@db.Text
-  password              String? //@db.Text
+  scope                 String?
+  password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 
@@ -81,61 +68,102 @@ model Account {
 
 model Verification {
   id         String   @id
-  identifier String //@db.Text
-  value      String //@db.Text
+  identifier String
+  value      String
   expiresAt  DateTime
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
+  updatedAt  DateTime @updatedAt
 
   @@map("verification")
 }
 
+// --- DOMAIN MODELS ---
+
 enum Difficulty {
-  EASY
-  MEDIUM
-  HARD
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
 }
 
-model Video {
-  id             String          @id @default(cuid())
-  title          String
-  description    String?
-  url            String
-  thumbnail      String
-  duration       Int
-  difficulty     Difficulty
-  tags           String[]
-  createdAt      DateTime        @default(now())
-  practiceLogs   PracticeLog[]
-  playlistVideos PlaylistVideo[]
+model UserProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("video")
+  // Gamification & Stats
+  level         Int @default(1)
+  currentXp     Int @default(0)
+  totalCalories Int @default(0) // Burned
+  totalMinutes  Int @default(0) // Danced
+
+  // Body Stats (Optional, for calorie calc)
+  weightKg Float?
+  heightCm Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id       String         @id @default(cuid())
+  name     String         @unique
+  slug     String         @unique
+  image    String?
+  routines DanceRoutine[]
+}
+
+model DanceRoutine {
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+
+  videoUrl     String // YouTube or Mux URL
+  thumbnailUrl String
+
+  duration   Int // Seconds
+  difficulty Difficulty
+  bpm        Int? // Beats per minute (good for sorting)
+
+  caloriesPerMin Int @default(5) // Base MET calculation
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  logs      PracticeLog[]
+  playlists PlaylistVideo[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("dance_routine")
 }
 
 model PracticeLog {
-  id             String   @id @default(cuid())
-  userId         String
-  user           User     @relation(fields: [userId], references: [id])
-  videoId        String
-  video          Video    @relation(fields: [videoId], references: [id])
-  durationPlayed Int
-  score          Int?
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  routineId String
+  routine   DanceRoutine @relation(fields: [routineId], references: [id])
+
+  durationPlayed Int // Seconds actual played
+  caloriesBurned Int?
   completedAt    DateTime @default(now())
 
   @@index([userId])
-  @@index([videoId])
   @@map("practice_log")
 }
 
 model Playlist {
-  id          String          @id @default(cuid())
-  name        String
-  description String?
-  userId      String
-  user        User            @relation(fields: [userId], references: [id])
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-  videos      PlaylistVideo[]
+  id     String          @id @default(cuid())
+  name   String
+  userId String
+  user   User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  videos PlaylistVideo[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("playlist")
 }
@@ -143,11 +171,13 @@ model Playlist {
 model PlaylistVideo {
   id         String   @id @default(cuid())
   playlistId String
-  playlist   Playlist @relation(fields: [playlistId], references: [id])
-  videoId    String
-  video      Video    @relation(fields: [videoId], references: [id])
-  addedAt    DateTime @default(now())
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
 
-  @@unique([playlistId, videoId])
+  routineId String
+  routine   DanceRoutine @relation(fields: [routineId], references: [id])
+
+  addedAt DateTime @default(now())
+
+  @@unique([playlistId, routineId])
   @@map("playlist_video")
 }

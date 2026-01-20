@@ -121,14 +121,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
-};
-
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -175,31 +167,53 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.VideoScalarFieldEnum = {
+exports.Prisma.UserProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  level: 'level',
+  currentXp: 'currentXp',
+  totalCalories: 'totalCalories',
+  totalMinutes: 'totalMinutes',
+  weightKg: 'weightKg',
+  heightCm: 'heightCm',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  image: 'image'
+};
+
+exports.Prisma.DanceRoutineScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  url: 'url',
-  thumbnail: 'thumbnail',
+  videoUrl: 'videoUrl',
+  thumbnailUrl: 'thumbnailUrl',
   duration: 'duration',
   difficulty: 'difficulty',
-  tags: 'tags',
-  createdAt: 'createdAt'
+  bpm: 'bpm',
+  caloriesPerMin: 'caloriesPerMin',
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PracticeLogScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  videoId: 'videoId',
+  routineId: 'routineId',
   durationPlayed: 'durationPlayed',
-  score: 'score',
+  caloriesBurned: 'caloriesBurned',
   completedAt: 'completedAt'
 };
 
 exports.Prisma.PlaylistScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  description: 'description',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -208,7 +222,7 @@ exports.Prisma.PlaylistScalarFieldEnum = {
 exports.Prisma.PlaylistVideoScalarFieldEnum = {
   id: 'id',
   playlistId: 'playlistId',
-  videoId: 'videoId',
+  routineId: 'routineId',
   addedAt: 'addedAt'
 };
 
@@ -227,18 +241,20 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.Difficulty = exports.$Enums.Difficulty = {
-  EASY: 'EASY',
-  MEDIUM: 'MEDIUM',
-  HARD: 'HARD'
+  BEGINNER: 'BEGINNER',
+  INTERMEDIATE: 'INTERMEDIATE',
+  ADVANCED: 'ADVANCED',
+  EXPERT: 'EXPERT'
 };
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  Video: 'Video',
+  UserProfile: 'UserProfile',
+  Category: 'Category',
+  DanceRoutine: 'DanceRoutine',
   PracticeLog: 'PracticeLog',
   Playlist: 'Playlist',
   PlaylistVideo: 'PlaylistVideo'

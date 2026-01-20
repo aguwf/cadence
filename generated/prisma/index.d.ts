@@ -14,11 +14,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
- * Model Post
- * 
- */
-export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
-/**
  * Model User
  * 
  */
@@ -39,10 +34,20 @@ export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
  */
 export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
 /**
- * Model Video
+ * Model UserProfile
  * 
  */
-export type Video = $Result.DefaultSelection<Prisma.$VideoPayload>
+export type UserProfile = $Result.DefaultSelection<Prisma.$UserProfilePayload>
+/**
+ * Model Category
+ * 
+ */
+export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
+/**
+ * Model DanceRoutine
+ * 
+ */
+export type DanceRoutine = $Result.DefaultSelection<Prisma.$DanceRoutinePayload>
 /**
  * Model PracticeLog
  * 
@@ -64,9 +69,10 @@ export type PlaylistVideo = $Result.DefaultSelection<Prisma.$PlaylistVideoPayloa
  */
 export namespace $Enums {
   export const Difficulty: {
-  EASY: 'EASY',
-  MEDIUM: 'MEDIUM',
-  HARD: 'HARD'
+  BEGINNER: 'BEGINNER',
+  INTERMEDIATE: 'INTERMEDIATE',
+  ADVANCED: 'ADVANCED',
+  EXPERT: 'EXPERT'
 };
 
 export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
@@ -84,8 +90,8 @@ export const Difficulty: typeof $Enums.Difficulty
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Posts
- * const posts = await prisma.post.findMany()
+ * // Fetch zero or more Users
+ * const users = await prisma.user.findMany()
  * ```
  *
  *
@@ -105,8 +111,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Posts
-   * const posts = await prisma.post.findMany()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
    * ```
    *
    *
@@ -196,16 +202,6 @@ export class PrismaClient<
   }>>
 
       /**
-   * `prisma.post`: Exposes CRUD operations for the **Post** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Posts
-    * const posts = await prisma.post.findMany()
-    * ```
-    */
-  get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -246,14 +242,34 @@ export class PrismaClient<
   get verification(): Prisma.VerificationDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.video`: Exposes CRUD operations for the **Video** model.
+   * `prisma.userProfile`: Exposes CRUD operations for the **UserProfile** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Videos
-    * const videos = await prisma.video.findMany()
+    * // Fetch zero or more UserProfiles
+    * const userProfiles = await prisma.userProfile.findMany()
     * ```
     */
-  get video(): Prisma.VideoDelegate<ExtArgs, ClientOptions>;
+  get userProfile(): Prisma.UserProfileDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.category`: Exposes CRUD operations for the **Category** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Categories
+    * const categories = await prisma.category.findMany()
+    * ```
+    */
+  get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.danceRoutine`: Exposes CRUD operations for the **DanceRoutine** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DanceRoutines
+    * const danceRoutines = await prisma.danceRoutine.findMany()
+    * ```
+    */
+  get danceRoutine(): Prisma.DanceRoutineDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.practiceLog`: Exposes CRUD operations for the **PracticeLog** model.
@@ -725,12 +741,13 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Post: 'Post',
     User: 'User',
     Session: 'Session',
     Account: 'Account',
     Verification: 'Verification',
-    Video: 'Video',
+    UserProfile: 'UserProfile',
+    Category: 'Category',
+    DanceRoutine: 'DanceRoutine',
     PracticeLog: 'PracticeLog',
     Playlist: 'Playlist',
     PlaylistVideo: 'PlaylistVideo'
@@ -752,84 +769,10 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "user" | "session" | "account" | "verification" | "video" | "practiceLog" | "playlist" | "playlistVideo"
+      modelProps: "user" | "session" | "account" | "verification" | "userProfile" | "category" | "danceRoutine" | "practiceLog" | "playlist" | "playlistVideo"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
-      Post: {
-        payload: Prisma.$PostPayload<ExtArgs>
-        fields: Prisma.PostFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.PostFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.PostFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
-          }
-          findFirst: {
-            args: Prisma.PostFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.PostFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
-          }
-          findMany: {
-            args: Prisma.PostFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
-          }
-          create: {
-            args: Prisma.PostCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
-          }
-          createMany: {
-            args: Prisma.PostCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.PostCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
-          }
-          delete: {
-            args: Prisma.PostDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
-          }
-          update: {
-            args: Prisma.PostUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
-          }
-          deleteMany: {
-            args: Prisma.PostDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.PostUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.PostUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
-          }
-          upsert: {
-            args: Prisma.PostUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostPayload>
-          }
-          aggregate: {
-            args: Prisma.PostAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePost>
-          }
-          groupBy: {
-            args: Prisma.PostGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PostGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.PostCountArgs<ExtArgs>
-            result: $Utils.Optional<PostCountAggregateOutputType> | number
-          }
-        }
-      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -1126,77 +1069,225 @@ export namespace Prisma {
           }
         }
       }
-      Video: {
-        payload: Prisma.$VideoPayload<ExtArgs>
-        fields: Prisma.VideoFieldRefs
+      UserProfile: {
+        payload: Prisma.$UserProfilePayload<ExtArgs>
+        fields: Prisma.UserProfileFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.VideoFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload> | null
+            args: Prisma.UserProfileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.VideoFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload>
+            args: Prisma.UserProfileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload>
           }
           findFirst: {
-            args: Prisma.VideoFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload> | null
+            args: Prisma.UserProfileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.VideoFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload>
+            args: Prisma.UserProfileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload>
           }
           findMany: {
-            args: Prisma.VideoFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload>[]
+            args: Prisma.UserProfileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload>[]
           }
           create: {
-            args: Prisma.VideoCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload>
+            args: Prisma.UserProfileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload>
           }
           createMany: {
-            args: Prisma.VideoCreateManyArgs<ExtArgs>
+            args: Prisma.UserProfileCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.VideoCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload>[]
+            args: Prisma.UserProfileCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload>[]
           }
           delete: {
-            args: Prisma.VideoDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload>
+            args: Prisma.UserProfileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload>
           }
           update: {
-            args: Prisma.VideoUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload>
+            args: Prisma.UserProfileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload>
           }
           deleteMany: {
-            args: Prisma.VideoDeleteManyArgs<ExtArgs>
+            args: Prisma.UserProfileDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.VideoUpdateManyArgs<ExtArgs>
+            args: Prisma.UserProfileUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.VideoUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload>[]
+            args: Prisma.UserProfileUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload>[]
           }
           upsert: {
-            args: Prisma.VideoUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VideoPayload>
+            args: Prisma.UserProfileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserProfilePayload>
           }
           aggregate: {
-            args: Prisma.VideoAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateVideo>
+            args: Prisma.UserProfileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserProfile>
           }
           groupBy: {
-            args: Prisma.VideoGroupByArgs<ExtArgs>
-            result: $Utils.Optional<VideoGroupByOutputType>[]
+            args: Prisma.UserProfileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserProfileGroupByOutputType>[]
           }
           count: {
-            args: Prisma.VideoCountArgs<ExtArgs>
-            result: $Utils.Optional<VideoCountAggregateOutputType> | number
+            args: Prisma.UserProfileCountArgs<ExtArgs>
+            result: $Utils.Optional<UserProfileCountAggregateOutputType> | number
+          }
+        }
+      }
+      Category: {
+        payload: Prisma.$CategoryPayload<ExtArgs>
+        fields: Prisma.CategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.CategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          findMany: {
+            args: Prisma.CategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+          }
+          create: {
+            args: Prisma.CategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          createMany: {
+            args: Prisma.CategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+          }
+          delete: {
+            args: Prisma.CategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          update: {
+            args: Prisma.CategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.CategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CategoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.CategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.CategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCategory>
+          }
+          groupBy: {
+            args: Prisma.CategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<CategoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      DanceRoutine: {
+        payload: Prisma.$DanceRoutinePayload<ExtArgs>
+        fields: Prisma.DanceRoutineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DanceRoutineFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DanceRoutineFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload>
+          }
+          findFirst: {
+            args: Prisma.DanceRoutineFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DanceRoutineFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload>
+          }
+          findMany: {
+            args: Prisma.DanceRoutineFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload>[]
+          }
+          create: {
+            args: Prisma.DanceRoutineCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload>
+          }
+          createMany: {
+            args: Prisma.DanceRoutineCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DanceRoutineCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload>[]
+          }
+          delete: {
+            args: Prisma.DanceRoutineDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload>
+          }
+          update: {
+            args: Prisma.DanceRoutineUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload>
+          }
+          deleteMany: {
+            args: Prisma.DanceRoutineDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DanceRoutineUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DanceRoutineUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload>[]
+          }
+          upsert: {
+            args: Prisma.DanceRoutineUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DanceRoutinePayload>
+          }
+          aggregate: {
+            args: Prisma.DanceRoutineAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDanceRoutine>
+          }
+          groupBy: {
+            args: Prisma.DanceRoutineGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DanceRoutineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DanceRoutineCountArgs<ExtArgs>
+            result: $Utils.Optional<DanceRoutineCountAggregateOutputType> | number
           }
         }
       }
@@ -1518,12 +1609,13 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
-    post?: PostOmit
     user?: UserOmit
     session?: SessionOmit
     account?: AccountOmit
     verification?: VerificationOmit
-    video?: VideoOmit
+    userProfile?: UserProfileOmit
+    category?: CategoryOmit
+    danceRoutine?: DanceRoutineOmit
     practiceLog?: PracticeLogOmit
     playlist?: PlaylistOmit
     playlistVideo?: PlaylistVideoOmit
@@ -1609,7 +1701,6 @@ export namespace Prisma {
   export type UserCountOutputType = {
     sessions: number
     accounts: number
-    posts: number
     practiceLogs: number
     playlists: number
   }
@@ -1617,7 +1708,6 @@ export namespace Prisma {
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
-    posts?: boolean | UserCountOutputTypeCountPostsArgs
     practiceLogs?: boolean | UserCountOutputTypeCountPracticeLogsArgs
     playlists?: boolean | UserCountOutputTypeCountPlaylistsArgs
   }
@@ -1650,13 +1740,6 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountPracticeLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PracticeLogWhereInput
   }
@@ -1670,41 +1753,72 @@ export namespace Prisma {
 
 
   /**
-   * Count Type VideoCountOutputType
+   * Count Type CategoryCountOutputType
    */
 
-  export type VideoCountOutputType = {
-    practiceLogs: number
-    playlistVideos: number
+  export type CategoryCountOutputType = {
+    routines: number
   }
 
-  export type VideoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    practiceLogs?: boolean | VideoCountOutputTypeCountPracticeLogsArgs
-    playlistVideos?: boolean | VideoCountOutputTypeCountPlaylistVideosArgs
+  export type CategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    routines?: boolean | CategoryCountOutputTypeCountRoutinesArgs
   }
 
   // Custom InputTypes
   /**
-   * VideoCountOutputType without action
+   * CategoryCountOutputType without action
    */
-  export type VideoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the VideoCountOutputType
+     * Select specific fields to fetch from the CategoryCountOutputType
      */
-    select?: VideoCountOutputTypeSelect<ExtArgs> | null
+    select?: CategoryCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * VideoCountOutputType without action
+   * CategoryCountOutputType without action
    */
-  export type VideoCountOutputTypeCountPracticeLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryCountOutputTypeCountRoutinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DanceRoutineWhereInput
+  }
+
+
+  /**
+   * Count Type DanceRoutineCountOutputType
+   */
+
+  export type DanceRoutineCountOutputType = {
+    logs: number
+    playlists: number
+  }
+
+  export type DanceRoutineCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    logs?: boolean | DanceRoutineCountOutputTypeCountLogsArgs
+    playlists?: boolean | DanceRoutineCountOutputTypeCountPlaylistsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DanceRoutineCountOutputType without action
+   */
+  export type DanceRoutineCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutineCountOutputType
+     */
+    select?: DanceRoutineCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DanceRoutineCountOutputType without action
+   */
+  export type DanceRoutineCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PracticeLogWhereInput
   }
 
   /**
-   * VideoCountOutputType without action
+   * DanceRoutineCountOutputType without action
    */
-  export type VideoCountOutputTypeCountPlaylistVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DanceRoutineCountOutputTypeCountPlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PlaylistVideoWhereInput
   }
 
@@ -1743,1064 +1857,6 @@ export namespace Prisma {
   /**
    * Models
    */
-
-  /**
-   * Model Post
-   */
-
-  export type AggregatePost = {
-    _count: PostCountAggregateOutputType | null
-    _min: PostMinAggregateOutputType | null
-    _max: PostMaxAggregateOutputType | null
-  }
-
-  export type PostMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    createdById: string | null
-  }
-
-  export type PostMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    createdById: string | null
-  }
-
-  export type PostCountAggregateOutputType = {
-    id: number
-    name: number
-    createdAt: number
-    updatedAt: number
-    createdById: number
-    _all: number
-  }
-
-
-  export type PostMinAggregateInputType = {
-    id?: true
-    name?: true
-    createdAt?: true
-    updatedAt?: true
-    createdById?: true
-  }
-
-  export type PostMaxAggregateInputType = {
-    id?: true
-    name?: true
-    createdAt?: true
-    updatedAt?: true
-    createdById?: true
-  }
-
-  export type PostCountAggregateInputType = {
-    id?: true
-    name?: true
-    createdAt?: true
-    updatedAt?: true
-    createdById?: true
-    _all?: true
-  }
-
-  export type PostAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Post to aggregate.
-     */
-    where?: PostWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Posts to fetch.
-     */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: PostWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Posts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Posts.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Posts
-    **/
-    _count?: true | PostCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: PostMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: PostMaxAggregateInputType
-  }
-
-  export type GetPostAggregateType<T extends PostAggregateArgs> = {
-        [P in keyof T & keyof AggregatePost]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregatePost[P]>
-      : GetScalarType<T[P], AggregatePost[P]>
-  }
-
-
-
-
-  export type PostGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostWhereInput
-    orderBy?: PostOrderByWithAggregationInput | PostOrderByWithAggregationInput[]
-    by: PostScalarFieldEnum[] | PostScalarFieldEnum
-    having?: PostScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: PostCountAggregateInputType | true
-    _min?: PostMinAggregateInputType
-    _max?: PostMaxAggregateInputType
-  }
-
-  export type PostGroupByOutputType = {
-    id: string
-    name: string
-    createdAt: Date
-    updatedAt: Date
-    createdById: string
-    _count: PostCountAggregateOutputType | null
-    _min: PostMinAggregateOutputType | null
-    _max: PostMaxAggregateOutputType | null
-  }
-
-  type GetPostGroupByPayload<T extends PostGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<PostGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof PostGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], PostGroupByOutputType[P]>
-            : GetScalarType<T[P], PostGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type PostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    createdById?: boolean
-    createdBy?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["post"]>
-
-  export type PostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    createdById?: boolean
-    createdBy?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["post"]>
-
-  export type PostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    createdById?: boolean
-    createdBy?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["post"]>
-
-  export type PostSelectScalar = {
-    id?: boolean
-    name?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    createdById?: boolean
-  }
-
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "createdById", ExtArgs["result"]["post"]>
-  export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    createdBy?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    createdBy?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type PostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    createdBy?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Post"
-    objects: {
-      createdBy: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      createdAt: Date
-      updatedAt: Date
-      createdById: string
-    }, ExtArgs["result"]["post"]>
-    composites: {}
-  }
-
-  type PostGetPayload<S extends boolean | null | undefined | PostDefaultArgs> = $Result.GetResult<Prisma.$PostPayload, S>
-
-  type PostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<PostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PostCountAggregateInputType | true
-    }
-
-  export interface PostDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Post'], meta: { name: 'Post' } }
-    /**
-     * Find zero or one Post that matches the filter.
-     * @param {PostFindUniqueArgs} args - Arguments to find a Post
-     * @example
-     * // Get one Post
-     * const post = await prisma.post.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends PostFindUniqueArgs>(args: SelectSubset<T, PostFindUniqueArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Post that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {PostFindUniqueOrThrowArgs} args - Arguments to find a Post
-     * @example
-     * // Get one Post
-     * const post = await prisma.post.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends PostFindUniqueOrThrowArgs>(args: SelectSubset<T, PostFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Post that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostFindFirstArgs} args - Arguments to find a Post
-     * @example
-     * // Get one Post
-     * const post = await prisma.post.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends PostFindFirstArgs>(args?: SelectSubset<T, PostFindFirstArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Post that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostFindFirstOrThrowArgs} args - Arguments to find a Post
-     * @example
-     * // Get one Post
-     * const post = await prisma.post.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends PostFindFirstOrThrowArgs>(args?: SelectSubset<T, PostFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Posts that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Posts
-     * const posts = await prisma.post.findMany()
-     * 
-     * // Get first 10 Posts
-     * const posts = await prisma.post.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const postWithIdOnly = await prisma.post.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends PostFindManyArgs>(args?: SelectSubset<T, PostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Post.
-     * @param {PostCreateArgs} args - Arguments to create a Post.
-     * @example
-     * // Create one Post
-     * const Post = await prisma.post.create({
-     *   data: {
-     *     // ... data to create a Post
-     *   }
-     * })
-     * 
-     */
-    create<T extends PostCreateArgs>(args: SelectSubset<T, PostCreateArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Posts.
-     * @param {PostCreateManyArgs} args - Arguments to create many Posts.
-     * @example
-     * // Create many Posts
-     * const post = await prisma.post.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends PostCreateManyArgs>(args?: SelectSubset<T, PostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Posts and returns the data saved in the database.
-     * @param {PostCreateManyAndReturnArgs} args - Arguments to create many Posts.
-     * @example
-     * // Create many Posts
-     * const post = await prisma.post.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Posts and only return the `id`
-     * const postWithIdOnly = await prisma.post.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends PostCreateManyAndReturnArgs>(args?: SelectSubset<T, PostCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Post.
-     * @param {PostDeleteArgs} args - Arguments to delete one Post.
-     * @example
-     * // Delete one Post
-     * const Post = await prisma.post.delete({
-     *   where: {
-     *     // ... filter to delete one Post
-     *   }
-     * })
-     * 
-     */
-    delete<T extends PostDeleteArgs>(args: SelectSubset<T, PostDeleteArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Post.
-     * @param {PostUpdateArgs} args - Arguments to update one Post.
-     * @example
-     * // Update one Post
-     * const post = await prisma.post.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends PostUpdateArgs>(args: SelectSubset<T, PostUpdateArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Posts.
-     * @param {PostDeleteManyArgs} args - Arguments to filter Posts to delete.
-     * @example
-     * // Delete a few Posts
-     * const { count } = await prisma.post.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends PostDeleteManyArgs>(args?: SelectSubset<T, PostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Posts.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Posts
-     * const post = await prisma.post.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends PostUpdateManyArgs>(args: SelectSubset<T, PostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Posts and returns the data updated in the database.
-     * @param {PostUpdateManyAndReturnArgs} args - Arguments to update many Posts.
-     * @example
-     * // Update many Posts
-     * const post = await prisma.post.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Posts and only return the `id`
-     * const postWithIdOnly = await prisma.post.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends PostUpdateManyAndReturnArgs>(args: SelectSubset<T, PostUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Post.
-     * @param {PostUpsertArgs} args - Arguments to update or create a Post.
-     * @example
-     * // Update or create a Post
-     * const post = await prisma.post.upsert({
-     *   create: {
-     *     // ... data to create a Post
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Post we want to update
-     *   }
-     * })
-     */
-    upsert<T extends PostUpsertArgs>(args: SelectSubset<T, PostUpsertArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Posts.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostCountArgs} args - Arguments to filter Posts to count.
-     * @example
-     * // Count the number of Posts
-     * const count = await prisma.post.count({
-     *   where: {
-     *     // ... the filter for the Posts we want to count
-     *   }
-     * })
-    **/
-    count<T extends PostCountArgs>(
-      args?: Subset<T, PostCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], PostCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Post.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends PostAggregateArgs>(args: Subset<T, PostAggregateArgs>): Prisma.PrismaPromise<GetPostAggregateType<T>>
-
-    /**
-     * Group by Post.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends PostGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PostGroupByArgs['orderBy'] }
-        : { orderBy?: PostGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, PostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Post model
-   */
-  readonly fields: PostFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Post.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Post model
-   */
-  interface PostFieldRefs {
-    readonly id: FieldRef<"Post", 'String'>
-    readonly name: FieldRef<"Post", 'String'>
-    readonly createdAt: FieldRef<"Post", 'DateTime'>
-    readonly updatedAt: FieldRef<"Post", 'DateTime'>
-    readonly createdById: FieldRef<"Post", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Post findUnique
-   */
-  export type PostFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    /**
-     * Filter, which Post to fetch.
-     */
-    where: PostWhereUniqueInput
-  }
-
-  /**
-   * Post findUniqueOrThrow
-   */
-  export type PostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    /**
-     * Filter, which Post to fetch.
-     */
-    where: PostWhereUniqueInput
-  }
-
-  /**
-   * Post findFirst
-   */
-  export type PostFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    /**
-     * Filter, which Post to fetch.
-     */
-    where?: PostWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Posts to fetch.
-     */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Posts.
-     */
-    cursor?: PostWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Posts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Posts.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Posts.
-     */
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
-  }
-
-  /**
-   * Post findFirstOrThrow
-   */
-  export type PostFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    /**
-     * Filter, which Post to fetch.
-     */
-    where?: PostWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Posts to fetch.
-     */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Posts.
-     */
-    cursor?: PostWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Posts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Posts.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Posts.
-     */
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
-  }
-
-  /**
-   * Post findMany
-   */
-  export type PostFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    /**
-     * Filter, which Posts to fetch.
-     */
-    where?: PostWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Posts to fetch.
-     */
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Posts.
-     */
-    cursor?: PostWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Posts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Posts.
-     */
-    skip?: number
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
-  }
-
-  /**
-   * Post create
-   */
-  export type PostCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Post.
-     */
-    data: XOR<PostCreateInput, PostUncheckedCreateInput>
-  }
-
-  /**
-   * Post createMany
-   */
-  export type PostCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Posts.
-     */
-    data: PostCreateManyInput | PostCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Post createManyAndReturn
-   */
-  export type PostCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * The data used to create many Posts.
-     */
-    data: PostCreateManyInput | PostCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Post update
-   */
-  export type PostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Post.
-     */
-    data: XOR<PostUpdateInput, PostUncheckedUpdateInput>
-    /**
-     * Choose, which Post to update.
-     */
-    where: PostWhereUniqueInput
-  }
-
-  /**
-   * Post updateMany
-   */
-  export type PostUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Posts.
-     */
-    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyInput>
-    /**
-     * Filter which Posts to update
-     */
-    where?: PostWhereInput
-    /**
-     * Limit how many Posts to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Post updateManyAndReturn
-   */
-  export type PostUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * The data used to update Posts.
-     */
-    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyInput>
-    /**
-     * Filter which Posts to update
-     */
-    where?: PostWhereInput
-    /**
-     * Limit how many Posts to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Post upsert
-   */
-  export type PostUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Post to update in case it exists.
-     */
-    where: PostWhereUniqueInput
-    /**
-     * In case the Post found by the `where` argument doesn't exist, create a new Post with this data.
-     */
-    create: XOR<PostCreateInput, PostUncheckedCreateInput>
-    /**
-     * In case the Post was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<PostUpdateInput, PostUncheckedUpdateInput>
-  }
-
-  /**
-   * Post delete
-   */
-  export type PostDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-    /**
-     * Filter which Post to delete.
-     */
-    where: PostWhereUniqueInput
-  }
-
-  /**
-   * Post deleteMany
-   */
-  export type PostDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Posts to delete
-     */
-    where?: PostWhereInput
-    /**
-     * Limit how many Posts to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Post without action
-   */
-  export type PostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Post
-     */
-    select?: PostSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Post
-     */
-    omit?: PostOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostInclude<ExtArgs> | null
-  }
-
 
   /**
    * Model User
@@ -2984,7 +2040,7 @@ export namespace Prisma {
     updatedAt?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
-    posts?: boolean | User$postsArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
     practiceLogs?: boolean | User$practiceLogsArgs<ExtArgs>
     playlists?: boolean | User$playlistsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -3024,7 +2080,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
-    posts?: boolean | User$postsArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
     practiceLogs?: boolean | User$practiceLogsArgs<ExtArgs>
     playlists?: boolean | User$playlistsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -3037,7 +2093,7 @@ export namespace Prisma {
     objects: {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
-      posts: Prisma.$PostPayload<ExtArgs>[]
+      profile: Prisma.$UserProfilePayload<ExtArgs> | null
       practiceLogs: Prisma.$PracticeLogPayload<ExtArgs>[]
       playlists: Prisma.$PlaylistPayload<ExtArgs>[]
     }
@@ -3445,7 +2501,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     practiceLogs<T extends User$practiceLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$practiceLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PracticeLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     playlists<T extends User$playlistsArgs<ExtArgs> = {}>(args?: Subset<T, User$playlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -3920,27 +2976,22 @@ export namespace Prisma {
   }
 
   /**
-   * User.posts
+   * User.profile
    */
-  export type User$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Post
+     * Select specific fields to fetch from the UserProfile
      */
-    select?: PostSelect<ExtArgs> | null
+    select?: UserProfileSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Post
+     * Omit specific fields from the UserProfile
      */
-    omit?: PostOmit<ExtArgs> | null
+    omit?: UserProfileOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostInclude<ExtArgs> | null
-    where?: PostWhereInput
-    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
-    cursor?: PostWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+    include?: UserProfileInclude<ExtArgs> | null
+    where?: UserProfileWhereInput
   }
 
   /**
@@ -7278,427 +6329,464 @@ export namespace Prisma {
 
 
   /**
-   * Model Video
+   * Model UserProfile
    */
 
-  export type AggregateVideo = {
-    _count: VideoCountAggregateOutputType | null
-    _avg: VideoAvgAggregateOutputType | null
-    _sum: VideoSumAggregateOutputType | null
-    _min: VideoMinAggregateOutputType | null
-    _max: VideoMaxAggregateOutputType | null
+  export type AggregateUserProfile = {
+    _count: UserProfileCountAggregateOutputType | null
+    _avg: UserProfileAvgAggregateOutputType | null
+    _sum: UserProfileSumAggregateOutputType | null
+    _min: UserProfileMinAggregateOutputType | null
+    _max: UserProfileMaxAggregateOutputType | null
   }
 
-  export type VideoAvgAggregateOutputType = {
-    duration: number | null
+  export type UserProfileAvgAggregateOutputType = {
+    level: number | null
+    currentXp: number | null
+    totalCalories: number | null
+    totalMinutes: number | null
+    weightKg: number | null
+    heightCm: number | null
   }
 
-  export type VideoSumAggregateOutputType = {
-    duration: number | null
+  export type UserProfileSumAggregateOutputType = {
+    level: number | null
+    currentXp: number | null
+    totalCalories: number | null
+    totalMinutes: number | null
+    weightKg: number | null
+    heightCm: number | null
   }
 
-  export type VideoMinAggregateOutputType = {
+  export type UserProfileMinAggregateOutputType = {
     id: string | null
-    title: string | null
-    description: string | null
-    url: string | null
-    thumbnail: string | null
-    duration: number | null
-    difficulty: $Enums.Difficulty | null
+    userId: string | null
+    level: number | null
+    currentXp: number | null
+    totalCalories: number | null
+    totalMinutes: number | null
+    weightKg: number | null
+    heightCm: number | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
-  export type VideoMaxAggregateOutputType = {
+  export type UserProfileMaxAggregateOutputType = {
     id: string | null
-    title: string | null
-    description: string | null
-    url: string | null
-    thumbnail: string | null
-    duration: number | null
-    difficulty: $Enums.Difficulty | null
+    userId: string | null
+    level: number | null
+    currentXp: number | null
+    totalCalories: number | null
+    totalMinutes: number | null
+    weightKg: number | null
+    heightCm: number | null
     createdAt: Date | null
+    updatedAt: Date | null
   }
 
-  export type VideoCountAggregateOutputType = {
+  export type UserProfileCountAggregateOutputType = {
     id: number
-    title: number
-    description: number
-    url: number
-    thumbnail: number
-    duration: number
-    difficulty: number
-    tags: number
+    userId: number
+    level: number
+    currentXp: number
+    totalCalories: number
+    totalMinutes: number
+    weightKg: number
+    heightCm: number
     createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
-  export type VideoAvgAggregateInputType = {
-    duration?: true
+  export type UserProfileAvgAggregateInputType = {
+    level?: true
+    currentXp?: true
+    totalCalories?: true
+    totalMinutes?: true
+    weightKg?: true
+    heightCm?: true
   }
 
-  export type VideoSumAggregateInputType = {
-    duration?: true
+  export type UserProfileSumAggregateInputType = {
+    level?: true
+    currentXp?: true
+    totalCalories?: true
+    totalMinutes?: true
+    weightKg?: true
+    heightCm?: true
   }
 
-  export type VideoMinAggregateInputType = {
+  export type UserProfileMinAggregateInputType = {
     id?: true
-    title?: true
-    description?: true
-    url?: true
-    thumbnail?: true
-    duration?: true
-    difficulty?: true
+    userId?: true
+    level?: true
+    currentXp?: true
+    totalCalories?: true
+    totalMinutes?: true
+    weightKg?: true
+    heightCm?: true
     createdAt?: true
+    updatedAt?: true
   }
 
-  export type VideoMaxAggregateInputType = {
+  export type UserProfileMaxAggregateInputType = {
     id?: true
-    title?: true
-    description?: true
-    url?: true
-    thumbnail?: true
-    duration?: true
-    difficulty?: true
+    userId?: true
+    level?: true
+    currentXp?: true
+    totalCalories?: true
+    totalMinutes?: true
+    weightKg?: true
+    heightCm?: true
     createdAt?: true
+    updatedAt?: true
   }
 
-  export type VideoCountAggregateInputType = {
+  export type UserProfileCountAggregateInputType = {
     id?: true
-    title?: true
-    description?: true
-    url?: true
-    thumbnail?: true
-    duration?: true
-    difficulty?: true
-    tags?: true
+    userId?: true
+    level?: true
+    currentXp?: true
+    totalCalories?: true
+    totalMinutes?: true
+    weightKg?: true
+    heightCm?: true
     createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
-  export type VideoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserProfileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Video to aggregate.
+     * Filter which UserProfile to aggregate.
      */
-    where?: VideoWhereInput
+    where?: UserProfileWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Videos to fetch.
+     * Determine the order of UserProfiles to fetch.
      */
-    orderBy?: VideoOrderByWithRelationInput | VideoOrderByWithRelationInput[]
+    orderBy?: UserProfileOrderByWithRelationInput | UserProfileOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: VideoWhereUniqueInput
+    cursor?: UserProfileWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Videos from the position of the cursor.
+     * Take `±n` UserProfiles from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Videos.
+     * Skip the first `n` UserProfiles.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Videos
+     * Count returned UserProfiles
     **/
-    _count?: true | VideoCountAggregateInputType
+    _count?: true | UserProfileCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: VideoAvgAggregateInputType
+    _avg?: UserProfileAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: VideoSumAggregateInputType
+    _sum?: UserProfileSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: VideoMinAggregateInputType
+    _min?: UserProfileMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: VideoMaxAggregateInputType
+    _max?: UserProfileMaxAggregateInputType
   }
 
-  export type GetVideoAggregateType<T extends VideoAggregateArgs> = {
-        [P in keyof T & keyof AggregateVideo]: P extends '_count' | 'count'
+  export type GetUserProfileAggregateType<T extends UserProfileAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserProfile]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateVideo[P]>
-      : GetScalarType<T[P], AggregateVideo[P]>
+        : GetScalarType<T[P], AggregateUserProfile[P]>
+      : GetScalarType<T[P], AggregateUserProfile[P]>
   }
 
 
 
 
-  export type VideoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: VideoWhereInput
-    orderBy?: VideoOrderByWithAggregationInput | VideoOrderByWithAggregationInput[]
-    by: VideoScalarFieldEnum[] | VideoScalarFieldEnum
-    having?: VideoScalarWhereWithAggregatesInput
+  export type UserProfileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserProfileWhereInput
+    orderBy?: UserProfileOrderByWithAggregationInput | UserProfileOrderByWithAggregationInput[]
+    by: UserProfileScalarFieldEnum[] | UserProfileScalarFieldEnum
+    having?: UserProfileScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: VideoCountAggregateInputType | true
-    _avg?: VideoAvgAggregateInputType
-    _sum?: VideoSumAggregateInputType
-    _min?: VideoMinAggregateInputType
-    _max?: VideoMaxAggregateInputType
+    _count?: UserProfileCountAggregateInputType | true
+    _avg?: UserProfileAvgAggregateInputType
+    _sum?: UserProfileSumAggregateInputType
+    _min?: UserProfileMinAggregateInputType
+    _max?: UserProfileMaxAggregateInputType
   }
 
-  export type VideoGroupByOutputType = {
+  export type UserProfileGroupByOutputType = {
     id: string
-    title: string
-    description: string | null
-    url: string
-    thumbnail: string
-    duration: number
-    difficulty: $Enums.Difficulty
-    tags: string[]
+    userId: string
+    level: number
+    currentXp: number
+    totalCalories: number
+    totalMinutes: number
+    weightKg: number | null
+    heightCm: number | null
     createdAt: Date
-    _count: VideoCountAggregateOutputType | null
-    _avg: VideoAvgAggregateOutputType | null
-    _sum: VideoSumAggregateOutputType | null
-    _min: VideoMinAggregateOutputType | null
-    _max: VideoMaxAggregateOutputType | null
+    updatedAt: Date
+    _count: UserProfileCountAggregateOutputType | null
+    _avg: UserProfileAvgAggregateOutputType | null
+    _sum: UserProfileSumAggregateOutputType | null
+    _min: UserProfileMinAggregateOutputType | null
+    _max: UserProfileMaxAggregateOutputType | null
   }
 
-  type GetVideoGroupByPayload<T extends VideoGroupByArgs> = Prisma.PrismaPromise<
+  type GetUserProfileGroupByPayload<T extends UserProfileGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<VideoGroupByOutputType, T['by']> &
+      PickEnumerable<UserProfileGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof VideoGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof UserProfileGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], VideoGroupByOutputType[P]>
-            : GetScalarType<T[P], VideoGroupByOutputType[P]>
+              : GetScalarType<T[P], UserProfileGroupByOutputType[P]>
+            : GetScalarType<T[P], UserProfileGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type VideoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    description?: boolean
-    url?: boolean
-    thumbnail?: boolean
-    duration?: boolean
-    difficulty?: boolean
-    tags?: boolean
+    userId?: boolean
+    level?: boolean
+    currentXp?: boolean
+    totalCalories?: boolean
+    totalMinutes?: boolean
+    weightKg?: boolean
+    heightCm?: boolean
     createdAt?: boolean
-    practiceLogs?: boolean | Video$practiceLogsArgs<ExtArgs>
-    playlistVideos?: boolean | Video$playlistVideosArgs<ExtArgs>
-    _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["video"]>
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userProfile"]>
 
-  export type VideoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    description?: boolean
-    url?: boolean
-    thumbnail?: boolean
-    duration?: boolean
-    difficulty?: boolean
-    tags?: boolean
+    userId?: boolean
+    level?: boolean
+    currentXp?: boolean
+    totalCalories?: boolean
+    totalMinutes?: boolean
+    weightKg?: boolean
+    heightCm?: boolean
     createdAt?: boolean
-  }, ExtArgs["result"]["video"]>
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userProfile"]>
 
-  export type VideoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    title?: boolean
-    description?: boolean
-    url?: boolean
-    thumbnail?: boolean
-    duration?: boolean
-    difficulty?: boolean
-    tags?: boolean
+    userId?: boolean
+    level?: boolean
+    currentXp?: boolean
+    totalCalories?: boolean
+    totalMinutes?: boolean
+    weightKg?: boolean
+    heightCm?: boolean
     createdAt?: boolean
-  }, ExtArgs["result"]["video"]>
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userProfile"]>
 
-  export type VideoSelectScalar = {
+  export type UserProfileSelectScalar = {
     id?: boolean
-    title?: boolean
-    description?: boolean
-    url?: boolean
-    thumbnail?: boolean
-    duration?: boolean
-    difficulty?: boolean
-    tags?: boolean
+    userId?: boolean
+    level?: boolean
+    currentXp?: boolean
+    totalCalories?: boolean
+    totalMinutes?: boolean
+    weightKg?: boolean
+    heightCm?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type VideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "url" | "thumbnail" | "duration" | "difficulty" | "tags" | "createdAt", ExtArgs["result"]["video"]>
-  export type VideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    practiceLogs?: boolean | Video$practiceLogsArgs<ExtArgs>
-    playlistVideos?: boolean | Video$playlistVideosArgs<ExtArgs>
-    _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
+  export type UserProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "level" | "currentXp" | "totalCalories" | "totalMinutes" | "weightKg" | "heightCm" | "createdAt" | "updatedAt", ExtArgs["result"]["userProfile"]>
+  export type UserProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type VideoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type VideoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserProfileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
-  export type $VideoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Video"
+  export type $UserProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserProfile"
     objects: {
-      practiceLogs: Prisma.$PracticeLogPayload<ExtArgs>[]
-      playlistVideos: Prisma.$PlaylistVideoPayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      title: string
-      description: string | null
-      url: string
-      thumbnail: string
-      duration: number
-      difficulty: $Enums.Difficulty
-      tags: string[]
+      userId: string
+      level: number
+      currentXp: number
+      totalCalories: number
+      totalMinutes: number
+      weightKg: number | null
+      heightCm: number | null
       createdAt: Date
-    }, ExtArgs["result"]["video"]>
+      updatedAt: Date
+    }, ExtArgs["result"]["userProfile"]>
     composites: {}
   }
 
-  type VideoGetPayload<S extends boolean | null | undefined | VideoDefaultArgs> = $Result.GetResult<Prisma.$VideoPayload, S>
+  type UserProfileGetPayload<S extends boolean | null | undefined | UserProfileDefaultArgs> = $Result.GetResult<Prisma.$UserProfilePayload, S>
 
-  type VideoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<VideoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: VideoCountAggregateInputType | true
+  type UserProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserProfileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserProfileCountAggregateInputType | true
     }
 
-  export interface VideoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Video'], meta: { name: 'Video' } }
+  export interface UserProfileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserProfile'], meta: { name: 'UserProfile' } }
     /**
-     * Find zero or one Video that matches the filter.
-     * @param {VideoFindUniqueArgs} args - Arguments to find a Video
+     * Find zero or one UserProfile that matches the filter.
+     * @param {UserProfileFindUniqueArgs} args - Arguments to find a UserProfile
      * @example
-     * // Get one Video
-     * const video = await prisma.video.findUnique({
+     * // Get one UserProfile
+     * const userProfile = await prisma.userProfile.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends VideoFindUniqueArgs>(args: SelectSubset<T, VideoFindUniqueArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends UserProfileFindUniqueArgs>(args: SelectSubset<T, UserProfileFindUniqueArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Video that matches the filter or throw an error with `error.code='P2025'`
+     * Find one UserProfile that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {VideoFindUniqueOrThrowArgs} args - Arguments to find a Video
+     * @param {UserProfileFindUniqueOrThrowArgs} args - Arguments to find a UserProfile
      * @example
-     * // Get one Video
-     * const video = await prisma.video.findUniqueOrThrow({
+     * // Get one UserProfile
+     * const userProfile = await prisma.userProfile.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends VideoFindUniqueOrThrowArgs>(args: SelectSubset<T, VideoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends UserProfileFindUniqueOrThrowArgs>(args: SelectSubset<T, UserProfileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Video that matches the filter.
+     * Find the first UserProfile that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VideoFindFirstArgs} args - Arguments to find a Video
+     * @param {UserProfileFindFirstArgs} args - Arguments to find a UserProfile
      * @example
-     * // Get one Video
-     * const video = await prisma.video.findFirst({
+     * // Get one UserProfile
+     * const userProfile = await prisma.userProfile.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends VideoFindFirstArgs>(args?: SelectSubset<T, VideoFindFirstArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends UserProfileFindFirstArgs>(args?: SelectSubset<T, UserProfileFindFirstArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Video that matches the filter or
+     * Find the first UserProfile that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VideoFindFirstOrThrowArgs} args - Arguments to find a Video
+     * @param {UserProfileFindFirstOrThrowArgs} args - Arguments to find a UserProfile
      * @example
-     * // Get one Video
-     * const video = await prisma.video.findFirstOrThrow({
+     * // Get one UserProfile
+     * const userProfile = await prisma.userProfile.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends VideoFindFirstOrThrowArgs>(args?: SelectSubset<T, VideoFindFirstOrThrowArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends UserProfileFindFirstOrThrowArgs>(args?: SelectSubset<T, UserProfileFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Videos that matches the filter.
+     * Find zero or more UserProfiles that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VideoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {UserProfileFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Videos
-     * const videos = await prisma.video.findMany()
+     * // Get all UserProfiles
+     * const userProfiles = await prisma.userProfile.findMany()
      * 
-     * // Get first 10 Videos
-     * const videos = await prisma.video.findMany({ take: 10 })
+     * // Get first 10 UserProfiles
+     * const userProfiles = await prisma.userProfile.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const videoWithIdOnly = await prisma.video.findMany({ select: { id: true } })
+     * const userProfileWithIdOnly = await prisma.userProfile.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends VideoFindManyArgs>(args?: SelectSubset<T, VideoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends UserProfileFindManyArgs>(args?: SelectSubset<T, UserProfileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Video.
-     * @param {VideoCreateArgs} args - Arguments to create a Video.
+     * Create a UserProfile.
+     * @param {UserProfileCreateArgs} args - Arguments to create a UserProfile.
      * @example
-     * // Create one Video
-     * const Video = await prisma.video.create({
+     * // Create one UserProfile
+     * const UserProfile = await prisma.userProfile.create({
      *   data: {
-     *     // ... data to create a Video
+     *     // ... data to create a UserProfile
      *   }
      * })
      * 
      */
-    create<T extends VideoCreateArgs>(args: SelectSubset<T, VideoCreateArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends UserProfileCreateArgs>(args: SelectSubset<T, UserProfileCreateArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Videos.
-     * @param {VideoCreateManyArgs} args - Arguments to create many Videos.
+     * Create many UserProfiles.
+     * @param {UserProfileCreateManyArgs} args - Arguments to create many UserProfiles.
      * @example
-     * // Create many Videos
-     * const video = await prisma.video.createMany({
+     * // Create many UserProfiles
+     * const userProfile = await prisma.userProfile.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends VideoCreateManyArgs>(args?: SelectSubset<T, VideoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends UserProfileCreateManyArgs>(args?: SelectSubset<T, UserProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Videos and returns the data saved in the database.
-     * @param {VideoCreateManyAndReturnArgs} args - Arguments to create many Videos.
+     * Create many UserProfiles and returns the data saved in the database.
+     * @param {UserProfileCreateManyAndReturnArgs} args - Arguments to create many UserProfiles.
      * @example
-     * // Create many Videos
-     * const video = await prisma.video.createManyAndReturn({
+     * // Create many UserProfiles
+     * const userProfile = await prisma.userProfile.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Videos and only return the `id`
-     * const videoWithIdOnly = await prisma.video.createManyAndReturn({
+     * // Create many UserProfiles and only return the `id`
+     * const userProfileWithIdOnly = await prisma.userProfile.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -7708,28 +6796,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends VideoCreateManyAndReturnArgs>(args?: SelectSubset<T, VideoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends UserProfileCreateManyAndReturnArgs>(args?: SelectSubset<T, UserProfileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Video.
-     * @param {VideoDeleteArgs} args - Arguments to delete one Video.
+     * Delete a UserProfile.
+     * @param {UserProfileDeleteArgs} args - Arguments to delete one UserProfile.
      * @example
-     * // Delete one Video
-     * const Video = await prisma.video.delete({
+     * // Delete one UserProfile
+     * const UserProfile = await prisma.userProfile.delete({
      *   where: {
-     *     // ... filter to delete one Video
+     *     // ... filter to delete one UserProfile
      *   }
      * })
      * 
      */
-    delete<T extends VideoDeleteArgs>(args: SelectSubset<T, VideoDeleteArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends UserProfileDeleteArgs>(args: SelectSubset<T, UserProfileDeleteArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Video.
-     * @param {VideoUpdateArgs} args - Arguments to update one Video.
+     * Update one UserProfile.
+     * @param {UserProfileUpdateArgs} args - Arguments to update one UserProfile.
      * @example
-     * // Update one Video
-     * const video = await prisma.video.update({
+     * // Update one UserProfile
+     * const userProfile = await prisma.userProfile.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7739,30 +6827,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends VideoUpdateArgs>(args: SelectSubset<T, VideoUpdateArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends UserProfileUpdateArgs>(args: SelectSubset<T, UserProfileUpdateArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Videos.
-     * @param {VideoDeleteManyArgs} args - Arguments to filter Videos to delete.
+     * Delete zero or more UserProfiles.
+     * @param {UserProfileDeleteManyArgs} args - Arguments to filter UserProfiles to delete.
      * @example
-     * // Delete a few Videos
-     * const { count } = await prisma.video.deleteMany({
+     * // Delete a few UserProfiles
+     * const { count } = await prisma.userProfile.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends VideoDeleteManyArgs>(args?: SelectSubset<T, VideoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends UserProfileDeleteManyArgs>(args?: SelectSubset<T, UserProfileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Videos.
+     * Update zero or more UserProfiles.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VideoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {UserProfileUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Videos
-     * const video = await prisma.video.updateMany({
+     * // Update many UserProfiles
+     * const userProfile = await prisma.userProfile.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7772,14 +6860,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends VideoUpdateManyArgs>(args: SelectSubset<T, VideoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends UserProfileUpdateManyArgs>(args: SelectSubset<T, UserProfileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Videos and returns the data updated in the database.
-     * @param {VideoUpdateManyAndReturnArgs} args - Arguments to update many Videos.
+     * Update zero or more UserProfiles and returns the data updated in the database.
+     * @param {UserProfileUpdateManyAndReturnArgs} args - Arguments to update many UserProfiles.
      * @example
-     * // Update many Videos
-     * const video = await prisma.video.updateManyAndReturn({
+     * // Update many UserProfiles
+     * const userProfile = await prisma.userProfile.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7788,8 +6876,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Videos and only return the `id`
-     * const videoWithIdOnly = await prisma.video.updateManyAndReturn({
+     * // Update zero or more UserProfiles and only return the `id`
+     * const userProfileWithIdOnly = await prisma.userProfile.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -7802,56 +6890,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends VideoUpdateManyAndReturnArgs>(args: SelectSubset<T, VideoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends UserProfileUpdateManyAndReturnArgs>(args: SelectSubset<T, UserProfileUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Video.
-     * @param {VideoUpsertArgs} args - Arguments to update or create a Video.
+     * Create or update one UserProfile.
+     * @param {UserProfileUpsertArgs} args - Arguments to update or create a UserProfile.
      * @example
-     * // Update or create a Video
-     * const video = await prisma.video.upsert({
+     * // Update or create a UserProfile
+     * const userProfile = await prisma.userProfile.upsert({
      *   create: {
-     *     // ... data to create a Video
+     *     // ... data to create a UserProfile
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Video we want to update
+     *     // ... the filter for the UserProfile we want to update
      *   }
      * })
      */
-    upsert<T extends VideoUpsertArgs>(args: SelectSubset<T, VideoUpsertArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends UserProfileUpsertArgs>(args: SelectSubset<T, UserProfileUpsertArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Videos.
+     * Count the number of UserProfiles.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VideoCountArgs} args - Arguments to filter Videos to count.
+     * @param {UserProfileCountArgs} args - Arguments to filter UserProfiles to count.
      * @example
-     * // Count the number of Videos
-     * const count = await prisma.video.count({
+     * // Count the number of UserProfiles
+     * const count = await prisma.userProfile.count({
      *   where: {
-     *     // ... the filter for the Videos we want to count
+     *     // ... the filter for the UserProfiles we want to count
      *   }
      * })
     **/
-    count<T extends VideoCountArgs>(
-      args?: Subset<T, VideoCountArgs>,
+    count<T extends UserProfileCountArgs>(
+      args?: Subset<T, UserProfileCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], VideoCountAggregateOutputType>
+          : GetScalarType<T['select'], UserProfileCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Video.
+     * Allows you to perform aggregations operations on a UserProfile.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VideoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {UserProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -7871,13 +6959,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends VideoAggregateArgs>(args: Subset<T, VideoAggregateArgs>): Prisma.PrismaPromise<GetVideoAggregateType<T>>
+    aggregate<T extends UserProfileAggregateArgs>(args: Subset<T, UserProfileAggregateArgs>): Prisma.PrismaPromise<GetUserProfileAggregateType<T>>
 
     /**
-     * Group by Video.
+     * Group by UserProfile.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VideoGroupByArgs} args - Group by arguments.
+     * @param {UserProfileGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -7892,14 +6980,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends VideoGroupByArgs,
+      T extends UserProfileGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: VideoGroupByArgs['orderBy'] }
-        : { orderBy?: VideoGroupByArgs['orderBy'] },
+        ? { orderBy: UserProfileGroupByArgs['orderBy'] }
+        : { orderBy?: UserProfileGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -7948,23 +7036,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, VideoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVideoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, UserProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Video model
+   * Fields of the UserProfile model
    */
-  readonly fields: VideoFieldRefs;
+  readonly fields: UserProfileFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Video.
+   * The delegate class that acts as a "Promise-like" for UserProfile.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__VideoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    practiceLogs<T extends Video$practiceLogsArgs<ExtArgs> = {}>(args?: Subset<T, Video$practiceLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PracticeLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    playlistVideos<T extends Video$playlistVideosArgs<ExtArgs> = {}>(args?: Subset<T, Video$playlistVideosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7991,409 +7078,2676 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Video model
+   * Fields of the UserProfile model
    */
-  interface VideoFieldRefs {
-    readonly id: FieldRef<"Video", 'String'>
-    readonly title: FieldRef<"Video", 'String'>
-    readonly description: FieldRef<"Video", 'String'>
-    readonly url: FieldRef<"Video", 'String'>
-    readonly thumbnail: FieldRef<"Video", 'String'>
-    readonly duration: FieldRef<"Video", 'Int'>
-    readonly difficulty: FieldRef<"Video", 'Difficulty'>
-    readonly tags: FieldRef<"Video", 'String[]'>
-    readonly createdAt: FieldRef<"Video", 'DateTime'>
+  interface UserProfileFieldRefs {
+    readonly id: FieldRef<"UserProfile", 'String'>
+    readonly userId: FieldRef<"UserProfile", 'String'>
+    readonly level: FieldRef<"UserProfile", 'Int'>
+    readonly currentXp: FieldRef<"UserProfile", 'Int'>
+    readonly totalCalories: FieldRef<"UserProfile", 'Int'>
+    readonly totalMinutes: FieldRef<"UserProfile", 'Int'>
+    readonly weightKg: FieldRef<"UserProfile", 'Float'>
+    readonly heightCm: FieldRef<"UserProfile", 'Float'>
+    readonly createdAt: FieldRef<"UserProfile", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserProfile", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Video findUnique
+   * UserProfile findUnique
    */
-  export type VideoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserProfileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the UserProfile
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: UserProfileSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the UserProfile
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: UserProfileOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VideoInclude<ExtArgs> | null
+    include?: UserProfileInclude<ExtArgs> | null
     /**
-     * Filter, which Video to fetch.
+     * Filter, which UserProfile to fetch.
      */
-    where: VideoWhereUniqueInput
+    where: UserProfileWhereUniqueInput
   }
 
   /**
-   * Video findUniqueOrThrow
+   * UserProfile findUniqueOrThrow
    */
-  export type VideoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserProfileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the UserProfile
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: UserProfileSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the UserProfile
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: UserProfileOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VideoInclude<ExtArgs> | null
+    include?: UserProfileInclude<ExtArgs> | null
     /**
-     * Filter, which Video to fetch.
+     * Filter, which UserProfile to fetch.
      */
-    where: VideoWhereUniqueInput
+    where: UserProfileWhereUniqueInput
   }
 
   /**
-   * Video findFirst
+   * UserProfile findFirst
    */
-  export type VideoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserProfileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the UserProfile
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: UserProfileSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the UserProfile
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: UserProfileOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VideoInclude<ExtArgs> | null
+    include?: UserProfileInclude<ExtArgs> | null
     /**
-     * Filter, which Video to fetch.
+     * Filter, which UserProfile to fetch.
      */
-    where?: VideoWhereInput
+    where?: UserProfileWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Videos to fetch.
+     * Determine the order of UserProfiles to fetch.
      */
-    orderBy?: VideoOrderByWithRelationInput | VideoOrderByWithRelationInput[]
+    orderBy?: UserProfileOrderByWithRelationInput | UserProfileOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Videos.
+     * Sets the position for searching for UserProfiles.
      */
-    cursor?: VideoWhereUniqueInput
+    cursor?: UserProfileWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Videos from the position of the cursor.
+     * Take `±n` UserProfiles from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Videos.
+     * Skip the first `n` UserProfiles.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Videos.
+     * Filter by unique combinations of UserProfiles.
      */
-    distinct?: VideoScalarFieldEnum | VideoScalarFieldEnum[]
+    distinct?: UserProfileScalarFieldEnum | UserProfileScalarFieldEnum[]
   }
 
   /**
-   * Video findFirstOrThrow
+   * UserProfile findFirstOrThrow
    */
-  export type VideoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserProfileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the UserProfile
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: UserProfileSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the UserProfile
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: UserProfileOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VideoInclude<ExtArgs> | null
+    include?: UserProfileInclude<ExtArgs> | null
     /**
-     * Filter, which Video to fetch.
+     * Filter, which UserProfile to fetch.
      */
-    where?: VideoWhereInput
+    where?: UserProfileWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Videos to fetch.
+     * Determine the order of UserProfiles to fetch.
      */
-    orderBy?: VideoOrderByWithRelationInput | VideoOrderByWithRelationInput[]
+    orderBy?: UserProfileOrderByWithRelationInput | UserProfileOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Videos.
+     * Sets the position for searching for UserProfiles.
      */
-    cursor?: VideoWhereUniqueInput
+    cursor?: UserProfileWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Videos from the position of the cursor.
+     * Take `±n` UserProfiles from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Videos.
+     * Skip the first `n` UserProfiles.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Videos.
+     * Filter by unique combinations of UserProfiles.
      */
-    distinct?: VideoScalarFieldEnum | VideoScalarFieldEnum[]
+    distinct?: UserProfileScalarFieldEnum | UserProfileScalarFieldEnum[]
   }
 
   /**
-   * Video findMany
+   * UserProfile findMany
    */
-  export type VideoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserProfileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the UserProfile
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: UserProfileSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the UserProfile
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: UserProfileOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VideoInclude<ExtArgs> | null
+    include?: UserProfileInclude<ExtArgs> | null
     /**
-     * Filter, which Videos to fetch.
+     * Filter, which UserProfiles to fetch.
      */
-    where?: VideoWhereInput
+    where?: UserProfileWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Videos to fetch.
+     * Determine the order of UserProfiles to fetch.
      */
-    orderBy?: VideoOrderByWithRelationInput | VideoOrderByWithRelationInput[]
+    orderBy?: UserProfileOrderByWithRelationInput | UserProfileOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Videos.
+     * Sets the position for listing UserProfiles.
      */
-    cursor?: VideoWhereUniqueInput
+    cursor?: UserProfileWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Videos from the position of the cursor.
+     * Take `±n` UserProfiles from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Videos.
+     * Skip the first `n` UserProfiles.
      */
     skip?: number
-    distinct?: VideoScalarFieldEnum | VideoScalarFieldEnum[]
+    distinct?: UserProfileScalarFieldEnum | UserProfileScalarFieldEnum[]
   }
 
   /**
-   * Video create
+   * UserProfile create
    */
-  export type VideoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserProfileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the UserProfile
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: UserProfileSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the UserProfile
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: UserProfileOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VideoInclude<ExtArgs> | null
+    include?: UserProfileInclude<ExtArgs> | null
     /**
-     * The data needed to create a Video.
+     * The data needed to create a UserProfile.
      */
-    data: XOR<VideoCreateInput, VideoUncheckedCreateInput>
+    data: XOR<UserProfileCreateInput, UserProfileUncheckedCreateInput>
   }
 
   /**
-   * Video createMany
+   * UserProfile createMany
    */
-  export type VideoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserProfileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Videos.
+     * The data used to create many UserProfiles.
      */
-    data: VideoCreateManyInput | VideoCreateManyInput[]
+    data: UserProfileCreateManyInput | UserProfileCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Video createManyAndReturn
+   * UserProfile createManyAndReturn
    */
-  export type VideoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserProfileCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the UserProfile
      */
-    select?: VideoSelectCreateManyAndReturn<ExtArgs> | null
+    select?: UserProfileSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the UserProfile
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: UserProfileOmit<ExtArgs> | null
     /**
-     * The data used to create many Videos.
+     * The data used to create many UserProfiles.
      */
-    data: VideoCreateManyInput | VideoCreateManyInput[]
+    data: UserProfileCreateManyInput | UserProfileCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProfileIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserProfile update
+   */
+  export type UserProfileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProfile
+     */
+    select?: UserProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProfile
+     */
+    omit?: UserProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserProfile.
+     */
+    data: XOR<UserProfileUpdateInput, UserProfileUncheckedUpdateInput>
+    /**
+     * Choose, which UserProfile to update.
+     */
+    where: UserProfileWhereUniqueInput
+  }
+
+  /**
+   * UserProfile updateMany
+   */
+  export type UserProfileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserProfiles.
+     */
+    data: XOR<UserProfileUpdateManyMutationInput, UserProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which UserProfiles to update
+     */
+    where?: UserProfileWhereInput
+    /**
+     * Limit how many UserProfiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserProfile updateManyAndReturn
+   */
+  export type UserProfileUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProfile
+     */
+    select?: UserProfileSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProfile
+     */
+    omit?: UserProfileOmit<ExtArgs> | null
+    /**
+     * The data used to update UserProfiles.
+     */
+    data: XOR<UserProfileUpdateManyMutationInput, UserProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which UserProfiles to update
+     */
+    where?: UserProfileWhereInput
+    /**
+     * Limit how many UserProfiles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProfileIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserProfile upsert
+   */
+  export type UserProfileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProfile
+     */
+    select?: UserProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProfile
+     */
+    omit?: UserProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProfileInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserProfile to update in case it exists.
+     */
+    where: UserProfileWhereUniqueInput
+    /**
+     * In case the UserProfile found by the `where` argument doesn't exist, create a new UserProfile with this data.
+     */
+    create: XOR<UserProfileCreateInput, UserProfileUncheckedCreateInput>
+    /**
+     * In case the UserProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserProfileUpdateInput, UserProfileUncheckedUpdateInput>
+  }
+
+  /**
+   * UserProfile delete
+   */
+  export type UserProfileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProfile
+     */
+    select?: UserProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProfile
+     */
+    omit?: UserProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProfileInclude<ExtArgs> | null
+    /**
+     * Filter which UserProfile to delete.
+     */
+    where: UserProfileWhereUniqueInput
+  }
+
+  /**
+   * UserProfile deleteMany
+   */
+  export type UserProfileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserProfiles to delete
+     */
+    where?: UserProfileWhereInput
+    /**
+     * Limit how many UserProfiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserProfile without action
+   */
+  export type UserProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProfile
+     */
+    select?: UserProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProfile
+     */
+    omit?: UserProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProfileInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Category
+   */
+
+  export type AggregateCategory = {
+    _count: CategoryCountAggregateOutputType | null
+    _min: CategoryMinAggregateOutputType | null
+    _max: CategoryMaxAggregateOutputType | null
+  }
+
+  export type CategoryMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    image: string | null
+  }
+
+  export type CategoryMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    image: string | null
+  }
+
+  export type CategoryCountAggregateOutputType = {
+    id: number
+    name: number
+    slug: number
+    image: number
+    _all: number
+  }
+
+
+  export type CategoryMinAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    image?: true
+  }
+
+  export type CategoryMaxAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    image?: true
+  }
+
+  export type CategoryCountAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    image?: true
+    _all?: true
+  }
+
+  export type CategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Category to aggregate.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Categories
+    **/
+    _count?: true | CategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CategoryMaxAggregateInputType
+  }
+
+  export type GetCategoryAggregateType<T extends CategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCategory[P]>
+      : GetScalarType<T[P], AggregateCategory[P]>
+  }
+
+
+
+
+  export type CategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryWhereInput
+    orderBy?: CategoryOrderByWithAggregationInput | CategoryOrderByWithAggregationInput[]
+    by: CategoryScalarFieldEnum[] | CategoryScalarFieldEnum
+    having?: CategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CategoryCountAggregateInputType | true
+    _min?: CategoryMinAggregateInputType
+    _max?: CategoryMaxAggregateInputType
+  }
+
+  export type CategoryGroupByOutputType = {
+    id: string
+    name: string
+    slug: string
+    image: string | null
+    _count: CategoryCountAggregateOutputType | null
+    _min: CategoryMinAggregateOutputType | null
+    _max: CategoryMaxAggregateOutputType | null
+  }
+
+  type GetCategoryGroupByPayload<T extends CategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], CategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    image?: boolean
+    routines?: boolean | Category$routinesArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["category"]>
+
+  export type CategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    image?: boolean
+  }, ExtArgs["result"]["category"]>
+
+  export type CategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    image?: boolean
+  }, ExtArgs["result"]["category"]>
+
+  export type CategorySelectScalar = {
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    image?: boolean
+  }
+
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "image", ExtArgs["result"]["category"]>
+  export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    routines?: boolean | Category$routinesArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Category"
+    objects: {
+      routines: Prisma.$DanceRoutinePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      slug: string
+      image: string | null
+    }, ExtArgs["result"]["category"]>
+    composites: {}
+  }
+
+  type CategoryGetPayload<S extends boolean | null | undefined | CategoryDefaultArgs> = $Result.GetResult<Prisma.$CategoryPayload, S>
+
+  type CategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CategoryCountAggregateInputType | true
+    }
+
+  export interface CategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Category'], meta: { name: 'Category' } }
+    /**
+     * Find zero or one Category that matches the filter.
+     * @param {CategoryFindUniqueArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CategoryFindUniqueArgs>(args: SelectSubset<T, CategoryFindUniqueArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Category that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CategoryFindUniqueOrThrowArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, CategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Category that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryFindFirstArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CategoryFindFirstArgs>(args?: SelectSubset<T, CategoryFindFirstArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Category that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryFindFirstOrThrowArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, CategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Categories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Categories
+     * const categories = await prisma.category.findMany()
+     * 
+     * // Get first 10 Categories
+     * const categories = await prisma.category.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const categoryWithIdOnly = await prisma.category.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CategoryFindManyArgs>(args?: SelectSubset<T, CategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Category.
+     * @param {CategoryCreateArgs} args - Arguments to create a Category.
+     * @example
+     * // Create one Category
+     * const Category = await prisma.category.create({
+     *   data: {
+     *     // ... data to create a Category
+     *   }
+     * })
+     * 
+     */
+    create<T extends CategoryCreateArgs>(args: SelectSubset<T, CategoryCreateArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Categories.
+     * @param {CategoryCreateManyArgs} args - Arguments to create many Categories.
+     * @example
+     * // Create many Categories
+     * const category = await prisma.category.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CategoryCreateManyArgs>(args?: SelectSubset<T, CategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Categories and returns the data saved in the database.
+     * @param {CategoryCreateManyAndReturnArgs} args - Arguments to create many Categories.
+     * @example
+     * // Create many Categories
+     * const category = await prisma.category.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Categories and only return the `id`
+     * const categoryWithIdOnly = await prisma.category.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, CategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Category.
+     * @param {CategoryDeleteArgs} args - Arguments to delete one Category.
+     * @example
+     * // Delete one Category
+     * const Category = await prisma.category.delete({
+     *   where: {
+     *     // ... filter to delete one Category
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CategoryDeleteArgs>(args: SelectSubset<T, CategoryDeleteArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Category.
+     * @param {CategoryUpdateArgs} args - Arguments to update one Category.
+     * @example
+     * // Update one Category
+     * const category = await prisma.category.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CategoryUpdateArgs>(args: SelectSubset<T, CategoryUpdateArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Categories.
+     * @param {CategoryDeleteManyArgs} args - Arguments to filter Categories to delete.
+     * @example
+     * // Delete a few Categories
+     * const { count } = await prisma.category.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CategoryDeleteManyArgs>(args?: SelectSubset<T, CategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Categories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Categories
+     * const category = await prisma.category.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CategoryUpdateManyArgs>(args: SelectSubset<T, CategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Categories and returns the data updated in the database.
+     * @param {CategoryUpdateManyAndReturnArgs} args - Arguments to update many Categories.
+     * @example
+     * // Update many Categories
+     * const category = await prisma.category.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Categories and only return the `id`
+     * const categoryWithIdOnly = await prisma.category.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, CategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Category.
+     * @param {CategoryUpsertArgs} args - Arguments to update or create a Category.
+     * @example
+     * // Update or create a Category
+     * const category = await prisma.category.upsert({
+     *   create: {
+     *     // ... data to create a Category
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Category we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CategoryUpsertArgs>(args: SelectSubset<T, CategoryUpsertArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Categories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryCountArgs} args - Arguments to filter Categories to count.
+     * @example
+     * // Count the number of Categories
+     * const count = await prisma.category.count({
+     *   where: {
+     *     // ... the filter for the Categories we want to count
+     *   }
+     * })
+    **/
+    count<T extends CategoryCountArgs>(
+      args?: Subset<T, CategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Category.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CategoryAggregateArgs>(args: Subset<T, CategoryAggregateArgs>): Prisma.PrismaPromise<GetCategoryAggregateType<T>>
+
+    /**
+     * Group by Category.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CategoryGroupByArgs['orderBy'] }
+        : { orderBy?: CategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Category model
+   */
+  readonly fields: CategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Category.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    routines<T extends Category$routinesArgs<ExtArgs> = {}>(args?: Subset<T, Category$routinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Category model
+   */
+  interface CategoryFieldRefs {
+    readonly id: FieldRef<"Category", 'String'>
+    readonly name: FieldRef<"Category", 'String'>
+    readonly slug: FieldRef<"Category", 'String'>
+    readonly image: FieldRef<"Category", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Category findUnique
+   */
+  export type CategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category findUniqueOrThrow
+   */
+  export type CategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category findFirst
+   */
+  export type CategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Categories.
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Categories.
+     */
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Category findFirstOrThrow
+   */
+  export type CategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Categories.
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Categories.
+     */
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Category findMany
+   */
+  export type CategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Categories to fetch.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Categories.
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Category create
+   */
+  export type CategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Category.
+     */
+    data: XOR<CategoryCreateInput, CategoryUncheckedCreateInput>
+  }
+
+  /**
+   * Category createMany
+   */
+  export type CategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Categories.
+     */
+    data: CategoryCreateManyInput | CategoryCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Video update
+   * Category createManyAndReturn
    */
-  export type VideoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the Category
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: CategorySelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the Category
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * The data used to create many Categories.
      */
-    include?: VideoInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Video.
-     */
-    data: XOR<VideoUpdateInput, VideoUncheckedUpdateInput>
-    /**
-     * Choose, which Video to update.
-     */
-    where: VideoWhereUniqueInput
+    data: CategoryCreateManyInput | CategoryCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
-   * Video updateMany
+   * Category update
    */
-  export type VideoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Videos.
+     * Select specific fields to fetch from the Category
      */
-    data: XOR<VideoUpdateManyMutationInput, VideoUncheckedUpdateManyInput>
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Filter which Videos to update
+     * Omit specific fields from the Category
      */
-    where?: VideoWhereInput
+    omit?: CategoryOmit<ExtArgs> | null
     /**
-     * Limit how many Videos to update.
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Category.
+     */
+    data: XOR<CategoryUpdateInput, CategoryUncheckedUpdateInput>
+    /**
+     * Choose, which Category to update.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category updateMany
+   */
+  export type CategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Categories.
+     */
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which Categories to update
+     */
+    where?: CategoryWhereInput
+    /**
+     * Limit how many Categories to update.
      */
     limit?: number
   }
 
   /**
-   * Video updateManyAndReturn
+   * Category updateManyAndReturn
    */
-  export type VideoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the Category
      */
-    select?: VideoSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: CategorySelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the Category
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
-     * The data used to update Videos.
+     * The data used to update Categories.
      */
-    data: XOR<VideoUpdateManyMutationInput, VideoUncheckedUpdateManyInput>
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyInput>
     /**
-     * Filter which Videos to update
+     * Filter which Categories to update
      */
-    where?: VideoWhereInput
+    where?: CategoryWhereInput
     /**
-     * Limit how many Videos to update.
+     * Limit how many Categories to update.
      */
     limit?: number
   }
 
   /**
-   * Video upsert
+   * Category upsert
    */
-  export type VideoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the Category
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the Category
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VideoInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * The filter to search for the Video to update in case it exists.
+     * The filter to search for the Category to update in case it exists.
      */
-    where: VideoWhereUniqueInput
+    where: CategoryWhereUniqueInput
     /**
-     * In case the Video found by the `where` argument doesn't exist, create a new Video with this data.
+     * In case the Category found by the `where` argument doesn't exist, create a new Category with this data.
      */
-    create: XOR<VideoCreateInput, VideoUncheckedCreateInput>
+    create: XOR<CategoryCreateInput, CategoryUncheckedCreateInput>
     /**
-     * In case the Video was found with the provided `where` argument, update it with this data.
+     * In case the Category was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<VideoUpdateInput, VideoUncheckedUpdateInput>
+    update: XOR<CategoryUpdateInput, CategoryUncheckedUpdateInput>
   }
 
   /**
-   * Video delete
+   * Category delete
    */
-  export type VideoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the Category
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the Category
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VideoInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * Filter which Video to delete.
+     * Filter which Category to delete.
      */
-    where: VideoWhereUniqueInput
+    where: CategoryWhereUniqueInput
   }
 
   /**
-   * Video deleteMany
+   * Category deleteMany
    */
-  export type VideoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Videos to delete
+     * Filter which Categories to delete
      */
-    where?: VideoWhereInput
+    where?: CategoryWhereInput
     /**
-     * Limit how many Videos to delete.
+     * Limit how many Categories to delete.
      */
     limit?: number
   }
 
   /**
-   * Video.practiceLogs
+   * Category.routines
    */
-  export type Video$practiceLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Category$routinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    where?: DanceRoutineWhereInput
+    orderBy?: DanceRoutineOrderByWithRelationInput | DanceRoutineOrderByWithRelationInput[]
+    cursor?: DanceRoutineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DanceRoutineScalarFieldEnum | DanceRoutineScalarFieldEnum[]
+  }
+
+  /**
+   * Category without action
+   */
+  export type CategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DanceRoutine
+   */
+
+  export type AggregateDanceRoutine = {
+    _count: DanceRoutineCountAggregateOutputType | null
+    _avg: DanceRoutineAvgAggregateOutputType | null
+    _sum: DanceRoutineSumAggregateOutputType | null
+    _min: DanceRoutineMinAggregateOutputType | null
+    _max: DanceRoutineMaxAggregateOutputType | null
+  }
+
+  export type DanceRoutineAvgAggregateOutputType = {
+    duration: number | null
+    bpm: number | null
+    caloriesPerMin: number | null
+  }
+
+  export type DanceRoutineSumAggregateOutputType = {
+    duration: number | null
+    bpm: number | null
+    caloriesPerMin: number | null
+  }
+
+  export type DanceRoutineMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    videoUrl: string | null
+    thumbnailUrl: string | null
+    duration: number | null
+    difficulty: $Enums.Difficulty | null
+    bpm: number | null
+    caloriesPerMin: number | null
+    categoryId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DanceRoutineMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    videoUrl: string | null
+    thumbnailUrl: string | null
+    duration: number | null
+    difficulty: $Enums.Difficulty | null
+    bpm: number | null
+    caloriesPerMin: number | null
+    categoryId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DanceRoutineCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    videoUrl: number
+    thumbnailUrl: number
+    duration: number
+    difficulty: number
+    bpm: number
+    caloriesPerMin: number
+    categoryId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DanceRoutineAvgAggregateInputType = {
+    duration?: true
+    bpm?: true
+    caloriesPerMin?: true
+  }
+
+  export type DanceRoutineSumAggregateInputType = {
+    duration?: true
+    bpm?: true
+    caloriesPerMin?: true
+  }
+
+  export type DanceRoutineMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    videoUrl?: true
+    thumbnailUrl?: true
+    duration?: true
+    difficulty?: true
+    bpm?: true
+    caloriesPerMin?: true
+    categoryId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DanceRoutineMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    videoUrl?: true
+    thumbnailUrl?: true
+    duration?: true
+    difficulty?: true
+    bpm?: true
+    caloriesPerMin?: true
+    categoryId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DanceRoutineCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    videoUrl?: true
+    thumbnailUrl?: true
+    duration?: true
+    difficulty?: true
+    bpm?: true
+    caloriesPerMin?: true
+    categoryId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DanceRoutineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DanceRoutine to aggregate.
+     */
+    where?: DanceRoutineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DanceRoutines to fetch.
+     */
+    orderBy?: DanceRoutineOrderByWithRelationInput | DanceRoutineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DanceRoutineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DanceRoutines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DanceRoutines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DanceRoutines
+    **/
+    _count?: true | DanceRoutineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DanceRoutineAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DanceRoutineSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DanceRoutineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DanceRoutineMaxAggregateInputType
+  }
+
+  export type GetDanceRoutineAggregateType<T extends DanceRoutineAggregateArgs> = {
+        [P in keyof T & keyof AggregateDanceRoutine]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDanceRoutine[P]>
+      : GetScalarType<T[P], AggregateDanceRoutine[P]>
+  }
+
+
+
+
+  export type DanceRoutineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DanceRoutineWhereInput
+    orderBy?: DanceRoutineOrderByWithAggregationInput | DanceRoutineOrderByWithAggregationInput[]
+    by: DanceRoutineScalarFieldEnum[] | DanceRoutineScalarFieldEnum
+    having?: DanceRoutineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DanceRoutineCountAggregateInputType | true
+    _avg?: DanceRoutineAvgAggregateInputType
+    _sum?: DanceRoutineSumAggregateInputType
+    _min?: DanceRoutineMinAggregateInputType
+    _max?: DanceRoutineMaxAggregateInputType
+  }
+
+  export type DanceRoutineGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    videoUrl: string
+    thumbnailUrl: string
+    duration: number
+    difficulty: $Enums.Difficulty
+    bpm: number | null
+    caloriesPerMin: number
+    categoryId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: DanceRoutineCountAggregateOutputType | null
+    _avg: DanceRoutineAvgAggregateOutputType | null
+    _sum: DanceRoutineSumAggregateOutputType | null
+    _min: DanceRoutineMinAggregateOutputType | null
+    _max: DanceRoutineMaxAggregateOutputType | null
+  }
+
+  type GetDanceRoutineGroupByPayload<T extends DanceRoutineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DanceRoutineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DanceRoutineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DanceRoutineGroupByOutputType[P]>
+            : GetScalarType<T[P], DanceRoutineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DanceRoutineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    videoUrl?: boolean
+    thumbnailUrl?: boolean
+    duration?: boolean
+    difficulty?: boolean
+    bpm?: boolean
+    caloriesPerMin?: boolean
+    categoryId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    logs?: boolean | DanceRoutine$logsArgs<ExtArgs>
+    playlists?: boolean | DanceRoutine$playlistsArgs<ExtArgs>
+    _count?: boolean | DanceRoutineCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["danceRoutine"]>
+
+  export type DanceRoutineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    videoUrl?: boolean
+    thumbnailUrl?: boolean
+    duration?: boolean
+    difficulty?: boolean
+    bpm?: boolean
+    caloriesPerMin?: boolean
+    categoryId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["danceRoutine"]>
+
+  export type DanceRoutineSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    videoUrl?: boolean
+    thumbnailUrl?: boolean
+    duration?: boolean
+    difficulty?: boolean
+    bpm?: boolean
+    caloriesPerMin?: boolean
+    categoryId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["danceRoutine"]>
+
+  export type DanceRoutineSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    videoUrl?: boolean
+    thumbnailUrl?: boolean
+    duration?: boolean
+    difficulty?: boolean
+    bpm?: boolean
+    caloriesPerMin?: boolean
+    categoryId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DanceRoutineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "videoUrl" | "thumbnailUrl" | "duration" | "difficulty" | "bpm" | "caloriesPerMin" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["danceRoutine"]>
+  export type DanceRoutineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    logs?: boolean | DanceRoutine$logsArgs<ExtArgs>
+    playlists?: boolean | DanceRoutine$playlistsArgs<ExtArgs>
+    _count?: boolean | DanceRoutineCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DanceRoutineIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
+  export type DanceRoutineIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
+
+  export type $DanceRoutinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DanceRoutine"
+    objects: {
+      category: Prisma.$CategoryPayload<ExtArgs>
+      logs: Prisma.$PracticeLogPayload<ExtArgs>[]
+      playlists: Prisma.$PlaylistVideoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      videoUrl: string
+      thumbnailUrl: string
+      duration: number
+      difficulty: $Enums.Difficulty
+      bpm: number | null
+      caloriesPerMin: number
+      categoryId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["danceRoutine"]>
+    composites: {}
+  }
+
+  type DanceRoutineGetPayload<S extends boolean | null | undefined | DanceRoutineDefaultArgs> = $Result.GetResult<Prisma.$DanceRoutinePayload, S>
+
+  type DanceRoutineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DanceRoutineFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DanceRoutineCountAggregateInputType | true
+    }
+
+  export interface DanceRoutineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DanceRoutine'], meta: { name: 'DanceRoutine' } }
+    /**
+     * Find zero or one DanceRoutine that matches the filter.
+     * @param {DanceRoutineFindUniqueArgs} args - Arguments to find a DanceRoutine
+     * @example
+     * // Get one DanceRoutine
+     * const danceRoutine = await prisma.danceRoutine.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DanceRoutineFindUniqueArgs>(args: SelectSubset<T, DanceRoutineFindUniqueArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DanceRoutine that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DanceRoutineFindUniqueOrThrowArgs} args - Arguments to find a DanceRoutine
+     * @example
+     * // Get one DanceRoutine
+     * const danceRoutine = await prisma.danceRoutine.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DanceRoutineFindUniqueOrThrowArgs>(args: SelectSubset<T, DanceRoutineFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DanceRoutine that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DanceRoutineFindFirstArgs} args - Arguments to find a DanceRoutine
+     * @example
+     * // Get one DanceRoutine
+     * const danceRoutine = await prisma.danceRoutine.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DanceRoutineFindFirstArgs>(args?: SelectSubset<T, DanceRoutineFindFirstArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DanceRoutine that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DanceRoutineFindFirstOrThrowArgs} args - Arguments to find a DanceRoutine
+     * @example
+     * // Get one DanceRoutine
+     * const danceRoutine = await prisma.danceRoutine.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DanceRoutineFindFirstOrThrowArgs>(args?: SelectSubset<T, DanceRoutineFindFirstOrThrowArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DanceRoutines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DanceRoutineFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DanceRoutines
+     * const danceRoutines = await prisma.danceRoutine.findMany()
+     * 
+     * // Get first 10 DanceRoutines
+     * const danceRoutines = await prisma.danceRoutine.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const danceRoutineWithIdOnly = await prisma.danceRoutine.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DanceRoutineFindManyArgs>(args?: SelectSubset<T, DanceRoutineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DanceRoutine.
+     * @param {DanceRoutineCreateArgs} args - Arguments to create a DanceRoutine.
+     * @example
+     * // Create one DanceRoutine
+     * const DanceRoutine = await prisma.danceRoutine.create({
+     *   data: {
+     *     // ... data to create a DanceRoutine
+     *   }
+     * })
+     * 
+     */
+    create<T extends DanceRoutineCreateArgs>(args: SelectSubset<T, DanceRoutineCreateArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DanceRoutines.
+     * @param {DanceRoutineCreateManyArgs} args - Arguments to create many DanceRoutines.
+     * @example
+     * // Create many DanceRoutines
+     * const danceRoutine = await prisma.danceRoutine.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DanceRoutineCreateManyArgs>(args?: SelectSubset<T, DanceRoutineCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DanceRoutines and returns the data saved in the database.
+     * @param {DanceRoutineCreateManyAndReturnArgs} args - Arguments to create many DanceRoutines.
+     * @example
+     * // Create many DanceRoutines
+     * const danceRoutine = await prisma.danceRoutine.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DanceRoutines and only return the `id`
+     * const danceRoutineWithIdOnly = await prisma.danceRoutine.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DanceRoutineCreateManyAndReturnArgs>(args?: SelectSubset<T, DanceRoutineCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DanceRoutine.
+     * @param {DanceRoutineDeleteArgs} args - Arguments to delete one DanceRoutine.
+     * @example
+     * // Delete one DanceRoutine
+     * const DanceRoutine = await prisma.danceRoutine.delete({
+     *   where: {
+     *     // ... filter to delete one DanceRoutine
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DanceRoutineDeleteArgs>(args: SelectSubset<T, DanceRoutineDeleteArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DanceRoutine.
+     * @param {DanceRoutineUpdateArgs} args - Arguments to update one DanceRoutine.
+     * @example
+     * // Update one DanceRoutine
+     * const danceRoutine = await prisma.danceRoutine.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DanceRoutineUpdateArgs>(args: SelectSubset<T, DanceRoutineUpdateArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DanceRoutines.
+     * @param {DanceRoutineDeleteManyArgs} args - Arguments to filter DanceRoutines to delete.
+     * @example
+     * // Delete a few DanceRoutines
+     * const { count } = await prisma.danceRoutine.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DanceRoutineDeleteManyArgs>(args?: SelectSubset<T, DanceRoutineDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DanceRoutines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DanceRoutineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DanceRoutines
+     * const danceRoutine = await prisma.danceRoutine.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DanceRoutineUpdateManyArgs>(args: SelectSubset<T, DanceRoutineUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DanceRoutines and returns the data updated in the database.
+     * @param {DanceRoutineUpdateManyAndReturnArgs} args - Arguments to update many DanceRoutines.
+     * @example
+     * // Update many DanceRoutines
+     * const danceRoutine = await prisma.danceRoutine.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DanceRoutines and only return the `id`
+     * const danceRoutineWithIdOnly = await prisma.danceRoutine.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DanceRoutineUpdateManyAndReturnArgs>(args: SelectSubset<T, DanceRoutineUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DanceRoutine.
+     * @param {DanceRoutineUpsertArgs} args - Arguments to update or create a DanceRoutine.
+     * @example
+     * // Update or create a DanceRoutine
+     * const danceRoutine = await prisma.danceRoutine.upsert({
+     *   create: {
+     *     // ... data to create a DanceRoutine
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DanceRoutine we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DanceRoutineUpsertArgs>(args: SelectSubset<T, DanceRoutineUpsertArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DanceRoutines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DanceRoutineCountArgs} args - Arguments to filter DanceRoutines to count.
+     * @example
+     * // Count the number of DanceRoutines
+     * const count = await prisma.danceRoutine.count({
+     *   where: {
+     *     // ... the filter for the DanceRoutines we want to count
+     *   }
+     * })
+    **/
+    count<T extends DanceRoutineCountArgs>(
+      args?: Subset<T, DanceRoutineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DanceRoutineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DanceRoutine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DanceRoutineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DanceRoutineAggregateArgs>(args: Subset<T, DanceRoutineAggregateArgs>): Prisma.PrismaPromise<GetDanceRoutineAggregateType<T>>
+
+    /**
+     * Group by DanceRoutine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DanceRoutineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DanceRoutineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DanceRoutineGroupByArgs['orderBy'] }
+        : { orderBy?: DanceRoutineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DanceRoutineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDanceRoutineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DanceRoutine model
+   */
+  readonly fields: DanceRoutineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DanceRoutine.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DanceRoutineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    logs<T extends DanceRoutine$logsArgs<ExtArgs> = {}>(args?: Subset<T, DanceRoutine$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PracticeLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    playlists<T extends DanceRoutine$playlistsArgs<ExtArgs> = {}>(args?: Subset<T, DanceRoutine$playlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DanceRoutine model
+   */
+  interface DanceRoutineFieldRefs {
+    readonly id: FieldRef<"DanceRoutine", 'String'>
+    readonly title: FieldRef<"DanceRoutine", 'String'>
+    readonly description: FieldRef<"DanceRoutine", 'String'>
+    readonly videoUrl: FieldRef<"DanceRoutine", 'String'>
+    readonly thumbnailUrl: FieldRef<"DanceRoutine", 'String'>
+    readonly duration: FieldRef<"DanceRoutine", 'Int'>
+    readonly difficulty: FieldRef<"DanceRoutine", 'Difficulty'>
+    readonly bpm: FieldRef<"DanceRoutine", 'Int'>
+    readonly caloriesPerMin: FieldRef<"DanceRoutine", 'Int'>
+    readonly categoryId: FieldRef<"DanceRoutine", 'String'>
+    readonly createdAt: FieldRef<"DanceRoutine", 'DateTime'>
+    readonly updatedAt: FieldRef<"DanceRoutine", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DanceRoutine findUnique
+   */
+  export type DanceRoutineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    /**
+     * Filter, which DanceRoutine to fetch.
+     */
+    where: DanceRoutineWhereUniqueInput
+  }
+
+  /**
+   * DanceRoutine findUniqueOrThrow
+   */
+  export type DanceRoutineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    /**
+     * Filter, which DanceRoutine to fetch.
+     */
+    where: DanceRoutineWhereUniqueInput
+  }
+
+  /**
+   * DanceRoutine findFirst
+   */
+  export type DanceRoutineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    /**
+     * Filter, which DanceRoutine to fetch.
+     */
+    where?: DanceRoutineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DanceRoutines to fetch.
+     */
+    orderBy?: DanceRoutineOrderByWithRelationInput | DanceRoutineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DanceRoutines.
+     */
+    cursor?: DanceRoutineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DanceRoutines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DanceRoutines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DanceRoutines.
+     */
+    distinct?: DanceRoutineScalarFieldEnum | DanceRoutineScalarFieldEnum[]
+  }
+
+  /**
+   * DanceRoutine findFirstOrThrow
+   */
+  export type DanceRoutineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    /**
+     * Filter, which DanceRoutine to fetch.
+     */
+    where?: DanceRoutineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DanceRoutines to fetch.
+     */
+    orderBy?: DanceRoutineOrderByWithRelationInput | DanceRoutineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DanceRoutines.
+     */
+    cursor?: DanceRoutineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DanceRoutines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DanceRoutines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DanceRoutines.
+     */
+    distinct?: DanceRoutineScalarFieldEnum | DanceRoutineScalarFieldEnum[]
+  }
+
+  /**
+   * DanceRoutine findMany
+   */
+  export type DanceRoutineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    /**
+     * Filter, which DanceRoutines to fetch.
+     */
+    where?: DanceRoutineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DanceRoutines to fetch.
+     */
+    orderBy?: DanceRoutineOrderByWithRelationInput | DanceRoutineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DanceRoutines.
+     */
+    cursor?: DanceRoutineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DanceRoutines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DanceRoutines.
+     */
+    skip?: number
+    distinct?: DanceRoutineScalarFieldEnum | DanceRoutineScalarFieldEnum[]
+  }
+
+  /**
+   * DanceRoutine create
+   */
+  export type DanceRoutineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DanceRoutine.
+     */
+    data: XOR<DanceRoutineCreateInput, DanceRoutineUncheckedCreateInput>
+  }
+
+  /**
+   * DanceRoutine createMany
+   */
+  export type DanceRoutineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DanceRoutines.
+     */
+    data: DanceRoutineCreateManyInput | DanceRoutineCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DanceRoutine createManyAndReturn
+   */
+  export type DanceRoutineCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * The data used to create many DanceRoutines.
+     */
+    data: DanceRoutineCreateManyInput | DanceRoutineCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DanceRoutine update
+   */
+  export type DanceRoutineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DanceRoutine.
+     */
+    data: XOR<DanceRoutineUpdateInput, DanceRoutineUncheckedUpdateInput>
+    /**
+     * Choose, which DanceRoutine to update.
+     */
+    where: DanceRoutineWhereUniqueInput
+  }
+
+  /**
+   * DanceRoutine updateMany
+   */
+  export type DanceRoutineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DanceRoutines.
+     */
+    data: XOR<DanceRoutineUpdateManyMutationInput, DanceRoutineUncheckedUpdateManyInput>
+    /**
+     * Filter which DanceRoutines to update
+     */
+    where?: DanceRoutineWhereInput
+    /**
+     * Limit how many DanceRoutines to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DanceRoutine updateManyAndReturn
+   */
+  export type DanceRoutineUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * The data used to update DanceRoutines.
+     */
+    data: XOR<DanceRoutineUpdateManyMutationInput, DanceRoutineUncheckedUpdateManyInput>
+    /**
+     * Filter which DanceRoutines to update
+     */
+    where?: DanceRoutineWhereInput
+    /**
+     * Limit how many DanceRoutines to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DanceRoutine upsert
+   */
+  export type DanceRoutineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DanceRoutine to update in case it exists.
+     */
+    where: DanceRoutineWhereUniqueInput
+    /**
+     * In case the DanceRoutine found by the `where` argument doesn't exist, create a new DanceRoutine with this data.
+     */
+    create: XOR<DanceRoutineCreateInput, DanceRoutineUncheckedCreateInput>
+    /**
+     * In case the DanceRoutine was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DanceRoutineUpdateInput, DanceRoutineUncheckedUpdateInput>
+  }
+
+  /**
+   * DanceRoutine delete
+   */
+  export type DanceRoutineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DanceRoutine
+     */
+    select?: DanceRoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DanceRoutine
+     */
+    omit?: DanceRoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DanceRoutineInclude<ExtArgs> | null
+    /**
+     * Filter which DanceRoutine to delete.
+     */
+    where: DanceRoutineWhereUniqueInput
+  }
+
+  /**
+   * DanceRoutine deleteMany
+   */
+  export type DanceRoutineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DanceRoutines to delete
+     */
+    where?: DanceRoutineWhereInput
+    /**
+     * Limit how many DanceRoutines to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DanceRoutine.logs
+   */
+  export type DanceRoutine$logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the PracticeLog
      */
@@ -8415,9 +9769,9 @@ export namespace Prisma {
   }
 
   /**
-   * Video.playlistVideos
+   * DanceRoutine.playlists
    */
-  export type Video$playlistVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DanceRoutine$playlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the PlaylistVideo
      */
@@ -8439,21 +9793,21 @@ export namespace Prisma {
   }
 
   /**
-   * Video without action
+   * DanceRoutine without action
    */
-  export type VideoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DanceRoutineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Video
+     * Select specific fields to fetch from the DanceRoutine
      */
-    select?: VideoSelect<ExtArgs> | null
+    select?: DanceRoutineSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Video
+     * Omit specific fields from the DanceRoutine
      */
-    omit?: VideoOmit<ExtArgs> | null
+    omit?: DanceRoutineOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VideoInclude<ExtArgs> | null
+    include?: DanceRoutineInclude<ExtArgs> | null
   }
 
 
@@ -8471,38 +9825,38 @@ export namespace Prisma {
 
   export type PracticeLogAvgAggregateOutputType = {
     durationPlayed: number | null
-    score: number | null
+    caloriesBurned: number | null
   }
 
   export type PracticeLogSumAggregateOutputType = {
     durationPlayed: number | null
-    score: number | null
+    caloriesBurned: number | null
   }
 
   export type PracticeLogMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    videoId: string | null
+    routineId: string | null
     durationPlayed: number | null
-    score: number | null
+    caloriesBurned: number | null
     completedAt: Date | null
   }
 
   export type PracticeLogMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    videoId: string | null
+    routineId: string | null
     durationPlayed: number | null
-    score: number | null
+    caloriesBurned: number | null
     completedAt: Date | null
   }
 
   export type PracticeLogCountAggregateOutputType = {
     id: number
     userId: number
-    videoId: number
+    routineId: number
     durationPlayed: number
-    score: number
+    caloriesBurned: number
     completedAt: number
     _all: number
   }
@@ -8510,38 +9864,38 @@ export namespace Prisma {
 
   export type PracticeLogAvgAggregateInputType = {
     durationPlayed?: true
-    score?: true
+    caloriesBurned?: true
   }
 
   export type PracticeLogSumAggregateInputType = {
     durationPlayed?: true
-    score?: true
+    caloriesBurned?: true
   }
 
   export type PracticeLogMinAggregateInputType = {
     id?: true
     userId?: true
-    videoId?: true
+    routineId?: true
     durationPlayed?: true
-    score?: true
+    caloriesBurned?: true
     completedAt?: true
   }
 
   export type PracticeLogMaxAggregateInputType = {
     id?: true
     userId?: true
-    videoId?: true
+    routineId?: true
     durationPlayed?: true
-    score?: true
+    caloriesBurned?: true
     completedAt?: true
   }
 
   export type PracticeLogCountAggregateInputType = {
     id?: true
     userId?: true
-    videoId?: true
+    routineId?: true
     durationPlayed?: true
-    score?: true
+    caloriesBurned?: true
     completedAt?: true
     _all?: true
   }
@@ -8635,9 +9989,9 @@ export namespace Prisma {
   export type PracticeLogGroupByOutputType = {
     id: string
     userId: string
-    videoId: string
+    routineId: string
     durationPlayed: number
-    score: number | null
+    caloriesBurned: number | null
     completedAt: Date
     _count: PracticeLogCountAggregateOutputType | null
     _avg: PracticeLogAvgAggregateOutputType | null
@@ -8663,71 +10017,71 @@ export namespace Prisma {
   export type PracticeLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    videoId?: boolean
+    routineId?: boolean
     durationPlayed?: boolean
-    score?: boolean
+    caloriesBurned?: boolean
     completedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["practiceLog"]>
 
   export type PracticeLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    videoId?: boolean
+    routineId?: boolean
     durationPlayed?: boolean
-    score?: boolean
+    caloriesBurned?: boolean
     completedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["practiceLog"]>
 
   export type PracticeLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    videoId?: boolean
+    routineId?: boolean
     durationPlayed?: boolean
-    score?: boolean
+    caloriesBurned?: boolean
     completedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["practiceLog"]>
 
   export type PracticeLogSelectScalar = {
     id?: boolean
     userId?: boolean
-    videoId?: boolean
+    routineId?: boolean
     durationPlayed?: boolean
-    score?: boolean
+    caloriesBurned?: boolean
     completedAt?: boolean
   }
 
-  export type PracticeLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "videoId" | "durationPlayed" | "score" | "completedAt", ExtArgs["result"]["practiceLog"]>
+  export type PracticeLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "routineId" | "durationPlayed" | "caloriesBurned" | "completedAt", ExtArgs["result"]["practiceLog"]>
   export type PracticeLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }
   export type PracticeLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }
   export type PracticeLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }
 
   export type $PracticeLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PracticeLog"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      video: Prisma.$VideoPayload<ExtArgs>
+      routine: Prisma.$DanceRoutinePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      videoId: string
+      routineId: string
       durationPlayed: number
-      score: number | null
+      caloriesBurned: number | null
       completedAt: Date
     }, ExtArgs["result"]["practiceLog"]>
     composites: {}
@@ -9124,7 +10478,7 @@ export namespace Prisma {
   export interface Prisma__PracticeLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    video<T extends VideoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VideoDefaultArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    routine<T extends DanceRoutineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DanceRoutineDefaultArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9156,9 +10510,9 @@ export namespace Prisma {
   interface PracticeLogFieldRefs {
     readonly id: FieldRef<"PracticeLog", 'String'>
     readonly userId: FieldRef<"PracticeLog", 'String'>
-    readonly videoId: FieldRef<"PracticeLog", 'String'>
+    readonly routineId: FieldRef<"PracticeLog", 'String'>
     readonly durationPlayed: FieldRef<"PracticeLog", 'Int'>
-    readonly score: FieldRef<"PracticeLog", 'Int'>
+    readonly caloriesBurned: FieldRef<"PracticeLog", 'Int'>
     readonly completedAt: FieldRef<"PracticeLog", 'DateTime'>
   }
     
@@ -9587,7 +10941,6 @@ export namespace Prisma {
   export type PlaylistMinAggregateOutputType = {
     id: string | null
     name: string | null
-    description: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9596,7 +10949,6 @@ export namespace Prisma {
   export type PlaylistMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    description: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9605,7 +10957,6 @@ export namespace Prisma {
   export type PlaylistCountAggregateOutputType = {
     id: number
     name: number
-    description: number
     userId: number
     createdAt: number
     updatedAt: number
@@ -9616,7 +10967,6 @@ export namespace Prisma {
   export type PlaylistMinAggregateInputType = {
     id?: true
     name?: true
-    description?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -9625,7 +10975,6 @@ export namespace Prisma {
   export type PlaylistMaxAggregateInputType = {
     id?: true
     name?: true
-    description?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -9634,7 +10983,6 @@ export namespace Prisma {
   export type PlaylistCountAggregateInputType = {
     id?: true
     name?: true
-    description?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -9716,7 +11064,6 @@ export namespace Prisma {
   export type PlaylistGroupByOutputType = {
     id: string
     name: string
-    description: string | null
     userId: string
     createdAt: Date
     updatedAt: Date
@@ -9742,7 +11089,6 @@ export namespace Prisma {
   export type PlaylistSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    description?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -9754,7 +11100,6 @@ export namespace Prisma {
   export type PlaylistSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    description?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -9764,7 +11109,6 @@ export namespace Prisma {
   export type PlaylistSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    description?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -9774,13 +11118,12 @@ export namespace Prisma {
   export type PlaylistSelectScalar = {
     id?: boolean
     name?: boolean
-    description?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["playlist"]>
+  export type PlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["playlist"]>
   export type PlaylistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     videos?: boolean | Playlist$videosArgs<ExtArgs>
@@ -9802,7 +11145,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      description: string | null
       userId: string
       createdAt: Date
       updatedAt: Date
@@ -10233,7 +11575,6 @@ export namespace Prisma {
   interface PlaylistFieldRefs {
     readonly id: FieldRef<"Playlist", 'String'>
     readonly name: FieldRef<"Playlist", 'String'>
-    readonly description: FieldRef<"Playlist", 'String'>
     readonly userId: FieldRef<"Playlist", 'String'>
     readonly createdAt: FieldRef<"Playlist", 'DateTime'>
     readonly updatedAt: FieldRef<"Playlist", 'DateTime'>
@@ -10688,21 +12029,21 @@ export namespace Prisma {
   export type PlaylistVideoMinAggregateOutputType = {
     id: string | null
     playlistId: string | null
-    videoId: string | null
+    routineId: string | null
     addedAt: Date | null
   }
 
   export type PlaylistVideoMaxAggregateOutputType = {
     id: string | null
     playlistId: string | null
-    videoId: string | null
+    routineId: string | null
     addedAt: Date | null
   }
 
   export type PlaylistVideoCountAggregateOutputType = {
     id: number
     playlistId: number
-    videoId: number
+    routineId: number
     addedAt: number
     _all: number
   }
@@ -10711,21 +12052,21 @@ export namespace Prisma {
   export type PlaylistVideoMinAggregateInputType = {
     id?: true
     playlistId?: true
-    videoId?: true
+    routineId?: true
     addedAt?: true
   }
 
   export type PlaylistVideoMaxAggregateInputType = {
     id?: true
     playlistId?: true
-    videoId?: true
+    routineId?: true
     addedAt?: true
   }
 
   export type PlaylistVideoCountAggregateInputType = {
     id?: true
     playlistId?: true
-    videoId?: true
+    routineId?: true
     addedAt?: true
     _all?: true
   }
@@ -10805,7 +12146,7 @@ export namespace Prisma {
   export type PlaylistVideoGroupByOutputType = {
     id: string
     playlistId: string
-    videoId: string
+    routineId: string
     addedAt: Date
     _count: PlaylistVideoCountAggregateOutputType | null
     _min: PlaylistVideoMinAggregateOutputType | null
@@ -10829,61 +12170,61 @@ export namespace Prisma {
   export type PlaylistVideoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     playlistId?: boolean
-    videoId?: boolean
+    routineId?: boolean
     addedAt?: boolean
     playlist?: boolean | PlaylistDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playlistVideo"]>
 
   export type PlaylistVideoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     playlistId?: boolean
-    videoId?: boolean
+    routineId?: boolean
     addedAt?: boolean
     playlist?: boolean | PlaylistDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playlistVideo"]>
 
   export type PlaylistVideoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     playlistId?: boolean
-    videoId?: boolean
+    routineId?: boolean
     addedAt?: boolean
     playlist?: boolean | PlaylistDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playlistVideo"]>
 
   export type PlaylistVideoSelectScalar = {
     id?: boolean
     playlistId?: boolean
-    videoId?: boolean
+    routineId?: boolean
     addedAt?: boolean
   }
 
-  export type PlaylistVideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "playlistId" | "videoId" | "addedAt", ExtArgs["result"]["playlistVideo"]>
+  export type PlaylistVideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "playlistId" | "routineId" | "addedAt", ExtArgs["result"]["playlistVideo"]>
   export type PlaylistVideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     playlist?: boolean | PlaylistDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }
   export type PlaylistVideoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     playlist?: boolean | PlaylistDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }
   export type PlaylistVideoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     playlist?: boolean | PlaylistDefaultArgs<ExtArgs>
-    video?: boolean | VideoDefaultArgs<ExtArgs>
+    routine?: boolean | DanceRoutineDefaultArgs<ExtArgs>
   }
 
   export type $PlaylistVideoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PlaylistVideo"
     objects: {
       playlist: Prisma.$PlaylistPayload<ExtArgs>
-      video: Prisma.$VideoPayload<ExtArgs>
+      routine: Prisma.$DanceRoutinePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       playlistId: string
-      videoId: string
+      routineId: string
       addedAt: Date
     }, ExtArgs["result"]["playlistVideo"]>
     composites: {}
@@ -11280,7 +12621,7 @@ export namespace Prisma {
   export interface Prisma__PlaylistVideoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     playlist<T extends PlaylistDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlaylistDefaultArgs<ExtArgs>>): Prisma__PlaylistClient<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    video<T extends VideoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VideoDefaultArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    routine<T extends DanceRoutineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DanceRoutineDefaultArgs<ExtArgs>>): Prisma__DanceRoutineClient<$Result.GetResult<Prisma.$DanceRoutinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11312,7 +12653,7 @@ export namespace Prisma {
   interface PlaylistVideoFieldRefs {
     readonly id: FieldRef<"PlaylistVideo", 'String'>
     readonly playlistId: FieldRef<"PlaylistVideo", 'String'>
-    readonly videoId: FieldRef<"PlaylistVideo", 'String'>
+    readonly routineId: FieldRef<"PlaylistVideo", 'String'>
     readonly addedAt: FieldRef<"PlaylistVideo", 'DateTime'>
   }
     
@@ -11742,17 +13083,6 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-  export const PostScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    createdById: 'createdById'
-  };
-
-  export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
-
-
   export const UserScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -11811,27 +13141,56 @@ export namespace Prisma {
   export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
-  export const VideoScalarFieldEnum: {
+  export const UserProfileScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    level: 'level',
+    currentXp: 'currentXp',
+    totalCalories: 'totalCalories',
+    totalMinutes: 'totalMinutes',
+    weightKg: 'weightKg',
+    heightCm: 'heightCm',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserProfileScalarFieldEnum = (typeof UserProfileScalarFieldEnum)[keyof typeof UserProfileScalarFieldEnum]
+
+
+  export const CategoryScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    slug: 'slug',
+    image: 'image'
+  };
+
+  export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+  export const DanceRoutineScalarFieldEnum: {
     id: 'id',
     title: 'title',
     description: 'description',
-    url: 'url',
-    thumbnail: 'thumbnail',
+    videoUrl: 'videoUrl',
+    thumbnailUrl: 'thumbnailUrl',
     duration: 'duration',
     difficulty: 'difficulty',
-    tags: 'tags',
-    createdAt: 'createdAt'
+    bpm: 'bpm',
+    caloriesPerMin: 'caloriesPerMin',
+    categoryId: 'categoryId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
-  export type VideoScalarFieldEnum = (typeof VideoScalarFieldEnum)[keyof typeof VideoScalarFieldEnum]
+  export type DanceRoutineScalarFieldEnum = (typeof DanceRoutineScalarFieldEnum)[keyof typeof DanceRoutineScalarFieldEnum]
 
 
   export const PracticeLogScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    videoId: 'videoId',
+    routineId: 'routineId',
     durationPlayed: 'durationPlayed',
-    score: 'score',
+    caloriesBurned: 'caloriesBurned',
     completedAt: 'completedAt'
   };
 
@@ -11841,7 +13200,6 @@ export namespace Prisma {
   export const PlaylistScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    description: 'description',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -11853,7 +13211,7 @@ export namespace Prisma {
   export const PlaylistVideoScalarFieldEnum: {
     id: 'id',
     playlistId: 'playlistId',
-    videoId: 'videoId',
+    routineId: 'routineId',
     addedAt: 'addedAt'
   };
 
@@ -11904,6 +13262,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -11914,13 +13279,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -11939,20 +13297,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Difficulty'
-   */
-  export type EnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty'>
-    
-
-
-  /**
-   * Reference to a field of type 'Difficulty[]'
-   */
-  export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -11964,65 +13308,24 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Difficulty'
+   */
+  export type EnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty'>
+    
+
+
+  /**
+   * Reference to a field of type 'Difficulty[]'
+   */
+  export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty[]'>
+    
   /**
    * Deep Input Types
    */
 
-
-  export type PostWhereInput = {
-    AND?: PostWhereInput | PostWhereInput[]
-    OR?: PostWhereInput[]
-    NOT?: PostWhereInput | PostWhereInput[]
-    id?: StringFilter<"Post"> | string
-    name?: StringFilter<"Post"> | string
-    createdAt?: DateTimeFilter<"Post"> | Date | string
-    updatedAt?: DateTimeFilter<"Post"> | Date | string
-    createdById?: StringFilter<"Post"> | string
-    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type PostOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    createdById?: SortOrder
-    createdBy?: UserOrderByWithRelationInput
-  }
-
-  export type PostWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: PostWhereInput | PostWhereInput[]
-    OR?: PostWhereInput[]
-    NOT?: PostWhereInput | PostWhereInput[]
-    name?: StringFilter<"Post"> | string
-    createdAt?: DateTimeFilter<"Post"> | Date | string
-    updatedAt?: DateTimeFilter<"Post"> | Date | string
-    createdById?: StringFilter<"Post"> | string
-    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
-
-  export type PostOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    createdById?: SortOrder
-    _count?: PostCountOrderByAggregateInput
-    _max?: PostMaxOrderByAggregateInput
-    _min?: PostMinOrderByAggregateInput
-  }
-
-  export type PostScalarWhereWithAggregatesInput = {
-    AND?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
-    OR?: PostScalarWhereWithAggregatesInput[]
-    NOT?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Post"> | string
-    name?: StringWithAggregatesFilter<"Post"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
-    createdById?: StringWithAggregatesFilter<"Post"> | string
-  }
 
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
@@ -12037,7 +13340,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
-    posts?: PostListRelationFilter
+    profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     practiceLogs?: PracticeLogListRelationFilter
     playlists?: PlaylistListRelationFilter
   }
@@ -12052,7 +13355,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
-    posts?: PostOrderByRelationAggregateInput
+    profile?: UserProfileOrderByWithRelationInput
     practiceLogs?: PracticeLogOrderByRelationAggregateInput
     playlists?: PlaylistOrderByRelationAggregateInput
   }
@@ -12070,7 +13373,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
-    posts?: PostListRelationFilter
+    profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     practiceLogs?: PracticeLogListRelationFilter
     playlists?: PlaylistListRelationFilter
   }, "id" | "email">
@@ -12323,84 +13626,234 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Verification"> | Date | string
   }
 
-  export type VideoWhereInput = {
-    AND?: VideoWhereInput | VideoWhereInput[]
-    OR?: VideoWhereInput[]
-    NOT?: VideoWhereInput | VideoWhereInput[]
-    id?: StringFilter<"Video"> | string
-    title?: StringFilter<"Video"> | string
-    description?: StringNullableFilter<"Video"> | string | null
-    url?: StringFilter<"Video"> | string
-    thumbnail?: StringFilter<"Video"> | string
-    duration?: IntFilter<"Video"> | number
-    difficulty?: EnumDifficultyFilter<"Video"> | $Enums.Difficulty
-    tags?: StringNullableListFilter<"Video">
-    createdAt?: DateTimeFilter<"Video"> | Date | string
-    practiceLogs?: PracticeLogListRelationFilter
-    playlistVideos?: PlaylistVideoListRelationFilter
+  export type UserProfileWhereInput = {
+    AND?: UserProfileWhereInput | UserProfileWhereInput[]
+    OR?: UserProfileWhereInput[]
+    NOT?: UserProfileWhereInput | UserProfileWhereInput[]
+    id?: StringFilter<"UserProfile"> | string
+    userId?: StringFilter<"UserProfile"> | string
+    level?: IntFilter<"UserProfile"> | number
+    currentXp?: IntFilter<"UserProfile"> | number
+    totalCalories?: IntFilter<"UserProfile"> | number
+    totalMinutes?: IntFilter<"UserProfile"> | number
+    weightKg?: FloatNullableFilter<"UserProfile"> | number | null
+    heightCm?: FloatNullableFilter<"UserProfile"> | number | null
+    createdAt?: DateTimeFilter<"UserProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"UserProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type VideoOrderByWithRelationInput = {
+  export type UserProfileOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    level?: SortOrder
+    currentXp?: SortOrder
+    totalCalories?: SortOrder
+    totalMinutes?: SortOrder
+    weightKg?: SortOrderInput | SortOrder
+    heightCm?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserProfileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: UserProfileWhereInput | UserProfileWhereInput[]
+    OR?: UserProfileWhereInput[]
+    NOT?: UserProfileWhereInput | UserProfileWhereInput[]
+    level?: IntFilter<"UserProfile"> | number
+    currentXp?: IntFilter<"UserProfile"> | number
+    totalCalories?: IntFilter<"UserProfile"> | number
+    totalMinutes?: IntFilter<"UserProfile"> | number
+    weightKg?: FloatNullableFilter<"UserProfile"> | number | null
+    heightCm?: FloatNullableFilter<"UserProfile"> | number | null
+    createdAt?: DateTimeFilter<"UserProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"UserProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type UserProfileOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    level?: SortOrder
+    currentXp?: SortOrder
+    totalCalories?: SortOrder
+    totalMinutes?: SortOrder
+    weightKg?: SortOrderInput | SortOrder
+    heightCm?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserProfileCountOrderByAggregateInput
+    _avg?: UserProfileAvgOrderByAggregateInput
+    _max?: UserProfileMaxOrderByAggregateInput
+    _min?: UserProfileMinOrderByAggregateInput
+    _sum?: UserProfileSumOrderByAggregateInput
+  }
+
+  export type UserProfileScalarWhereWithAggregatesInput = {
+    AND?: UserProfileScalarWhereWithAggregatesInput | UserProfileScalarWhereWithAggregatesInput[]
+    OR?: UserProfileScalarWhereWithAggregatesInput[]
+    NOT?: UserProfileScalarWhereWithAggregatesInput | UserProfileScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserProfile"> | string
+    userId?: StringWithAggregatesFilter<"UserProfile"> | string
+    level?: IntWithAggregatesFilter<"UserProfile"> | number
+    currentXp?: IntWithAggregatesFilter<"UserProfile"> | number
+    totalCalories?: IntWithAggregatesFilter<"UserProfile"> | number
+    totalMinutes?: IntWithAggregatesFilter<"UserProfile"> | number
+    weightKg?: FloatNullableWithAggregatesFilter<"UserProfile"> | number | null
+    heightCm?: FloatNullableWithAggregatesFilter<"UserProfile"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserProfile"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserProfile"> | Date | string
+  }
+
+  export type CategoryWhereInput = {
+    AND?: CategoryWhereInput | CategoryWhereInput[]
+    OR?: CategoryWhereInput[]
+    NOT?: CategoryWhereInput | CategoryWhereInput[]
+    id?: StringFilter<"Category"> | string
+    name?: StringFilter<"Category"> | string
+    slug?: StringFilter<"Category"> | string
+    image?: StringNullableFilter<"Category"> | string | null
+    routines?: DanceRoutineListRelationFilter
+  }
+
+  export type CategoryOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    image?: SortOrderInput | SortOrder
+    routines?: DanceRoutineOrderByRelationAggregateInput
+  }
+
+  export type CategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    slug?: string
+    AND?: CategoryWhereInput | CategoryWhereInput[]
+    OR?: CategoryWhereInput[]
+    NOT?: CategoryWhereInput | CategoryWhereInput[]
+    image?: StringNullableFilter<"Category"> | string | null
+    routines?: DanceRoutineListRelationFilter
+  }, "id" | "name" | "slug">
+
+  export type CategoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    image?: SortOrderInput | SortOrder
+    _count?: CategoryCountOrderByAggregateInput
+    _max?: CategoryMaxOrderByAggregateInput
+    _min?: CategoryMinOrderByAggregateInput
+  }
+
+  export type CategoryScalarWhereWithAggregatesInput = {
+    AND?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
+    OR?: CategoryScalarWhereWithAggregatesInput[]
+    NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Category"> | string
+    name?: StringWithAggregatesFilter<"Category"> | string
+    slug?: StringWithAggregatesFilter<"Category"> | string
+    image?: StringNullableWithAggregatesFilter<"Category"> | string | null
+  }
+
+  export type DanceRoutineWhereInput = {
+    AND?: DanceRoutineWhereInput | DanceRoutineWhereInput[]
+    OR?: DanceRoutineWhereInput[]
+    NOT?: DanceRoutineWhereInput | DanceRoutineWhereInput[]
+    id?: StringFilter<"DanceRoutine"> | string
+    title?: StringFilter<"DanceRoutine"> | string
+    description?: StringNullableFilter<"DanceRoutine"> | string | null
+    videoUrl?: StringFilter<"DanceRoutine"> | string
+    thumbnailUrl?: StringFilter<"DanceRoutine"> | string
+    duration?: IntFilter<"DanceRoutine"> | number
+    difficulty?: EnumDifficultyFilter<"DanceRoutine"> | $Enums.Difficulty
+    bpm?: IntNullableFilter<"DanceRoutine"> | number | null
+    caloriesPerMin?: IntFilter<"DanceRoutine"> | number
+    categoryId?: StringFilter<"DanceRoutine"> | string
+    createdAt?: DateTimeFilter<"DanceRoutine"> | Date | string
+    updatedAt?: DateTimeFilter<"DanceRoutine"> | Date | string
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+    logs?: PracticeLogListRelationFilter
+    playlists?: PlaylistVideoListRelationFilter
+  }
+
+  export type DanceRoutineOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    url?: SortOrder
-    thumbnail?: SortOrder
+    videoUrl?: SortOrder
+    thumbnailUrl?: SortOrder
     duration?: SortOrder
     difficulty?: SortOrder
-    tags?: SortOrder
+    bpm?: SortOrderInput | SortOrder
+    caloriesPerMin?: SortOrder
+    categoryId?: SortOrder
     createdAt?: SortOrder
-    practiceLogs?: PracticeLogOrderByRelationAggregateInput
-    playlistVideos?: PlaylistVideoOrderByRelationAggregateInput
+    updatedAt?: SortOrder
+    category?: CategoryOrderByWithRelationInput
+    logs?: PracticeLogOrderByRelationAggregateInput
+    playlists?: PlaylistVideoOrderByRelationAggregateInput
   }
 
-  export type VideoWhereUniqueInput = Prisma.AtLeast<{
+  export type DanceRoutineWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: VideoWhereInput | VideoWhereInput[]
-    OR?: VideoWhereInput[]
-    NOT?: VideoWhereInput | VideoWhereInput[]
-    title?: StringFilter<"Video"> | string
-    description?: StringNullableFilter<"Video"> | string | null
-    url?: StringFilter<"Video"> | string
-    thumbnail?: StringFilter<"Video"> | string
-    duration?: IntFilter<"Video"> | number
-    difficulty?: EnumDifficultyFilter<"Video"> | $Enums.Difficulty
-    tags?: StringNullableListFilter<"Video">
-    createdAt?: DateTimeFilter<"Video"> | Date | string
-    practiceLogs?: PracticeLogListRelationFilter
-    playlistVideos?: PlaylistVideoListRelationFilter
+    AND?: DanceRoutineWhereInput | DanceRoutineWhereInput[]
+    OR?: DanceRoutineWhereInput[]
+    NOT?: DanceRoutineWhereInput | DanceRoutineWhereInput[]
+    title?: StringFilter<"DanceRoutine"> | string
+    description?: StringNullableFilter<"DanceRoutine"> | string | null
+    videoUrl?: StringFilter<"DanceRoutine"> | string
+    thumbnailUrl?: StringFilter<"DanceRoutine"> | string
+    duration?: IntFilter<"DanceRoutine"> | number
+    difficulty?: EnumDifficultyFilter<"DanceRoutine"> | $Enums.Difficulty
+    bpm?: IntNullableFilter<"DanceRoutine"> | number | null
+    caloriesPerMin?: IntFilter<"DanceRoutine"> | number
+    categoryId?: StringFilter<"DanceRoutine"> | string
+    createdAt?: DateTimeFilter<"DanceRoutine"> | Date | string
+    updatedAt?: DateTimeFilter<"DanceRoutine"> | Date | string
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+    logs?: PracticeLogListRelationFilter
+    playlists?: PlaylistVideoListRelationFilter
   }, "id">
 
-  export type VideoOrderByWithAggregationInput = {
+  export type DanceRoutineOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    url?: SortOrder
-    thumbnail?: SortOrder
+    videoUrl?: SortOrder
+    thumbnailUrl?: SortOrder
     duration?: SortOrder
     difficulty?: SortOrder
-    tags?: SortOrder
+    bpm?: SortOrderInput | SortOrder
+    caloriesPerMin?: SortOrder
+    categoryId?: SortOrder
     createdAt?: SortOrder
-    _count?: VideoCountOrderByAggregateInput
-    _avg?: VideoAvgOrderByAggregateInput
-    _max?: VideoMaxOrderByAggregateInput
-    _min?: VideoMinOrderByAggregateInput
-    _sum?: VideoSumOrderByAggregateInput
+    updatedAt?: SortOrder
+    _count?: DanceRoutineCountOrderByAggregateInput
+    _avg?: DanceRoutineAvgOrderByAggregateInput
+    _max?: DanceRoutineMaxOrderByAggregateInput
+    _min?: DanceRoutineMinOrderByAggregateInput
+    _sum?: DanceRoutineSumOrderByAggregateInput
   }
 
-  export type VideoScalarWhereWithAggregatesInput = {
-    AND?: VideoScalarWhereWithAggregatesInput | VideoScalarWhereWithAggregatesInput[]
-    OR?: VideoScalarWhereWithAggregatesInput[]
-    NOT?: VideoScalarWhereWithAggregatesInput | VideoScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Video"> | string
-    title?: StringWithAggregatesFilter<"Video"> | string
-    description?: StringNullableWithAggregatesFilter<"Video"> | string | null
-    url?: StringWithAggregatesFilter<"Video"> | string
-    thumbnail?: StringWithAggregatesFilter<"Video"> | string
-    duration?: IntWithAggregatesFilter<"Video"> | number
-    difficulty?: EnumDifficultyWithAggregatesFilter<"Video"> | $Enums.Difficulty
-    tags?: StringNullableListFilter<"Video">
-    createdAt?: DateTimeWithAggregatesFilter<"Video"> | Date | string
+  export type DanceRoutineScalarWhereWithAggregatesInput = {
+    AND?: DanceRoutineScalarWhereWithAggregatesInput | DanceRoutineScalarWhereWithAggregatesInput[]
+    OR?: DanceRoutineScalarWhereWithAggregatesInput[]
+    NOT?: DanceRoutineScalarWhereWithAggregatesInput | DanceRoutineScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DanceRoutine"> | string
+    title?: StringWithAggregatesFilter<"DanceRoutine"> | string
+    description?: StringNullableWithAggregatesFilter<"DanceRoutine"> | string | null
+    videoUrl?: StringWithAggregatesFilter<"DanceRoutine"> | string
+    thumbnailUrl?: StringWithAggregatesFilter<"DanceRoutine"> | string
+    duration?: IntWithAggregatesFilter<"DanceRoutine"> | number
+    difficulty?: EnumDifficultyWithAggregatesFilter<"DanceRoutine"> | $Enums.Difficulty
+    bpm?: IntNullableWithAggregatesFilter<"DanceRoutine"> | number | null
+    caloriesPerMin?: IntWithAggregatesFilter<"DanceRoutine"> | number
+    categoryId?: StringWithAggregatesFilter<"DanceRoutine"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DanceRoutine"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DanceRoutine"> | Date | string
   }
 
   export type PracticeLogWhereInput = {
@@ -12409,23 +13862,23 @@ export namespace Prisma {
     NOT?: PracticeLogWhereInput | PracticeLogWhereInput[]
     id?: StringFilter<"PracticeLog"> | string
     userId?: StringFilter<"PracticeLog"> | string
-    videoId?: StringFilter<"PracticeLog"> | string
+    routineId?: StringFilter<"PracticeLog"> | string
     durationPlayed?: IntFilter<"PracticeLog"> | number
-    score?: IntNullableFilter<"PracticeLog"> | number | null
+    caloriesBurned?: IntNullableFilter<"PracticeLog"> | number | null
     completedAt?: DateTimeFilter<"PracticeLog"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
+    routine?: XOR<DanceRoutineScalarRelationFilter, DanceRoutineWhereInput>
   }
 
   export type PracticeLogOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    videoId?: SortOrder
+    routineId?: SortOrder
     durationPlayed?: SortOrder
-    score?: SortOrderInput | SortOrder
+    caloriesBurned?: SortOrderInput | SortOrder
     completedAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    video?: VideoOrderByWithRelationInput
+    routine?: DanceRoutineOrderByWithRelationInput
   }
 
   export type PracticeLogWhereUniqueInput = Prisma.AtLeast<{
@@ -12434,20 +13887,20 @@ export namespace Prisma {
     OR?: PracticeLogWhereInput[]
     NOT?: PracticeLogWhereInput | PracticeLogWhereInput[]
     userId?: StringFilter<"PracticeLog"> | string
-    videoId?: StringFilter<"PracticeLog"> | string
+    routineId?: StringFilter<"PracticeLog"> | string
     durationPlayed?: IntFilter<"PracticeLog"> | number
-    score?: IntNullableFilter<"PracticeLog"> | number | null
+    caloriesBurned?: IntNullableFilter<"PracticeLog"> | number | null
     completedAt?: DateTimeFilter<"PracticeLog"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
+    routine?: XOR<DanceRoutineScalarRelationFilter, DanceRoutineWhereInput>
   }, "id">
 
   export type PracticeLogOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    videoId?: SortOrder
+    routineId?: SortOrder
     durationPlayed?: SortOrder
-    score?: SortOrderInput | SortOrder
+    caloriesBurned?: SortOrderInput | SortOrder
     completedAt?: SortOrder
     _count?: PracticeLogCountOrderByAggregateInput
     _avg?: PracticeLogAvgOrderByAggregateInput
@@ -12462,9 +13915,9 @@ export namespace Prisma {
     NOT?: PracticeLogScalarWhereWithAggregatesInput | PracticeLogScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PracticeLog"> | string
     userId?: StringWithAggregatesFilter<"PracticeLog"> | string
-    videoId?: StringWithAggregatesFilter<"PracticeLog"> | string
+    routineId?: StringWithAggregatesFilter<"PracticeLog"> | string
     durationPlayed?: IntWithAggregatesFilter<"PracticeLog"> | number
-    score?: IntNullableWithAggregatesFilter<"PracticeLog"> | number | null
+    caloriesBurned?: IntNullableWithAggregatesFilter<"PracticeLog"> | number | null
     completedAt?: DateTimeWithAggregatesFilter<"PracticeLog"> | Date | string
   }
 
@@ -12474,7 +13927,6 @@ export namespace Prisma {
     NOT?: PlaylistWhereInput | PlaylistWhereInput[]
     id?: StringFilter<"Playlist"> | string
     name?: StringFilter<"Playlist"> | string
-    description?: StringNullableFilter<"Playlist"> | string | null
     userId?: StringFilter<"Playlist"> | string
     createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
@@ -12485,7 +13937,6 @@ export namespace Prisma {
   export type PlaylistOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrderInput | SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12499,7 +13950,6 @@ export namespace Prisma {
     OR?: PlaylistWhereInput[]
     NOT?: PlaylistWhereInput | PlaylistWhereInput[]
     name?: StringFilter<"Playlist"> | string
-    description?: StringNullableFilter<"Playlist"> | string | null
     userId?: StringFilter<"Playlist"> | string
     createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
@@ -12510,7 +13960,6 @@ export namespace Prisma {
   export type PlaylistOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrderInput | SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12525,7 +13974,6 @@ export namespace Prisma {
     NOT?: PlaylistScalarWhereWithAggregatesInput | PlaylistScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Playlist"> | string
     name?: StringWithAggregatesFilter<"Playlist"> | string
-    description?: StringNullableWithAggregatesFilter<"Playlist"> | string | null
     userId?: StringWithAggregatesFilter<"Playlist"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string
@@ -12537,38 +13985,38 @@ export namespace Prisma {
     NOT?: PlaylistVideoWhereInput | PlaylistVideoWhereInput[]
     id?: StringFilter<"PlaylistVideo"> | string
     playlistId?: StringFilter<"PlaylistVideo"> | string
-    videoId?: StringFilter<"PlaylistVideo"> | string
+    routineId?: StringFilter<"PlaylistVideo"> | string
     addedAt?: DateTimeFilter<"PlaylistVideo"> | Date | string
     playlist?: XOR<PlaylistScalarRelationFilter, PlaylistWhereInput>
-    video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
+    routine?: XOR<DanceRoutineScalarRelationFilter, DanceRoutineWhereInput>
   }
 
   export type PlaylistVideoOrderByWithRelationInput = {
     id?: SortOrder
     playlistId?: SortOrder
-    videoId?: SortOrder
+    routineId?: SortOrder
     addedAt?: SortOrder
     playlist?: PlaylistOrderByWithRelationInput
-    video?: VideoOrderByWithRelationInput
+    routine?: DanceRoutineOrderByWithRelationInput
   }
 
   export type PlaylistVideoWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    playlistId_videoId?: PlaylistVideoPlaylistIdVideoIdCompoundUniqueInput
+    playlistId_routineId?: PlaylistVideoPlaylistIdRoutineIdCompoundUniqueInput
     AND?: PlaylistVideoWhereInput | PlaylistVideoWhereInput[]
     OR?: PlaylistVideoWhereInput[]
     NOT?: PlaylistVideoWhereInput | PlaylistVideoWhereInput[]
     playlistId?: StringFilter<"PlaylistVideo"> | string
-    videoId?: StringFilter<"PlaylistVideo"> | string
+    routineId?: StringFilter<"PlaylistVideo"> | string
     addedAt?: DateTimeFilter<"PlaylistVideo"> | Date | string
     playlist?: XOR<PlaylistScalarRelationFilter, PlaylistWhereInput>
-    video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
-  }, "id" | "playlistId_videoId">
+    routine?: XOR<DanceRoutineScalarRelationFilter, DanceRoutineWhereInput>
+  }, "id" | "playlistId_routineId">
 
   export type PlaylistVideoOrderByWithAggregationInput = {
     id?: SortOrder
     playlistId?: SortOrder
-    videoId?: SortOrder
+    routineId?: SortOrder
     addedAt?: SortOrder
     _count?: PlaylistVideoCountOrderByAggregateInput
     _max?: PlaylistVideoMaxOrderByAggregateInput
@@ -12581,63 +14029,8 @@ export namespace Prisma {
     NOT?: PlaylistVideoScalarWhereWithAggregatesInput | PlaylistVideoScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PlaylistVideo"> | string
     playlistId?: StringWithAggregatesFilter<"PlaylistVideo"> | string
-    videoId?: StringWithAggregatesFilter<"PlaylistVideo"> | string
+    routineId?: StringWithAggregatesFilter<"PlaylistVideo"> | string
     addedAt?: DateTimeWithAggregatesFilter<"PlaylistVideo"> | Date | string
-  }
-
-  export type PostCreateInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    createdBy: UserCreateNestedOneWithoutPostsInput
-  }
-
-  export type PostUncheckedCreateInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    createdById: string
-  }
-
-  export type PostUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
-  }
-
-  export type PostUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdById?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type PostCreateManyInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    createdById: string
-  }
-
-  export type PostUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PostUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdById?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateInput = {
@@ -12650,7 +14043,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
-    posts?: PostCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     practiceLogs?: PracticeLogCreateNestedManyWithoutUserInput
     playlists?: PlaylistCreateNestedManyWithoutUserInput
   }
@@ -12665,7 +14058,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     practiceLogs?: PracticeLogUncheckedCreateNestedManyWithoutUserInput
     playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
   }
@@ -12680,7 +14073,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     practiceLogs?: PracticeLogUpdateManyWithoutUserNestedInput
     playlists?: PlaylistUpdateManyWithoutUserNestedInput
   }
@@ -12695,7 +14088,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     practiceLogs?: PracticeLogUncheckedUpdateManyWithoutUserNestedInput
     playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -12980,163 +14373,325 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type VideoCreateInput = {
+  export type UserProfileCreateInput = {
+    id?: string
+    level?: number
+    currentXp?: number
+    totalCalories?: number
+    totalMinutes?: number
+    weightKg?: number | null
+    heightCm?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutProfileInput
+  }
+
+  export type UserProfileUncheckedCreateInput = {
+    id?: string
+    userId: string
+    level?: number
+    currentXp?: number
+    totalCalories?: number
+    totalMinutes?: number
+    weightKg?: number | null
+    heightCm?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    currentXp?: IntFieldUpdateOperationsInput | number
+    totalCalories?: IntFieldUpdateOperationsInput | number
+    totalMinutes?: IntFieldUpdateOperationsInput | number
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    heightCm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
+  }
+
+  export type UserProfileUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    currentXp?: IntFieldUpdateOperationsInput | number
+    totalCalories?: IntFieldUpdateOperationsInput | number
+    totalMinutes?: IntFieldUpdateOperationsInput | number
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    heightCm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserProfileCreateManyInput = {
+    id?: string
+    userId: string
+    level?: number
+    currentXp?: number
+    totalCalories?: number
+    totalMinutes?: number
+    weightKg?: number | null
+    heightCm?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    currentXp?: IntFieldUpdateOperationsInput | number
+    totalCalories?: IntFieldUpdateOperationsInput | number
+    totalMinutes?: IntFieldUpdateOperationsInput | number
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    heightCm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserProfileUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    currentXp?: IntFieldUpdateOperationsInput | number
+    totalCalories?: IntFieldUpdateOperationsInput | number
+    totalMinutes?: IntFieldUpdateOperationsInput | number
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    heightCm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    image?: string | null
+    routines?: DanceRoutineCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUncheckedCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    image?: string | null
+    routines?: DanceRoutineUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    routines?: DanceRoutineUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    routines?: DanceRoutineUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryCreateManyInput = {
+    id?: string
+    name: string
+    slug: string
+    image?: string | null
+  }
+
+  export type CategoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CategoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DanceRoutineCreateInput = {
     id?: string
     title: string
     description?: string | null
-    url: string
-    thumbnail: string
+    videoUrl: string
+    thumbnailUrl: string
     duration: number
     difficulty: $Enums.Difficulty
-    tags?: VideoCreatetagsInput | string[]
+    bpm?: number | null
+    caloriesPerMin?: number
     createdAt?: Date | string
-    practiceLogs?: PracticeLogCreateNestedManyWithoutVideoInput
-    playlistVideos?: PlaylistVideoCreateNestedManyWithoutVideoInput
+    updatedAt?: Date | string
+    category: CategoryCreateNestedOneWithoutRoutinesInput
+    logs?: PracticeLogCreateNestedManyWithoutRoutineInput
+    playlists?: PlaylistVideoCreateNestedManyWithoutRoutineInput
   }
 
-  export type VideoUncheckedCreateInput = {
+  export type DanceRoutineUncheckedCreateInput = {
     id?: string
     title: string
     description?: string | null
-    url: string
-    thumbnail: string
+    videoUrl: string
+    thumbnailUrl: string
     duration: number
     difficulty: $Enums.Difficulty
-    tags?: VideoCreatetagsInput | string[]
+    bpm?: number | null
+    caloriesPerMin?: number
+    categoryId: string
     createdAt?: Date | string
-    practiceLogs?: PracticeLogUncheckedCreateNestedManyWithoutVideoInput
-    playlistVideos?: PlaylistVideoUncheckedCreateNestedManyWithoutVideoInput
+    updatedAt?: Date | string
+    logs?: PracticeLogUncheckedCreateNestedManyWithoutRoutineInput
+    playlists?: PlaylistVideoUncheckedCreateNestedManyWithoutRoutineInput
   }
 
-  export type VideoUpdateInput = {
+  export type DanceRoutineUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
-    thumbnail?: StringFieldUpdateOperationsInput | string
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    tags?: VideoUpdatetagsInput | string[]
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    practiceLogs?: PracticeLogUpdateManyWithoutVideoNestedInput
-    playlistVideos?: PlaylistVideoUpdateManyWithoutVideoNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneRequiredWithoutRoutinesNestedInput
+    logs?: PracticeLogUpdateManyWithoutRoutineNestedInput
+    playlists?: PlaylistVideoUpdateManyWithoutRoutineNestedInput
   }
 
-  export type VideoUncheckedUpdateInput = {
+  export type DanceRoutineUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
-    thumbnail?: StringFieldUpdateOperationsInput | string
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    tags?: VideoUpdatetagsInput | string[]
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    practiceLogs?: PracticeLogUncheckedUpdateManyWithoutVideoNestedInput
-    playlistVideos?: PlaylistVideoUncheckedUpdateManyWithoutVideoNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: PracticeLogUncheckedUpdateManyWithoutRoutineNestedInput
+    playlists?: PlaylistVideoUncheckedUpdateManyWithoutRoutineNestedInput
   }
 
-  export type VideoCreateManyInput = {
+  export type DanceRoutineCreateManyInput = {
     id?: string
     title: string
     description?: string | null
-    url: string
-    thumbnail: string
+    videoUrl: string
+    thumbnailUrl: string
     duration: number
     difficulty: $Enums.Difficulty
-    tags?: VideoCreatetagsInput | string[]
+    bpm?: number | null
+    caloriesPerMin?: number
+    categoryId: string
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type VideoUpdateManyMutationInput = {
+  export type DanceRoutineUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
-    thumbnail?: StringFieldUpdateOperationsInput | string
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    tags?: VideoUpdatetagsInput | string[]
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type VideoUncheckedUpdateManyInput = {
+  export type DanceRoutineUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
-    thumbnail?: StringFieldUpdateOperationsInput | string
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    tags?: VideoUpdatetagsInput | string[]
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PracticeLogCreateInput = {
     id?: string
     durationPlayed: number
-    score?: number | null
+    caloriesBurned?: number | null
     completedAt?: Date | string
     user: UserCreateNestedOneWithoutPracticeLogsInput
-    video: VideoCreateNestedOneWithoutPracticeLogsInput
+    routine: DanceRoutineCreateNestedOneWithoutLogsInput
   }
 
   export type PracticeLogUncheckedCreateInput = {
     id?: string
     userId: string
-    videoId: string
+    routineId: string
     durationPlayed: number
-    score?: number | null
+    caloriesBurned?: number | null
     completedAt?: Date | string
   }
 
   export type PracticeLogUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPracticeLogsNestedInput
-    video?: VideoUpdateOneRequiredWithoutPracticeLogsNestedInput
+    routine?: DanceRoutineUpdateOneRequiredWithoutLogsNestedInput
   }
 
   export type PracticeLogUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PracticeLogCreateManyInput = {
     id?: string
     userId: string
-    videoId: string
+    routineId: string
     durationPlayed: number
-    score?: number | null
+    caloriesBurned?: number | null
     completedAt?: Date | string
   }
 
   export type PracticeLogUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PracticeLogUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PlaylistCreateInput = {
     id?: string
     name: string
-    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutPlaylistsInput
@@ -13146,7 +14701,6 @@ export namespace Prisma {
   export type PlaylistUncheckedCreateInput = {
     id?: string
     name: string
-    description?: string | null
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13156,7 +14710,6 @@ export namespace Prisma {
   export type PlaylistUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPlaylistsNestedInput
@@ -13166,7 +14719,6 @@ export namespace Prisma {
   export type PlaylistUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13176,7 +14728,6 @@ export namespace Prisma {
   export type PlaylistCreateManyInput = {
     id?: string
     name: string
-    description?: string | null
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13185,7 +14736,6 @@ export namespace Prisma {
   export type PlaylistUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13193,7 +14743,6 @@ export namespace Prisma {
   export type PlaylistUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13203,13 +14752,13 @@ export namespace Prisma {
     id?: string
     addedAt?: Date | string
     playlist: PlaylistCreateNestedOneWithoutVideosInput
-    video: VideoCreateNestedOneWithoutPlaylistVideosInput
+    routine: DanceRoutineCreateNestedOneWithoutPlaylistsInput
   }
 
   export type PlaylistVideoUncheckedCreateInput = {
     id?: string
     playlistId: string
-    videoId: string
+    routineId: string
     addedAt?: Date | string
   }
 
@@ -13217,20 +14766,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     playlist?: PlaylistUpdateOneRequiredWithoutVideosNestedInput
-    video?: VideoUpdateOneRequiredWithoutPlaylistVideosNestedInput
+    routine?: DanceRoutineUpdateOneRequiredWithoutPlaylistsNestedInput
   }
 
   export type PlaylistVideoUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     playlistId?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PlaylistVideoCreateManyInput = {
     id?: string
     playlistId: string
-    videoId: string
+    routineId: string
     addedAt?: Date | string
   }
 
@@ -13242,7 +14791,7 @@ export namespace Prisma {
   export type PlaylistVideoUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     playlistId?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13259,78 +14808,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
-  export type PostCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    createdById?: SortOrder
-  }
-
-  export type PostMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    createdById?: SortOrder
-  }
-
-  export type PostMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    createdById?: SortOrder
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -13353,6 +14830,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type SessionListRelationFilter = {
     every?: SessionWhereInput
     some?: SessionWhereInput
@@ -13365,10 +14853,9 @@ export namespace Prisma {
     none?: AccountWhereInput
   }
 
-  export type PostListRelationFilter = {
-    every?: PostWhereInput
-    some?: PostWhereInput
-    none?: PostWhereInput
+  export type UserProfileNullableScalarRelationFilter = {
+    is?: UserProfileWhereInput | null
+    isNot?: UserProfileWhereInput | null
   }
 
   export type PracticeLogListRelationFilter = {
@@ -13393,10 +14880,6 @@ export namespace Prisma {
   }
 
   export type AccountOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type PostOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13438,6 +14921,24 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -13462,6 +14963,25 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -13608,71 +15128,72 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type EnumDifficultyFilter<$PrismaModel = never> = {
-    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
-    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
-    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
-  export type PlaylistVideoListRelationFilter = {
-    every?: PlaylistVideoWhereInput
-    some?: PlaylistVideoWhereInput
-    none?: PlaylistVideoWhereInput
-  }
-
-  export type PlaylistVideoOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type VideoCountOrderByAggregateInput = {
+  export type UserProfileCountOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    url?: SortOrder
-    thumbnail?: SortOrder
-    duration?: SortOrder
-    difficulty?: SortOrder
-    tags?: SortOrder
+    userId?: SortOrder
+    level?: SortOrder
+    currentXp?: SortOrder
+    totalCalories?: SortOrder
+    totalMinutes?: SortOrder
+    weightKg?: SortOrder
+    heightCm?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type VideoAvgOrderByAggregateInput = {
-    duration?: SortOrder
+  export type UserProfileAvgOrderByAggregateInput = {
+    level?: SortOrder
+    currentXp?: SortOrder
+    totalCalories?: SortOrder
+    totalMinutes?: SortOrder
+    weightKg?: SortOrder
+    heightCm?: SortOrder
   }
 
-  export type VideoMaxOrderByAggregateInput = {
+  export type UserProfileMaxOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    url?: SortOrder
-    thumbnail?: SortOrder
-    duration?: SortOrder
-    difficulty?: SortOrder
+    userId?: SortOrder
+    level?: SortOrder
+    currentXp?: SortOrder
+    totalCalories?: SortOrder
+    totalMinutes?: SortOrder
+    weightKg?: SortOrder
+    heightCm?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type VideoMinOrderByAggregateInput = {
+  export type UserProfileMinOrderByAggregateInput = {
     id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    url?: SortOrder
-    thumbnail?: SortOrder
-    duration?: SortOrder
-    difficulty?: SortOrder
+    userId?: SortOrder
+    level?: SortOrder
+    currentXp?: SortOrder
+    totalCalories?: SortOrder
+    totalMinutes?: SortOrder
+    weightKg?: SortOrder
+    heightCm?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type VideoSumOrderByAggregateInput = {
-    duration?: SortOrder
+  export type UserProfileSumOrderByAggregateInput = {
+    level?: SortOrder
+    currentXp?: SortOrder
+    totalCalories?: SortOrder
+    totalMinutes?: SortOrder
+    weightKg?: SortOrder
+    heightCm?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -13691,14 +15212,58 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type EnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type DanceRoutineListRelationFilter = {
+    every?: DanceRoutineWhereInput
+    some?: DanceRoutineWhereInput
+    none?: DanceRoutineWhereInput
+  }
+
+  export type DanceRoutineOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CategoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    image?: SortOrder
+  }
+
+  export type CategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    image?: SortOrder
+  }
+
+  export type CategoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    image?: SortOrder
+  }
+
+  export type EnumDifficultyFilter<$PrismaModel = never> = {
     equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
-    not?: NestedEnumDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.Difficulty
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumDifficultyFilter<$PrismaModel>
-    _max?: NestedEnumDifficultyFilter<$PrismaModel>
+    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -13712,46 +15277,86 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type VideoScalarRelationFilter = {
-    is?: VideoWhereInput
-    isNot?: VideoWhereInput
+  export type CategoryScalarRelationFilter = {
+    is?: CategoryWhereInput
+    isNot?: CategoryWhereInput
   }
 
-  export type PracticeLogCountOrderByAggregateInput = {
+  export type PlaylistVideoListRelationFilter = {
+    every?: PlaylistVideoWhereInput
+    some?: PlaylistVideoWhereInput
+    none?: PlaylistVideoWhereInput
+  }
+
+  export type PlaylistVideoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DanceRoutineCountOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    videoId?: SortOrder
-    durationPlayed?: SortOrder
-    score?: SortOrder
-    completedAt?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    videoUrl?: SortOrder
+    thumbnailUrl?: SortOrder
+    duration?: SortOrder
+    difficulty?: SortOrder
+    bpm?: SortOrder
+    caloriesPerMin?: SortOrder
+    categoryId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type PracticeLogAvgOrderByAggregateInput = {
-    durationPlayed?: SortOrder
-    score?: SortOrder
+  export type DanceRoutineAvgOrderByAggregateInput = {
+    duration?: SortOrder
+    bpm?: SortOrder
+    caloriesPerMin?: SortOrder
   }
 
-  export type PracticeLogMaxOrderByAggregateInput = {
+  export type DanceRoutineMaxOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    videoId?: SortOrder
-    durationPlayed?: SortOrder
-    score?: SortOrder
-    completedAt?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    videoUrl?: SortOrder
+    thumbnailUrl?: SortOrder
+    duration?: SortOrder
+    difficulty?: SortOrder
+    bpm?: SortOrder
+    caloriesPerMin?: SortOrder
+    categoryId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type PracticeLogMinOrderByAggregateInput = {
+  export type DanceRoutineMinOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    videoId?: SortOrder
-    durationPlayed?: SortOrder
-    score?: SortOrder
-    completedAt?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    videoUrl?: SortOrder
+    thumbnailUrl?: SortOrder
+    duration?: SortOrder
+    difficulty?: SortOrder
+    bpm?: SortOrder
+    caloriesPerMin?: SortOrder
+    categoryId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type PracticeLogSumOrderByAggregateInput = {
-    durationPlayed?: SortOrder
-    score?: SortOrder
+  export type DanceRoutineSumOrderByAggregateInput = {
+    duration?: SortOrder
+    bpm?: SortOrder
+    caloriesPerMin?: SortOrder
+  }
+
+  export type EnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
+    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
+    not?: NestedEnumDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.Difficulty
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDifficultyFilter<$PrismaModel>
+    _max?: NestedEnumDifficultyFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13770,10 +15375,51 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type DanceRoutineScalarRelationFilter = {
+    is?: DanceRoutineWhereInput
+    isNot?: DanceRoutineWhereInput
+  }
+
+  export type PracticeLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    routineId?: SortOrder
+    durationPlayed?: SortOrder
+    caloriesBurned?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type PracticeLogAvgOrderByAggregateInput = {
+    durationPlayed?: SortOrder
+    caloriesBurned?: SortOrder
+  }
+
+  export type PracticeLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    routineId?: SortOrder
+    durationPlayed?: SortOrder
+    caloriesBurned?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type PracticeLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    routineId?: SortOrder
+    durationPlayed?: SortOrder
+    caloriesBurned?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type PracticeLogSumOrderByAggregateInput = {
+    durationPlayed?: SortOrder
+    caloriesBurned?: SortOrder
+  }
+
   export type PlaylistCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13782,7 +15428,6 @@ export namespace Prisma {
   export type PlaylistMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13791,7 +15436,6 @@ export namespace Prisma {
   export type PlaylistMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13802,52 +15446,30 @@ export namespace Prisma {
     isNot?: PlaylistWhereInput
   }
 
-  export type PlaylistVideoPlaylistIdVideoIdCompoundUniqueInput = {
+  export type PlaylistVideoPlaylistIdRoutineIdCompoundUniqueInput = {
     playlistId: string
-    videoId: string
+    routineId: string
   }
 
   export type PlaylistVideoCountOrderByAggregateInput = {
     id?: SortOrder
     playlistId?: SortOrder
-    videoId?: SortOrder
+    routineId?: SortOrder
     addedAt?: SortOrder
   }
 
   export type PlaylistVideoMaxOrderByAggregateInput = {
     id?: SortOrder
     playlistId?: SortOrder
-    videoId?: SortOrder
+    routineId?: SortOrder
     addedAt?: SortOrder
   }
 
   export type PlaylistVideoMinOrderByAggregateInput = {
     id?: SortOrder
     playlistId?: SortOrder
-    videoId?: SortOrder
+    routineId?: SortOrder
     addedAt?: SortOrder
-  }
-
-  export type UserCreateNestedOneWithoutPostsInput = {
-    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
-  export type UserUpdateOneRequiredWithoutPostsNestedInput = {
-    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
-    upsert?: UserUpsertWithoutPostsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
   }
 
   export type SessionCreateNestedManyWithoutUserInput = {
@@ -13864,11 +15486,10 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
   }
 
-  export type PostCreateNestedManyWithoutCreatedByInput = {
-    create?: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput> | PostCreateWithoutCreatedByInput[] | PostUncheckedCreateWithoutCreatedByInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutCreatedByInput | PostCreateOrConnectWithoutCreatedByInput[]
-    createMany?: PostCreateManyCreatedByInputEnvelope
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  export type UserProfileCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
+    connect?: UserProfileWhereUniqueInput
   }
 
   export type PracticeLogCreateNestedManyWithoutUserInput = {
@@ -13899,11 +15520,10 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
   }
 
-  export type PostUncheckedCreateNestedManyWithoutCreatedByInput = {
-    create?: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput> | PostCreateWithoutCreatedByInput[] | PostUncheckedCreateWithoutCreatedByInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutCreatedByInput | PostCreateOrConnectWithoutCreatedByInput[]
-    createMany?: PostCreateManyCreatedByInputEnvelope
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  export type UserProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
+    connect?: UserProfileWhereUniqueInput
   }
 
   export type PracticeLogUncheckedCreateNestedManyWithoutUserInput = {
@@ -13920,12 +15540,20 @@ export namespace Prisma {
     connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
   }
 
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type SessionUpdateManyWithoutUserNestedInput = {
@@ -13956,18 +15584,14 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
-  export type PostUpdateManyWithoutCreatedByNestedInput = {
-    create?: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput> | PostCreateWithoutCreatedByInput[] | PostUncheckedCreateWithoutCreatedByInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutCreatedByInput | PostCreateOrConnectWithoutCreatedByInput[]
-    upsert?: PostUpsertWithWhereUniqueWithoutCreatedByInput | PostUpsertWithWhereUniqueWithoutCreatedByInput[]
-    createMany?: PostCreateManyCreatedByInputEnvelope
-    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    update?: PostUpdateWithWhereUniqueWithoutCreatedByInput | PostUpdateWithWhereUniqueWithoutCreatedByInput[]
-    updateMany?: PostUpdateManyWithWhereWithoutCreatedByInput | PostUpdateManyWithWhereWithoutCreatedByInput[]
-    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  export type UserProfileUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
+    upsert?: UserProfileUpsertWithoutUserInput
+    disconnect?: UserProfileWhereInput | boolean
+    delete?: UserProfileWhereInput | boolean
+    connect?: UserProfileWhereUniqueInput
+    update?: XOR<XOR<UserProfileUpdateToOneWithWhereWithoutUserInput, UserProfileUpdateWithoutUserInput>, UserProfileUncheckedUpdateWithoutUserInput>
   }
 
   export type PracticeLogUpdateManyWithoutUserNestedInput = {
@@ -14026,18 +15650,14 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
-  export type PostUncheckedUpdateManyWithoutCreatedByNestedInput = {
-    create?: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput> | PostCreateWithoutCreatedByInput[] | PostUncheckedCreateWithoutCreatedByInput[]
-    connectOrCreate?: PostCreateOrConnectWithoutCreatedByInput | PostCreateOrConnectWithoutCreatedByInput[]
-    upsert?: PostUpsertWithWhereUniqueWithoutCreatedByInput | PostUpsertWithWhereUniqueWithoutCreatedByInput[]
-    createMany?: PostCreateManyCreatedByInputEnvelope
-    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
-    update?: PostUpdateWithWhereUniqueWithoutCreatedByInput | PostUpdateWithWhereUniqueWithoutCreatedByInput[]
-    updateMany?: PostUpdateManyWithWhereWithoutCreatedByInput | PostUpdateManyWithWhereWithoutCreatedByInput[]
-    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  export type UserProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
+    upsert?: UserProfileUpsertWithoutUserInput
+    disconnect?: UserProfileWhereInput | boolean
+    delete?: UserProfileWhereInput | boolean
+    connect?: UserProfileWhereUniqueInput
+    update?: XOR<XOR<UserProfileUpdateToOneWithWhereWithoutUserInput, UserProfileUpdateWithoutUserInput>, UserProfileUncheckedUpdateWithoutUserInput>
   }
 
   export type PracticeLogUncheckedUpdateManyWithoutUserNestedInput = {
@@ -14100,36 +15720,10 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountsInput, UserUpdateWithoutAccountsInput>, UserUncheckedUpdateWithoutAccountsInput>
   }
 
-  export type VideoCreatetagsInput = {
-    set: string[]
-  }
-
-  export type PracticeLogCreateNestedManyWithoutVideoInput = {
-    create?: XOR<PracticeLogCreateWithoutVideoInput, PracticeLogUncheckedCreateWithoutVideoInput> | PracticeLogCreateWithoutVideoInput[] | PracticeLogUncheckedCreateWithoutVideoInput[]
-    connectOrCreate?: PracticeLogCreateOrConnectWithoutVideoInput | PracticeLogCreateOrConnectWithoutVideoInput[]
-    createMany?: PracticeLogCreateManyVideoInputEnvelope
-    connect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-  }
-
-  export type PlaylistVideoCreateNestedManyWithoutVideoInput = {
-    create?: XOR<PlaylistVideoCreateWithoutVideoInput, PlaylistVideoUncheckedCreateWithoutVideoInput> | PlaylistVideoCreateWithoutVideoInput[] | PlaylistVideoUncheckedCreateWithoutVideoInput[]
-    connectOrCreate?: PlaylistVideoCreateOrConnectWithoutVideoInput | PlaylistVideoCreateOrConnectWithoutVideoInput[]
-    createMany?: PlaylistVideoCreateManyVideoInputEnvelope
-    connect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
-  }
-
-  export type PracticeLogUncheckedCreateNestedManyWithoutVideoInput = {
-    create?: XOR<PracticeLogCreateWithoutVideoInput, PracticeLogUncheckedCreateWithoutVideoInput> | PracticeLogCreateWithoutVideoInput[] | PracticeLogUncheckedCreateWithoutVideoInput[]
-    connectOrCreate?: PracticeLogCreateOrConnectWithoutVideoInput | PracticeLogCreateOrConnectWithoutVideoInput[]
-    createMany?: PracticeLogCreateManyVideoInputEnvelope
-    connect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-  }
-
-  export type PlaylistVideoUncheckedCreateNestedManyWithoutVideoInput = {
-    create?: XOR<PlaylistVideoCreateWithoutVideoInput, PlaylistVideoUncheckedCreateWithoutVideoInput> | PlaylistVideoCreateWithoutVideoInput[] | PlaylistVideoUncheckedCreateWithoutVideoInput[]
-    connectOrCreate?: PlaylistVideoCreateOrConnectWithoutVideoInput | PlaylistVideoCreateOrConnectWithoutVideoInput[]
-    createMany?: PlaylistVideoCreateManyVideoInputEnvelope
-    connect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+  export type UserCreateNestedOneWithoutProfileInput = {
+    create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProfileInput
+    connect?: UserWhereUniqueInput
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -14140,81 +15734,100 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutProfileNestedInput = {
+    create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProfileInput
+    upsert?: UserUpsertWithoutProfileInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type DanceRoutineCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<DanceRoutineCreateWithoutCategoryInput, DanceRoutineUncheckedCreateWithoutCategoryInput> | DanceRoutineCreateWithoutCategoryInput[] | DanceRoutineUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: DanceRoutineCreateOrConnectWithoutCategoryInput | DanceRoutineCreateOrConnectWithoutCategoryInput[]
+    createMany?: DanceRoutineCreateManyCategoryInputEnvelope
+    connect?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+  }
+
+  export type DanceRoutineUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<DanceRoutineCreateWithoutCategoryInput, DanceRoutineUncheckedCreateWithoutCategoryInput> | DanceRoutineCreateWithoutCategoryInput[] | DanceRoutineUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: DanceRoutineCreateOrConnectWithoutCategoryInput | DanceRoutineCreateOrConnectWithoutCategoryInput[]
+    createMany?: DanceRoutineCreateManyCategoryInputEnvelope
+    connect?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+  }
+
+  export type DanceRoutineUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<DanceRoutineCreateWithoutCategoryInput, DanceRoutineUncheckedCreateWithoutCategoryInput> | DanceRoutineCreateWithoutCategoryInput[] | DanceRoutineUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: DanceRoutineCreateOrConnectWithoutCategoryInput | DanceRoutineCreateOrConnectWithoutCategoryInput[]
+    upsert?: DanceRoutineUpsertWithWhereUniqueWithoutCategoryInput | DanceRoutineUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: DanceRoutineCreateManyCategoryInputEnvelope
+    set?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+    disconnect?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+    delete?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+    connect?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+    update?: DanceRoutineUpdateWithWhereUniqueWithoutCategoryInput | DanceRoutineUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: DanceRoutineUpdateManyWithWhereWithoutCategoryInput | DanceRoutineUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: DanceRoutineScalarWhereInput | DanceRoutineScalarWhereInput[]
+  }
+
+  export type DanceRoutineUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<DanceRoutineCreateWithoutCategoryInput, DanceRoutineUncheckedCreateWithoutCategoryInput> | DanceRoutineCreateWithoutCategoryInput[] | DanceRoutineUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: DanceRoutineCreateOrConnectWithoutCategoryInput | DanceRoutineCreateOrConnectWithoutCategoryInput[]
+    upsert?: DanceRoutineUpsertWithWhereUniqueWithoutCategoryInput | DanceRoutineUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: DanceRoutineCreateManyCategoryInputEnvelope
+    set?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+    disconnect?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+    delete?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+    connect?: DanceRoutineWhereUniqueInput | DanceRoutineWhereUniqueInput[]
+    update?: DanceRoutineUpdateWithWhereUniqueWithoutCategoryInput | DanceRoutineUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: DanceRoutineUpdateManyWithWhereWithoutCategoryInput | DanceRoutineUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: DanceRoutineScalarWhereInput | DanceRoutineScalarWhereInput[]
+  }
+
+  export type CategoryCreateNestedOneWithoutRoutinesInput = {
+    create?: XOR<CategoryCreateWithoutRoutinesInput, CategoryUncheckedCreateWithoutRoutinesInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutRoutinesInput
+    connect?: CategoryWhereUniqueInput
+  }
+
+  export type PracticeLogCreateNestedManyWithoutRoutineInput = {
+    create?: XOR<PracticeLogCreateWithoutRoutineInput, PracticeLogUncheckedCreateWithoutRoutineInput> | PracticeLogCreateWithoutRoutineInput[] | PracticeLogUncheckedCreateWithoutRoutineInput[]
+    connectOrCreate?: PracticeLogCreateOrConnectWithoutRoutineInput | PracticeLogCreateOrConnectWithoutRoutineInput[]
+    createMany?: PracticeLogCreateManyRoutineInputEnvelope
+    connect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+  }
+
+  export type PlaylistVideoCreateNestedManyWithoutRoutineInput = {
+    create?: XOR<PlaylistVideoCreateWithoutRoutineInput, PlaylistVideoUncheckedCreateWithoutRoutineInput> | PlaylistVideoCreateWithoutRoutineInput[] | PlaylistVideoUncheckedCreateWithoutRoutineInput[]
+    connectOrCreate?: PlaylistVideoCreateOrConnectWithoutRoutineInput | PlaylistVideoCreateOrConnectWithoutRoutineInput[]
+    createMany?: PlaylistVideoCreateManyRoutineInputEnvelope
+    connect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+  }
+
+  export type PracticeLogUncheckedCreateNestedManyWithoutRoutineInput = {
+    create?: XOR<PracticeLogCreateWithoutRoutineInput, PracticeLogUncheckedCreateWithoutRoutineInput> | PracticeLogCreateWithoutRoutineInput[] | PracticeLogUncheckedCreateWithoutRoutineInput[]
+    connectOrCreate?: PracticeLogCreateOrConnectWithoutRoutineInput | PracticeLogCreateOrConnectWithoutRoutineInput[]
+    createMany?: PracticeLogCreateManyRoutineInputEnvelope
+    connect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+  }
+
+  export type PlaylistVideoUncheckedCreateNestedManyWithoutRoutineInput = {
+    create?: XOR<PlaylistVideoCreateWithoutRoutineInput, PlaylistVideoUncheckedCreateWithoutRoutineInput> | PlaylistVideoCreateWithoutRoutineInput[] | PlaylistVideoUncheckedCreateWithoutRoutineInput[]
+    connectOrCreate?: PlaylistVideoCreateOrConnectWithoutRoutineInput | PlaylistVideoCreateOrConnectWithoutRoutineInput[]
+    createMany?: PlaylistVideoCreateManyRoutineInputEnvelope
+    connect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+  }
+
   export type EnumDifficultyFieldUpdateOperationsInput = {
     set?: $Enums.Difficulty
-  }
-
-  export type VideoUpdatetagsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type PracticeLogUpdateManyWithoutVideoNestedInput = {
-    create?: XOR<PracticeLogCreateWithoutVideoInput, PracticeLogUncheckedCreateWithoutVideoInput> | PracticeLogCreateWithoutVideoInput[] | PracticeLogUncheckedCreateWithoutVideoInput[]
-    connectOrCreate?: PracticeLogCreateOrConnectWithoutVideoInput | PracticeLogCreateOrConnectWithoutVideoInput[]
-    upsert?: PracticeLogUpsertWithWhereUniqueWithoutVideoInput | PracticeLogUpsertWithWhereUniqueWithoutVideoInput[]
-    createMany?: PracticeLogCreateManyVideoInputEnvelope
-    set?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-    disconnect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-    delete?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-    connect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-    update?: PracticeLogUpdateWithWhereUniqueWithoutVideoInput | PracticeLogUpdateWithWhereUniqueWithoutVideoInput[]
-    updateMany?: PracticeLogUpdateManyWithWhereWithoutVideoInput | PracticeLogUpdateManyWithWhereWithoutVideoInput[]
-    deleteMany?: PracticeLogScalarWhereInput | PracticeLogScalarWhereInput[]
-  }
-
-  export type PlaylistVideoUpdateManyWithoutVideoNestedInput = {
-    create?: XOR<PlaylistVideoCreateWithoutVideoInput, PlaylistVideoUncheckedCreateWithoutVideoInput> | PlaylistVideoCreateWithoutVideoInput[] | PlaylistVideoUncheckedCreateWithoutVideoInput[]
-    connectOrCreate?: PlaylistVideoCreateOrConnectWithoutVideoInput | PlaylistVideoCreateOrConnectWithoutVideoInput[]
-    upsert?: PlaylistVideoUpsertWithWhereUniqueWithoutVideoInput | PlaylistVideoUpsertWithWhereUniqueWithoutVideoInput[]
-    createMany?: PlaylistVideoCreateManyVideoInputEnvelope
-    set?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
-    disconnect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
-    delete?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
-    connect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
-    update?: PlaylistVideoUpdateWithWhereUniqueWithoutVideoInput | PlaylistVideoUpdateWithWhereUniqueWithoutVideoInput[]
-    updateMany?: PlaylistVideoUpdateManyWithWhereWithoutVideoInput | PlaylistVideoUpdateManyWithWhereWithoutVideoInput[]
-    deleteMany?: PlaylistVideoScalarWhereInput | PlaylistVideoScalarWhereInput[]
-  }
-
-  export type PracticeLogUncheckedUpdateManyWithoutVideoNestedInput = {
-    create?: XOR<PracticeLogCreateWithoutVideoInput, PracticeLogUncheckedCreateWithoutVideoInput> | PracticeLogCreateWithoutVideoInput[] | PracticeLogUncheckedCreateWithoutVideoInput[]
-    connectOrCreate?: PracticeLogCreateOrConnectWithoutVideoInput | PracticeLogCreateOrConnectWithoutVideoInput[]
-    upsert?: PracticeLogUpsertWithWhereUniqueWithoutVideoInput | PracticeLogUpsertWithWhereUniqueWithoutVideoInput[]
-    createMany?: PracticeLogCreateManyVideoInputEnvelope
-    set?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-    disconnect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-    delete?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-    connect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
-    update?: PracticeLogUpdateWithWhereUniqueWithoutVideoInput | PracticeLogUpdateWithWhereUniqueWithoutVideoInput[]
-    updateMany?: PracticeLogUpdateManyWithWhereWithoutVideoInput | PracticeLogUpdateManyWithWhereWithoutVideoInput[]
-    deleteMany?: PracticeLogScalarWhereInput | PracticeLogScalarWhereInput[]
-  }
-
-  export type PlaylistVideoUncheckedUpdateManyWithoutVideoNestedInput = {
-    create?: XOR<PlaylistVideoCreateWithoutVideoInput, PlaylistVideoUncheckedCreateWithoutVideoInput> | PlaylistVideoCreateWithoutVideoInput[] | PlaylistVideoUncheckedCreateWithoutVideoInput[]
-    connectOrCreate?: PlaylistVideoCreateOrConnectWithoutVideoInput | PlaylistVideoCreateOrConnectWithoutVideoInput[]
-    upsert?: PlaylistVideoUpsertWithWhereUniqueWithoutVideoInput | PlaylistVideoUpsertWithWhereUniqueWithoutVideoInput[]
-    createMany?: PlaylistVideoCreateManyVideoInputEnvelope
-    set?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
-    disconnect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
-    delete?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
-    connect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
-    update?: PlaylistVideoUpdateWithWhereUniqueWithoutVideoInput | PlaylistVideoUpdateWithWhereUniqueWithoutVideoInput[]
-    updateMany?: PlaylistVideoUpdateManyWithWhereWithoutVideoInput | PlaylistVideoUpdateManyWithWhereWithoutVideoInput[]
-    deleteMany?: PlaylistVideoScalarWhereInput | PlaylistVideoScalarWhereInput[]
-  }
-
-  export type UserCreateNestedOneWithoutPracticeLogsInput = {
-    create?: XOR<UserCreateWithoutPracticeLogsInput, UserUncheckedCreateWithoutPracticeLogsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPracticeLogsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type VideoCreateNestedOneWithoutPracticeLogsInput = {
-    create?: XOR<VideoCreateWithoutPracticeLogsInput, VideoUncheckedCreateWithoutPracticeLogsInput>
-    connectOrCreate?: VideoCreateOrConnectWithoutPracticeLogsInput
-    connect?: VideoWhereUniqueInput
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -14225,6 +15838,82 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type CategoryUpdateOneRequiredWithoutRoutinesNestedInput = {
+    create?: XOR<CategoryCreateWithoutRoutinesInput, CategoryUncheckedCreateWithoutRoutinesInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutRoutinesInput
+    upsert?: CategoryUpsertWithoutRoutinesInput
+    connect?: CategoryWhereUniqueInput
+    update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutRoutinesInput, CategoryUpdateWithoutRoutinesInput>, CategoryUncheckedUpdateWithoutRoutinesInput>
+  }
+
+  export type PracticeLogUpdateManyWithoutRoutineNestedInput = {
+    create?: XOR<PracticeLogCreateWithoutRoutineInput, PracticeLogUncheckedCreateWithoutRoutineInput> | PracticeLogCreateWithoutRoutineInput[] | PracticeLogUncheckedCreateWithoutRoutineInput[]
+    connectOrCreate?: PracticeLogCreateOrConnectWithoutRoutineInput | PracticeLogCreateOrConnectWithoutRoutineInput[]
+    upsert?: PracticeLogUpsertWithWhereUniqueWithoutRoutineInput | PracticeLogUpsertWithWhereUniqueWithoutRoutineInput[]
+    createMany?: PracticeLogCreateManyRoutineInputEnvelope
+    set?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+    disconnect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+    delete?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+    connect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+    update?: PracticeLogUpdateWithWhereUniqueWithoutRoutineInput | PracticeLogUpdateWithWhereUniqueWithoutRoutineInput[]
+    updateMany?: PracticeLogUpdateManyWithWhereWithoutRoutineInput | PracticeLogUpdateManyWithWhereWithoutRoutineInput[]
+    deleteMany?: PracticeLogScalarWhereInput | PracticeLogScalarWhereInput[]
+  }
+
+  export type PlaylistVideoUpdateManyWithoutRoutineNestedInput = {
+    create?: XOR<PlaylistVideoCreateWithoutRoutineInput, PlaylistVideoUncheckedCreateWithoutRoutineInput> | PlaylistVideoCreateWithoutRoutineInput[] | PlaylistVideoUncheckedCreateWithoutRoutineInput[]
+    connectOrCreate?: PlaylistVideoCreateOrConnectWithoutRoutineInput | PlaylistVideoCreateOrConnectWithoutRoutineInput[]
+    upsert?: PlaylistVideoUpsertWithWhereUniqueWithoutRoutineInput | PlaylistVideoUpsertWithWhereUniqueWithoutRoutineInput[]
+    createMany?: PlaylistVideoCreateManyRoutineInputEnvelope
+    set?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+    disconnect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+    delete?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+    connect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+    update?: PlaylistVideoUpdateWithWhereUniqueWithoutRoutineInput | PlaylistVideoUpdateWithWhereUniqueWithoutRoutineInput[]
+    updateMany?: PlaylistVideoUpdateManyWithWhereWithoutRoutineInput | PlaylistVideoUpdateManyWithWhereWithoutRoutineInput[]
+    deleteMany?: PlaylistVideoScalarWhereInput | PlaylistVideoScalarWhereInput[]
+  }
+
+  export type PracticeLogUncheckedUpdateManyWithoutRoutineNestedInput = {
+    create?: XOR<PracticeLogCreateWithoutRoutineInput, PracticeLogUncheckedCreateWithoutRoutineInput> | PracticeLogCreateWithoutRoutineInput[] | PracticeLogUncheckedCreateWithoutRoutineInput[]
+    connectOrCreate?: PracticeLogCreateOrConnectWithoutRoutineInput | PracticeLogCreateOrConnectWithoutRoutineInput[]
+    upsert?: PracticeLogUpsertWithWhereUniqueWithoutRoutineInput | PracticeLogUpsertWithWhereUniqueWithoutRoutineInput[]
+    createMany?: PracticeLogCreateManyRoutineInputEnvelope
+    set?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+    disconnect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+    delete?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+    connect?: PracticeLogWhereUniqueInput | PracticeLogWhereUniqueInput[]
+    update?: PracticeLogUpdateWithWhereUniqueWithoutRoutineInput | PracticeLogUpdateWithWhereUniqueWithoutRoutineInput[]
+    updateMany?: PracticeLogUpdateManyWithWhereWithoutRoutineInput | PracticeLogUpdateManyWithWhereWithoutRoutineInput[]
+    deleteMany?: PracticeLogScalarWhereInput | PracticeLogScalarWhereInput[]
+  }
+
+  export type PlaylistVideoUncheckedUpdateManyWithoutRoutineNestedInput = {
+    create?: XOR<PlaylistVideoCreateWithoutRoutineInput, PlaylistVideoUncheckedCreateWithoutRoutineInput> | PlaylistVideoCreateWithoutRoutineInput[] | PlaylistVideoUncheckedCreateWithoutRoutineInput[]
+    connectOrCreate?: PlaylistVideoCreateOrConnectWithoutRoutineInput | PlaylistVideoCreateOrConnectWithoutRoutineInput[]
+    upsert?: PlaylistVideoUpsertWithWhereUniqueWithoutRoutineInput | PlaylistVideoUpsertWithWhereUniqueWithoutRoutineInput[]
+    createMany?: PlaylistVideoCreateManyRoutineInputEnvelope
+    set?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+    disconnect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+    delete?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+    connect?: PlaylistVideoWhereUniqueInput | PlaylistVideoWhereUniqueInput[]
+    update?: PlaylistVideoUpdateWithWhereUniqueWithoutRoutineInput | PlaylistVideoUpdateWithWhereUniqueWithoutRoutineInput[]
+    updateMany?: PlaylistVideoUpdateManyWithWhereWithoutRoutineInput | PlaylistVideoUpdateManyWithWhereWithoutRoutineInput[]
+    deleteMany?: PlaylistVideoScalarWhereInput | PlaylistVideoScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutPracticeLogsInput = {
+    create?: XOR<UserCreateWithoutPracticeLogsInput, UserUncheckedCreateWithoutPracticeLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPracticeLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DanceRoutineCreateNestedOneWithoutLogsInput = {
+    create?: XOR<DanceRoutineCreateWithoutLogsInput, DanceRoutineUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: DanceRoutineCreateOrConnectWithoutLogsInput
+    connect?: DanceRoutineWhereUniqueInput
+  }
+
   export type UserUpdateOneRequiredWithoutPracticeLogsNestedInput = {
     create?: XOR<UserCreateWithoutPracticeLogsInput, UserUncheckedCreateWithoutPracticeLogsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPracticeLogsInput
@@ -14233,12 +15922,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPracticeLogsInput, UserUpdateWithoutPracticeLogsInput>, UserUncheckedUpdateWithoutPracticeLogsInput>
   }
 
-  export type VideoUpdateOneRequiredWithoutPracticeLogsNestedInput = {
-    create?: XOR<VideoCreateWithoutPracticeLogsInput, VideoUncheckedCreateWithoutPracticeLogsInput>
-    connectOrCreate?: VideoCreateOrConnectWithoutPracticeLogsInput
-    upsert?: VideoUpsertWithoutPracticeLogsInput
-    connect?: VideoWhereUniqueInput
-    update?: XOR<XOR<VideoUpdateToOneWithWhereWithoutPracticeLogsInput, VideoUpdateWithoutPracticeLogsInput>, VideoUncheckedUpdateWithoutPracticeLogsInput>
+  export type DanceRoutineUpdateOneRequiredWithoutLogsNestedInput = {
+    create?: XOR<DanceRoutineCreateWithoutLogsInput, DanceRoutineUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: DanceRoutineCreateOrConnectWithoutLogsInput
+    upsert?: DanceRoutineUpsertWithoutLogsInput
+    connect?: DanceRoutineWhereUniqueInput
+    update?: XOR<XOR<DanceRoutineUpdateToOneWithWhereWithoutLogsInput, DanceRoutineUpdateWithoutLogsInput>, DanceRoutineUncheckedUpdateWithoutLogsInput>
   }
 
   export type UserCreateNestedOneWithoutPlaylistsInput = {
@@ -14303,10 +15992,10 @@ export namespace Prisma {
     connect?: PlaylistWhereUniqueInput
   }
 
-  export type VideoCreateNestedOneWithoutPlaylistVideosInput = {
-    create?: XOR<VideoCreateWithoutPlaylistVideosInput, VideoUncheckedCreateWithoutPlaylistVideosInput>
-    connectOrCreate?: VideoCreateOrConnectWithoutPlaylistVideosInput
-    connect?: VideoWhereUniqueInput
+  export type DanceRoutineCreateNestedOneWithoutPlaylistsInput = {
+    create?: XOR<DanceRoutineCreateWithoutPlaylistsInput, DanceRoutineUncheckedCreateWithoutPlaylistsInput>
+    connectOrCreate?: DanceRoutineCreateOrConnectWithoutPlaylistsInput
+    connect?: DanceRoutineWhereUniqueInput
   }
 
   export type PlaylistUpdateOneRequiredWithoutVideosNestedInput = {
@@ -14317,12 +16006,12 @@ export namespace Prisma {
     update?: XOR<XOR<PlaylistUpdateToOneWithWhereWithoutVideosInput, PlaylistUpdateWithoutVideosInput>, PlaylistUncheckedUpdateWithoutVideosInput>
   }
 
-  export type VideoUpdateOneRequiredWithoutPlaylistVideosNestedInput = {
-    create?: XOR<VideoCreateWithoutPlaylistVideosInput, VideoUncheckedCreateWithoutPlaylistVideosInput>
-    connectOrCreate?: VideoCreateOrConnectWithoutPlaylistVideosInput
-    upsert?: VideoUpsertWithoutPlaylistVideosInput
-    connect?: VideoWhereUniqueInput
-    update?: XOR<XOR<VideoUpdateToOneWithWhereWithoutPlaylistVideosInput, VideoUpdateWithoutPlaylistVideosInput>, VideoUncheckedUpdateWithoutPlaylistVideosInput>
+  export type DanceRoutineUpdateOneRequiredWithoutPlaylistsNestedInput = {
+    create?: XOR<DanceRoutineCreateWithoutPlaylistsInput, DanceRoutineUncheckedCreateWithoutPlaylistsInput>
+    connectOrCreate?: DanceRoutineCreateOrConnectWithoutPlaylistsInput
+    upsert?: DanceRoutineUpsertWithoutPlaylistsInput
+    connect?: DanceRoutineWhereUniqueInput
+    update?: XOR<XOR<DanceRoutineUpdateToOneWithWhereWithoutPlaylistsInput, DanceRoutineUpdateWithoutPlaylistsInput>, DanceRoutineUncheckedUpdateWithoutPlaylistsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -14337,6 +16026,25 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -14378,39 +16086,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -14447,6 +16122,20 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -14472,11 +16161,15 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
-    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
-    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
-    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -14506,6 +16199,29 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
+    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
+    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
+    not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
+  }
+
   export type NestedEnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
@@ -14530,89 +16246,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type UserCreateWithoutPostsInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    accounts?: AccountCreateNestedManyWithoutUserInput
-    practiceLogs?: PracticeLogCreateNestedManyWithoutUserInput
-    playlists?: PlaylistCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutPostsInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    practiceLogs?: PracticeLogUncheckedCreateNestedManyWithoutUserInput
-    playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutPostsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
-  }
-
-  export type UserUpsertWithoutPostsInput = {
-    update: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
-    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutPostsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
-  }
-
-  export type UserUpdateWithoutPostsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    accounts?: AccountUpdateManyWithoutUserNestedInput
-    practiceLogs?: PracticeLogUpdateManyWithoutUserNestedInput
-    playlists?: PlaylistUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutPostsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    practiceLogs?: PracticeLogUncheckedUpdateManyWithoutUserNestedInput
-    playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SessionCreateWithoutUserInput = {
@@ -14685,43 +16318,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PostCreateWithoutCreatedByInput = {
+  export type UserProfileCreateWithoutUserInput = {
     id?: string
-    name: string
+    level?: number
+    currentXp?: number
+    totalCalories?: number
+    totalMinutes?: number
+    weightKg?: number | null
+    heightCm?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type PostUncheckedCreateWithoutCreatedByInput = {
+  export type UserProfileUncheckedCreateWithoutUserInput = {
     id?: string
-    name: string
+    level?: number
+    currentXp?: number
+    totalCalories?: number
+    totalMinutes?: number
+    weightKg?: number | null
+    heightCm?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type PostCreateOrConnectWithoutCreatedByInput = {
-    where: PostWhereUniqueInput
-    create: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput>
-  }
-
-  export type PostCreateManyCreatedByInputEnvelope = {
-    data: PostCreateManyCreatedByInput | PostCreateManyCreatedByInput[]
-    skipDuplicates?: boolean
+  export type UserProfileCreateOrConnectWithoutUserInput = {
+    where: UserProfileWhereUniqueInput
+    create: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
   }
 
   export type PracticeLogCreateWithoutUserInput = {
     id?: string
     durationPlayed: number
-    score?: number | null
+    caloriesBurned?: number | null
     completedAt?: Date | string
-    video: VideoCreateNestedOneWithoutPracticeLogsInput
+    routine: DanceRoutineCreateNestedOneWithoutLogsInput
   }
 
   export type PracticeLogUncheckedCreateWithoutUserInput = {
     id?: string
-    videoId: string
+    routineId: string
     durationPlayed: number
-    score?: number | null
+    caloriesBurned?: number | null
     completedAt?: Date | string
   }
 
@@ -14738,7 +16376,6 @@ export namespace Prisma {
   export type PlaylistCreateWithoutUserInput = {
     id?: string
     name: string
-    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: PlaylistVideoCreateNestedManyWithoutPlaylistInput
@@ -14747,7 +16384,6 @@ export namespace Prisma {
   export type PlaylistUncheckedCreateWithoutUserInput = {
     id?: string
     name: string
-    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: PlaylistVideoUncheckedCreateNestedManyWithoutPlaylistInput
@@ -14828,31 +16464,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Account"> | Date | string
   }
 
-  export type PostUpsertWithWhereUniqueWithoutCreatedByInput = {
-    where: PostWhereUniqueInput
-    update: XOR<PostUpdateWithoutCreatedByInput, PostUncheckedUpdateWithoutCreatedByInput>
-    create: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput>
+  export type UserProfileUpsertWithoutUserInput = {
+    update: XOR<UserProfileUpdateWithoutUserInput, UserProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    where?: UserProfileWhereInput
   }
 
-  export type PostUpdateWithWhereUniqueWithoutCreatedByInput = {
-    where: PostWhereUniqueInput
-    data: XOR<PostUpdateWithoutCreatedByInput, PostUncheckedUpdateWithoutCreatedByInput>
+  export type UserProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserProfileWhereInput
+    data: XOR<UserProfileUpdateWithoutUserInput, UserProfileUncheckedUpdateWithoutUserInput>
   }
 
-  export type PostUpdateManyWithWhereWithoutCreatedByInput = {
-    where: PostScalarWhereInput
-    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutCreatedByInput>
+  export type UserProfileUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    currentXp?: IntFieldUpdateOperationsInput | number
+    totalCalories?: IntFieldUpdateOperationsInput | number
+    totalMinutes?: IntFieldUpdateOperationsInput | number
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    heightCm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PostScalarWhereInput = {
-    AND?: PostScalarWhereInput | PostScalarWhereInput[]
-    OR?: PostScalarWhereInput[]
-    NOT?: PostScalarWhereInput | PostScalarWhereInput[]
-    id?: StringFilter<"Post"> | string
-    name?: StringFilter<"Post"> | string
-    createdAt?: DateTimeFilter<"Post"> | Date | string
-    updatedAt?: DateTimeFilter<"Post"> | Date | string
-    createdById?: StringFilter<"Post"> | string
+  export type UserProfileUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    currentXp?: IntFieldUpdateOperationsInput | number
+    totalCalories?: IntFieldUpdateOperationsInput | number
+    totalMinutes?: IntFieldUpdateOperationsInput | number
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    heightCm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PracticeLogUpsertWithWhereUniqueWithoutUserInput = {
@@ -14877,9 +16521,9 @@ export namespace Prisma {
     NOT?: PracticeLogScalarWhereInput | PracticeLogScalarWhereInput[]
     id?: StringFilter<"PracticeLog"> | string
     userId?: StringFilter<"PracticeLog"> | string
-    videoId?: StringFilter<"PracticeLog"> | string
+    routineId?: StringFilter<"PracticeLog"> | string
     durationPlayed?: IntFilter<"PracticeLog"> | number
-    score?: IntNullableFilter<"PracticeLog"> | number | null
+    caloriesBurned?: IntNullableFilter<"PracticeLog"> | number | null
     completedAt?: DateTimeFilter<"PracticeLog"> | Date | string
   }
 
@@ -14905,7 +16549,6 @@ export namespace Prisma {
     NOT?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
     id?: StringFilter<"Playlist"> | string
     name?: StringFilter<"Playlist"> | string
-    description?: StringNullableFilter<"Playlist"> | string | null
     userId?: StringFilter<"Playlist"> | string
     createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
@@ -14920,7 +16563,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
-    posts?: PostCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     practiceLogs?: PracticeLogCreateNestedManyWithoutUserInput
     playlists?: PlaylistCreateNestedManyWithoutUserInput
   }
@@ -14934,7 +16577,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     practiceLogs?: PracticeLogUncheckedCreateNestedManyWithoutUserInput
     playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
   }
@@ -14964,7 +16607,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     practiceLogs?: PracticeLogUpdateManyWithoutUserNestedInput
     playlists?: PlaylistUpdateManyWithoutUserNestedInput
   }
@@ -14978,7 +16621,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     practiceLogs?: PracticeLogUncheckedUpdateManyWithoutUserNestedInput
     playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -14992,7 +16635,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
-    posts?: PostCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     practiceLogs?: PracticeLogCreateNestedManyWithoutUserInput
     playlists?: PlaylistCreateNestedManyWithoutUserInput
   }
@@ -15006,7 +16649,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     practiceLogs?: PracticeLogUncheckedCreateNestedManyWithoutUserInput
     playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
   }
@@ -15036,7 +16679,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     practiceLogs?: PracticeLogUpdateManyWithoutUserNestedInput
     playlists?: PlaylistUpdateManyWithoutUserNestedInput
   }
@@ -15050,89 +16693,281 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     practiceLogs?: PracticeLogUncheckedUpdateManyWithoutUserNestedInput
     playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type PracticeLogCreateWithoutVideoInput = {
+  export type UserCreateWithoutProfileInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    practiceLogs?: PracticeLogCreateNestedManyWithoutUserInput
+    playlists?: PlaylistCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutProfileInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    practiceLogs?: PracticeLogUncheckedCreateNestedManyWithoutUserInput
+    playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutProfileInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+  }
+
+  export type UserUpsertWithoutProfileInput = {
+    update: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
+    create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutProfileInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type UserUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    practiceLogs?: PracticeLogUpdateManyWithoutUserNestedInput
+    playlists?: PlaylistUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    practiceLogs?: PracticeLogUncheckedUpdateManyWithoutUserNestedInput
+    playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type DanceRoutineCreateWithoutCategoryInput = {
+    id?: string
+    title: string
+    description?: string | null
+    videoUrl: string
+    thumbnailUrl: string
+    duration: number
+    difficulty: $Enums.Difficulty
+    bpm?: number | null
+    caloriesPerMin?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: PracticeLogCreateNestedManyWithoutRoutineInput
+    playlists?: PlaylistVideoCreateNestedManyWithoutRoutineInput
+  }
+
+  export type DanceRoutineUncheckedCreateWithoutCategoryInput = {
+    id?: string
+    title: string
+    description?: string | null
+    videoUrl: string
+    thumbnailUrl: string
+    duration: number
+    difficulty: $Enums.Difficulty
+    bpm?: number | null
+    caloriesPerMin?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: PracticeLogUncheckedCreateNestedManyWithoutRoutineInput
+    playlists?: PlaylistVideoUncheckedCreateNestedManyWithoutRoutineInput
+  }
+
+  export type DanceRoutineCreateOrConnectWithoutCategoryInput = {
+    where: DanceRoutineWhereUniqueInput
+    create: XOR<DanceRoutineCreateWithoutCategoryInput, DanceRoutineUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type DanceRoutineCreateManyCategoryInputEnvelope = {
+    data: DanceRoutineCreateManyCategoryInput | DanceRoutineCreateManyCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DanceRoutineUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: DanceRoutineWhereUniqueInput
+    update: XOR<DanceRoutineUpdateWithoutCategoryInput, DanceRoutineUncheckedUpdateWithoutCategoryInput>
+    create: XOR<DanceRoutineCreateWithoutCategoryInput, DanceRoutineUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type DanceRoutineUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: DanceRoutineWhereUniqueInput
+    data: XOR<DanceRoutineUpdateWithoutCategoryInput, DanceRoutineUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type DanceRoutineUpdateManyWithWhereWithoutCategoryInput = {
+    where: DanceRoutineScalarWhereInput
+    data: XOR<DanceRoutineUpdateManyMutationInput, DanceRoutineUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type DanceRoutineScalarWhereInput = {
+    AND?: DanceRoutineScalarWhereInput | DanceRoutineScalarWhereInput[]
+    OR?: DanceRoutineScalarWhereInput[]
+    NOT?: DanceRoutineScalarWhereInput | DanceRoutineScalarWhereInput[]
+    id?: StringFilter<"DanceRoutine"> | string
+    title?: StringFilter<"DanceRoutine"> | string
+    description?: StringNullableFilter<"DanceRoutine"> | string | null
+    videoUrl?: StringFilter<"DanceRoutine"> | string
+    thumbnailUrl?: StringFilter<"DanceRoutine"> | string
+    duration?: IntFilter<"DanceRoutine"> | number
+    difficulty?: EnumDifficultyFilter<"DanceRoutine"> | $Enums.Difficulty
+    bpm?: IntNullableFilter<"DanceRoutine"> | number | null
+    caloriesPerMin?: IntFilter<"DanceRoutine"> | number
+    categoryId?: StringFilter<"DanceRoutine"> | string
+    createdAt?: DateTimeFilter<"DanceRoutine"> | Date | string
+    updatedAt?: DateTimeFilter<"DanceRoutine"> | Date | string
+  }
+
+  export type CategoryCreateWithoutRoutinesInput = {
+    id?: string
+    name: string
+    slug: string
+    image?: string | null
+  }
+
+  export type CategoryUncheckedCreateWithoutRoutinesInput = {
+    id?: string
+    name: string
+    slug: string
+    image?: string | null
+  }
+
+  export type CategoryCreateOrConnectWithoutRoutinesInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutRoutinesInput, CategoryUncheckedCreateWithoutRoutinesInput>
+  }
+
+  export type PracticeLogCreateWithoutRoutineInput = {
     id?: string
     durationPlayed: number
-    score?: number | null
+    caloriesBurned?: number | null
     completedAt?: Date | string
     user: UserCreateNestedOneWithoutPracticeLogsInput
   }
 
-  export type PracticeLogUncheckedCreateWithoutVideoInput = {
+  export type PracticeLogUncheckedCreateWithoutRoutineInput = {
     id?: string
     userId: string
     durationPlayed: number
-    score?: number | null
+    caloriesBurned?: number | null
     completedAt?: Date | string
   }
 
-  export type PracticeLogCreateOrConnectWithoutVideoInput = {
+  export type PracticeLogCreateOrConnectWithoutRoutineInput = {
     where: PracticeLogWhereUniqueInput
-    create: XOR<PracticeLogCreateWithoutVideoInput, PracticeLogUncheckedCreateWithoutVideoInput>
+    create: XOR<PracticeLogCreateWithoutRoutineInput, PracticeLogUncheckedCreateWithoutRoutineInput>
   }
 
-  export type PracticeLogCreateManyVideoInputEnvelope = {
-    data: PracticeLogCreateManyVideoInput | PracticeLogCreateManyVideoInput[]
+  export type PracticeLogCreateManyRoutineInputEnvelope = {
+    data: PracticeLogCreateManyRoutineInput | PracticeLogCreateManyRoutineInput[]
     skipDuplicates?: boolean
   }
 
-  export type PlaylistVideoCreateWithoutVideoInput = {
+  export type PlaylistVideoCreateWithoutRoutineInput = {
     id?: string
     addedAt?: Date | string
     playlist: PlaylistCreateNestedOneWithoutVideosInput
   }
 
-  export type PlaylistVideoUncheckedCreateWithoutVideoInput = {
+  export type PlaylistVideoUncheckedCreateWithoutRoutineInput = {
     id?: string
     playlistId: string
     addedAt?: Date | string
   }
 
-  export type PlaylistVideoCreateOrConnectWithoutVideoInput = {
+  export type PlaylistVideoCreateOrConnectWithoutRoutineInput = {
     where: PlaylistVideoWhereUniqueInput
-    create: XOR<PlaylistVideoCreateWithoutVideoInput, PlaylistVideoUncheckedCreateWithoutVideoInput>
+    create: XOR<PlaylistVideoCreateWithoutRoutineInput, PlaylistVideoUncheckedCreateWithoutRoutineInput>
   }
 
-  export type PlaylistVideoCreateManyVideoInputEnvelope = {
-    data: PlaylistVideoCreateManyVideoInput | PlaylistVideoCreateManyVideoInput[]
+  export type PlaylistVideoCreateManyRoutineInputEnvelope = {
+    data: PlaylistVideoCreateManyRoutineInput | PlaylistVideoCreateManyRoutineInput[]
     skipDuplicates?: boolean
   }
 
-  export type PracticeLogUpsertWithWhereUniqueWithoutVideoInput = {
-    where: PracticeLogWhereUniqueInput
-    update: XOR<PracticeLogUpdateWithoutVideoInput, PracticeLogUncheckedUpdateWithoutVideoInput>
-    create: XOR<PracticeLogCreateWithoutVideoInput, PracticeLogUncheckedCreateWithoutVideoInput>
+  export type CategoryUpsertWithoutRoutinesInput = {
+    update: XOR<CategoryUpdateWithoutRoutinesInput, CategoryUncheckedUpdateWithoutRoutinesInput>
+    create: XOR<CategoryCreateWithoutRoutinesInput, CategoryUncheckedCreateWithoutRoutinesInput>
+    where?: CategoryWhereInput
   }
 
-  export type PracticeLogUpdateWithWhereUniqueWithoutVideoInput = {
-    where: PracticeLogWhereUniqueInput
-    data: XOR<PracticeLogUpdateWithoutVideoInput, PracticeLogUncheckedUpdateWithoutVideoInput>
+  export type CategoryUpdateToOneWithWhereWithoutRoutinesInput = {
+    where?: CategoryWhereInput
+    data: XOR<CategoryUpdateWithoutRoutinesInput, CategoryUncheckedUpdateWithoutRoutinesInput>
   }
 
-  export type PracticeLogUpdateManyWithWhereWithoutVideoInput = {
+  export type CategoryUpdateWithoutRoutinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CategoryUncheckedUpdateWithoutRoutinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PracticeLogUpsertWithWhereUniqueWithoutRoutineInput = {
+    where: PracticeLogWhereUniqueInput
+    update: XOR<PracticeLogUpdateWithoutRoutineInput, PracticeLogUncheckedUpdateWithoutRoutineInput>
+    create: XOR<PracticeLogCreateWithoutRoutineInput, PracticeLogUncheckedCreateWithoutRoutineInput>
+  }
+
+  export type PracticeLogUpdateWithWhereUniqueWithoutRoutineInput = {
+    where: PracticeLogWhereUniqueInput
+    data: XOR<PracticeLogUpdateWithoutRoutineInput, PracticeLogUncheckedUpdateWithoutRoutineInput>
+  }
+
+  export type PracticeLogUpdateManyWithWhereWithoutRoutineInput = {
     where: PracticeLogScalarWhereInput
-    data: XOR<PracticeLogUpdateManyMutationInput, PracticeLogUncheckedUpdateManyWithoutVideoInput>
+    data: XOR<PracticeLogUpdateManyMutationInput, PracticeLogUncheckedUpdateManyWithoutRoutineInput>
   }
 
-  export type PlaylistVideoUpsertWithWhereUniqueWithoutVideoInput = {
+  export type PlaylistVideoUpsertWithWhereUniqueWithoutRoutineInput = {
     where: PlaylistVideoWhereUniqueInput
-    update: XOR<PlaylistVideoUpdateWithoutVideoInput, PlaylistVideoUncheckedUpdateWithoutVideoInput>
-    create: XOR<PlaylistVideoCreateWithoutVideoInput, PlaylistVideoUncheckedCreateWithoutVideoInput>
+    update: XOR<PlaylistVideoUpdateWithoutRoutineInput, PlaylistVideoUncheckedUpdateWithoutRoutineInput>
+    create: XOR<PlaylistVideoCreateWithoutRoutineInput, PlaylistVideoUncheckedCreateWithoutRoutineInput>
   }
 
-  export type PlaylistVideoUpdateWithWhereUniqueWithoutVideoInput = {
+  export type PlaylistVideoUpdateWithWhereUniqueWithoutRoutineInput = {
     where: PlaylistVideoWhereUniqueInput
-    data: XOR<PlaylistVideoUpdateWithoutVideoInput, PlaylistVideoUncheckedUpdateWithoutVideoInput>
+    data: XOR<PlaylistVideoUpdateWithoutRoutineInput, PlaylistVideoUncheckedUpdateWithoutRoutineInput>
   }
 
-  export type PlaylistVideoUpdateManyWithWhereWithoutVideoInput = {
+  export type PlaylistVideoUpdateManyWithWhereWithoutRoutineInput = {
     where: PlaylistVideoScalarWhereInput
-    data: XOR<PlaylistVideoUpdateManyMutationInput, PlaylistVideoUncheckedUpdateManyWithoutVideoInput>
+    data: XOR<PlaylistVideoUpdateManyMutationInput, PlaylistVideoUncheckedUpdateManyWithoutRoutineInput>
   }
 
   export type PlaylistVideoScalarWhereInput = {
@@ -15141,7 +16976,7 @@ export namespace Prisma {
     NOT?: PlaylistVideoScalarWhereInput | PlaylistVideoScalarWhereInput[]
     id?: StringFilter<"PlaylistVideo"> | string
     playlistId?: StringFilter<"PlaylistVideo"> | string
-    videoId?: StringFilter<"PlaylistVideo"> | string
+    routineId?: StringFilter<"PlaylistVideo"> | string
     addedAt?: DateTimeFilter<"PlaylistVideo"> | Date | string
   }
 
@@ -15155,7 +16990,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
-    posts?: PostCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     playlists?: PlaylistCreateNestedManyWithoutUserInput
   }
 
@@ -15169,7 +17004,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -15178,35 +17013,41 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutPracticeLogsInput, UserUncheckedCreateWithoutPracticeLogsInput>
   }
 
-  export type VideoCreateWithoutPracticeLogsInput = {
+  export type DanceRoutineCreateWithoutLogsInput = {
     id?: string
     title: string
     description?: string | null
-    url: string
-    thumbnail: string
+    videoUrl: string
+    thumbnailUrl: string
     duration: number
     difficulty: $Enums.Difficulty
-    tags?: VideoCreatetagsInput | string[]
+    bpm?: number | null
+    caloriesPerMin?: number
     createdAt?: Date | string
-    playlistVideos?: PlaylistVideoCreateNestedManyWithoutVideoInput
+    updatedAt?: Date | string
+    category: CategoryCreateNestedOneWithoutRoutinesInput
+    playlists?: PlaylistVideoCreateNestedManyWithoutRoutineInput
   }
 
-  export type VideoUncheckedCreateWithoutPracticeLogsInput = {
+  export type DanceRoutineUncheckedCreateWithoutLogsInput = {
     id?: string
     title: string
     description?: string | null
-    url: string
-    thumbnail: string
+    videoUrl: string
+    thumbnailUrl: string
     duration: number
     difficulty: $Enums.Difficulty
-    tags?: VideoCreatetagsInput | string[]
+    bpm?: number | null
+    caloriesPerMin?: number
+    categoryId: string
     createdAt?: Date | string
-    playlistVideos?: PlaylistVideoUncheckedCreateNestedManyWithoutVideoInput
+    updatedAt?: Date | string
+    playlists?: PlaylistVideoUncheckedCreateNestedManyWithoutRoutineInput
   }
 
-  export type VideoCreateOrConnectWithoutPracticeLogsInput = {
-    where: VideoWhereUniqueInput
-    create: XOR<VideoCreateWithoutPracticeLogsInput, VideoUncheckedCreateWithoutPracticeLogsInput>
+  export type DanceRoutineCreateOrConnectWithoutLogsInput = {
+    where: DanceRoutineWhereUniqueInput
+    create: XOR<DanceRoutineCreateWithoutLogsInput, DanceRoutineUncheckedCreateWithoutLogsInput>
   }
 
   export type UserUpsertWithoutPracticeLogsInput = {
@@ -15230,7 +17071,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     playlists?: PlaylistUpdateManyWithoutUserNestedInput
   }
 
@@ -15244,45 +17085,51 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type VideoUpsertWithoutPracticeLogsInput = {
-    update: XOR<VideoUpdateWithoutPracticeLogsInput, VideoUncheckedUpdateWithoutPracticeLogsInput>
-    create: XOR<VideoCreateWithoutPracticeLogsInput, VideoUncheckedCreateWithoutPracticeLogsInput>
-    where?: VideoWhereInput
+  export type DanceRoutineUpsertWithoutLogsInput = {
+    update: XOR<DanceRoutineUpdateWithoutLogsInput, DanceRoutineUncheckedUpdateWithoutLogsInput>
+    create: XOR<DanceRoutineCreateWithoutLogsInput, DanceRoutineUncheckedCreateWithoutLogsInput>
+    where?: DanceRoutineWhereInput
   }
 
-  export type VideoUpdateToOneWithWhereWithoutPracticeLogsInput = {
-    where?: VideoWhereInput
-    data: XOR<VideoUpdateWithoutPracticeLogsInput, VideoUncheckedUpdateWithoutPracticeLogsInput>
+  export type DanceRoutineUpdateToOneWithWhereWithoutLogsInput = {
+    where?: DanceRoutineWhereInput
+    data: XOR<DanceRoutineUpdateWithoutLogsInput, DanceRoutineUncheckedUpdateWithoutLogsInput>
   }
 
-  export type VideoUpdateWithoutPracticeLogsInput = {
+  export type DanceRoutineUpdateWithoutLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
-    thumbnail?: StringFieldUpdateOperationsInput | string
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    tags?: VideoUpdatetagsInput | string[]
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    playlistVideos?: PlaylistVideoUpdateManyWithoutVideoNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneRequiredWithoutRoutinesNestedInput
+    playlists?: PlaylistVideoUpdateManyWithoutRoutineNestedInput
   }
 
-  export type VideoUncheckedUpdateWithoutPracticeLogsInput = {
+  export type DanceRoutineUncheckedUpdateWithoutLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
-    thumbnail?: StringFieldUpdateOperationsInput | string
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    tags?: VideoUpdatetagsInput | string[]
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    playlistVideos?: PlaylistVideoUncheckedUpdateManyWithoutVideoNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playlists?: PlaylistVideoUncheckedUpdateManyWithoutRoutineNestedInput
   }
 
   export type UserCreateWithoutPlaylistsInput = {
@@ -15295,7 +17142,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
-    posts?: PostCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     practiceLogs?: PracticeLogCreateNestedManyWithoutUserInput
   }
 
@@ -15309,7 +17156,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     practiceLogs?: PracticeLogUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -15321,12 +17168,12 @@ export namespace Prisma {
   export type PlaylistVideoCreateWithoutPlaylistInput = {
     id?: string
     addedAt?: Date | string
-    video: VideoCreateNestedOneWithoutPlaylistVideosInput
+    routine: DanceRoutineCreateNestedOneWithoutPlaylistsInput
   }
 
   export type PlaylistVideoUncheckedCreateWithoutPlaylistInput = {
     id?: string
-    videoId: string
+    routineId: string
     addedAt?: Date | string
   }
 
@@ -15361,7 +17208,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     practiceLogs?: PracticeLogUpdateManyWithoutUserNestedInput
   }
 
@@ -15375,7 +17222,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     practiceLogs?: PracticeLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -15398,7 +17245,6 @@ export namespace Prisma {
   export type PlaylistCreateWithoutVideosInput = {
     id?: string
     name: string
-    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutPlaylistsInput
@@ -15407,7 +17253,6 @@ export namespace Prisma {
   export type PlaylistUncheckedCreateWithoutVideosInput = {
     id?: string
     name: string
-    description?: string | null
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15418,35 +17263,41 @@ export namespace Prisma {
     create: XOR<PlaylistCreateWithoutVideosInput, PlaylistUncheckedCreateWithoutVideosInput>
   }
 
-  export type VideoCreateWithoutPlaylistVideosInput = {
+  export type DanceRoutineCreateWithoutPlaylistsInput = {
     id?: string
     title: string
     description?: string | null
-    url: string
-    thumbnail: string
+    videoUrl: string
+    thumbnailUrl: string
     duration: number
     difficulty: $Enums.Difficulty
-    tags?: VideoCreatetagsInput | string[]
+    bpm?: number | null
+    caloriesPerMin?: number
     createdAt?: Date | string
-    practiceLogs?: PracticeLogCreateNestedManyWithoutVideoInput
+    updatedAt?: Date | string
+    category: CategoryCreateNestedOneWithoutRoutinesInput
+    logs?: PracticeLogCreateNestedManyWithoutRoutineInput
   }
 
-  export type VideoUncheckedCreateWithoutPlaylistVideosInput = {
+  export type DanceRoutineUncheckedCreateWithoutPlaylistsInput = {
     id?: string
     title: string
     description?: string | null
-    url: string
-    thumbnail: string
+    videoUrl: string
+    thumbnailUrl: string
     duration: number
     difficulty: $Enums.Difficulty
-    tags?: VideoCreatetagsInput | string[]
+    bpm?: number | null
+    caloriesPerMin?: number
+    categoryId: string
     createdAt?: Date | string
-    practiceLogs?: PracticeLogUncheckedCreateNestedManyWithoutVideoInput
+    updatedAt?: Date | string
+    logs?: PracticeLogUncheckedCreateNestedManyWithoutRoutineInput
   }
 
-  export type VideoCreateOrConnectWithoutPlaylistVideosInput = {
-    where: VideoWhereUniqueInput
-    create: XOR<VideoCreateWithoutPlaylistVideosInput, VideoUncheckedCreateWithoutPlaylistVideosInput>
+  export type DanceRoutineCreateOrConnectWithoutPlaylistsInput = {
+    where: DanceRoutineWhereUniqueInput
+    create: XOR<DanceRoutineCreateWithoutPlaylistsInput, DanceRoutineUncheckedCreateWithoutPlaylistsInput>
   }
 
   export type PlaylistUpsertWithoutVideosInput = {
@@ -15463,7 +17314,6 @@ export namespace Prisma {
   export type PlaylistUpdateWithoutVideosInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPlaylistsNestedInput
@@ -15472,47 +17322,52 @@ export namespace Prisma {
   export type PlaylistUncheckedUpdateWithoutVideosInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type VideoUpsertWithoutPlaylistVideosInput = {
-    update: XOR<VideoUpdateWithoutPlaylistVideosInput, VideoUncheckedUpdateWithoutPlaylistVideosInput>
-    create: XOR<VideoCreateWithoutPlaylistVideosInput, VideoUncheckedCreateWithoutPlaylistVideosInput>
-    where?: VideoWhereInput
+  export type DanceRoutineUpsertWithoutPlaylistsInput = {
+    update: XOR<DanceRoutineUpdateWithoutPlaylistsInput, DanceRoutineUncheckedUpdateWithoutPlaylistsInput>
+    create: XOR<DanceRoutineCreateWithoutPlaylistsInput, DanceRoutineUncheckedCreateWithoutPlaylistsInput>
+    where?: DanceRoutineWhereInput
   }
 
-  export type VideoUpdateToOneWithWhereWithoutPlaylistVideosInput = {
-    where?: VideoWhereInput
-    data: XOR<VideoUpdateWithoutPlaylistVideosInput, VideoUncheckedUpdateWithoutPlaylistVideosInput>
+  export type DanceRoutineUpdateToOneWithWhereWithoutPlaylistsInput = {
+    where?: DanceRoutineWhereInput
+    data: XOR<DanceRoutineUpdateWithoutPlaylistsInput, DanceRoutineUncheckedUpdateWithoutPlaylistsInput>
   }
 
-  export type VideoUpdateWithoutPlaylistVideosInput = {
+  export type DanceRoutineUpdateWithoutPlaylistsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
-    thumbnail?: StringFieldUpdateOperationsInput | string
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    tags?: VideoUpdatetagsInput | string[]
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    practiceLogs?: PracticeLogUpdateManyWithoutVideoNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneRequiredWithoutRoutinesNestedInput
+    logs?: PracticeLogUpdateManyWithoutRoutineNestedInput
   }
 
-  export type VideoUncheckedUpdateWithoutPlaylistVideosInput = {
+  export type DanceRoutineUncheckedUpdateWithoutPlaylistsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
-    thumbnail?: StringFieldUpdateOperationsInput | string
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    tags?: VideoUpdatetagsInput | string[]
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
+    categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    practiceLogs?: PracticeLogUncheckedUpdateManyWithoutVideoNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: PracticeLogUncheckedUpdateManyWithoutRoutineNestedInput
   }
 
   export type SessionCreateManyUserInput = {
@@ -15540,25 +17395,17 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PostCreateManyCreatedByInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type PracticeLogCreateManyUserInput = {
     id?: string
-    videoId: string
+    routineId: string
     durationPlayed: number
-    score?: number | null
+    caloriesBurned?: number | null
     completedAt?: Date | string
   }
 
   export type PlaylistCreateManyUserInput = {
     id?: string
     name: string
-    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15638,55 +17485,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PostUpdateWithoutCreatedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PostUncheckedUpdateWithoutCreatedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PostUncheckedUpdateManyWithoutCreatedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type PracticeLogUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    video?: VideoUpdateOneRequiredWithoutPracticeLogsNestedInput
+    routine?: DanceRoutineUpdateOneRequiredWithoutLogsNestedInput
   }
 
   export type PracticeLogUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PracticeLogUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PlaylistUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: PlaylistVideoUpdateManyWithoutPlaylistNestedInput
@@ -15695,7 +17520,6 @@ export namespace Prisma {
   export type PlaylistUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: PlaylistVideoUncheckedUpdateManyWithoutPlaylistNestedInput
@@ -15704,62 +17528,121 @@ export namespace Prisma {
   export type PlaylistUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PracticeLogCreateManyVideoInput = {
+  export type DanceRoutineCreateManyCategoryInput = {
+    id?: string
+    title: string
+    description?: string | null
+    videoUrl: string
+    thumbnailUrl: string
+    duration: number
+    difficulty: $Enums.Difficulty
+    bpm?: number | null
+    caloriesPerMin?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DanceRoutineUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: PracticeLogUpdateManyWithoutRoutineNestedInput
+    playlists?: PlaylistVideoUpdateManyWithoutRoutineNestedInput
+  }
+
+  export type DanceRoutineUncheckedUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: PracticeLogUncheckedUpdateManyWithoutRoutineNestedInput
+    playlists?: PlaylistVideoUncheckedUpdateManyWithoutRoutineNestedInput
+  }
+
+  export type DanceRoutineUncheckedUpdateManyWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: StringFieldUpdateOperationsInput | string
+    thumbnailUrl?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    bpm?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesPerMin?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PracticeLogCreateManyRoutineInput = {
     id?: string
     userId: string
     durationPlayed: number
-    score?: number | null
+    caloriesBurned?: number | null
     completedAt?: Date | string
   }
 
-  export type PlaylistVideoCreateManyVideoInput = {
+  export type PlaylistVideoCreateManyRoutineInput = {
     id?: string
     playlistId: string
     addedAt?: Date | string
   }
 
-  export type PracticeLogUpdateWithoutVideoInput = {
+  export type PracticeLogUpdateWithoutRoutineInput = {
     id?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPracticeLogsNestedInput
   }
 
-  export type PracticeLogUncheckedUpdateWithoutVideoInput = {
+  export type PracticeLogUncheckedUpdateWithoutRoutineInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PracticeLogUncheckedUpdateManyWithoutVideoInput = {
+  export type PracticeLogUncheckedUpdateManyWithoutRoutineInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     durationPlayed?: IntFieldUpdateOperationsInput | number
-    score?: NullableIntFieldUpdateOperationsInput | number | null
+    caloriesBurned?: NullableIntFieldUpdateOperationsInput | number | null
     completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PlaylistVideoUpdateWithoutVideoInput = {
+  export type PlaylistVideoUpdateWithoutRoutineInput = {
     id?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     playlist?: PlaylistUpdateOneRequiredWithoutVideosNestedInput
   }
 
-  export type PlaylistVideoUncheckedUpdateWithoutVideoInput = {
+  export type PlaylistVideoUncheckedUpdateWithoutRoutineInput = {
     id?: StringFieldUpdateOperationsInput | string
     playlistId?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PlaylistVideoUncheckedUpdateManyWithoutVideoInput = {
+  export type PlaylistVideoUncheckedUpdateManyWithoutRoutineInput = {
     id?: StringFieldUpdateOperationsInput | string
     playlistId?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15767,25 +17650,25 @@ export namespace Prisma {
 
   export type PlaylistVideoCreateManyPlaylistInput = {
     id?: string
-    videoId: string
+    routineId: string
     addedAt?: Date | string
   }
 
   export type PlaylistVideoUpdateWithoutPlaylistInput = {
     id?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    video?: VideoUpdateOneRequiredWithoutPlaylistVideosNestedInput
+    routine?: DanceRoutineUpdateOneRequiredWithoutPlaylistsNestedInput
   }
 
   export type PlaylistVideoUncheckedUpdateWithoutPlaylistInput = {
     id?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PlaylistVideoUncheckedUpdateManyWithoutPlaylistInput = {
     id?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
