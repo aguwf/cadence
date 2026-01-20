@@ -15,31 +15,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  createdBy   User   @relation(fields: [createdById], references: [id])
-  createdById String
-
-  @@index([name])
-}
-
 model User {
-  id            String        @id
+  id            String    @id
   name          String //@db.Text
   email         String
-  emailVerified Boolean       @default(false)
+  emailVerified Boolean   @default(false)
   image         String? //@db.Text
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @default(now()) @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
-  posts         Post[]
-  practiceLogs  PracticeLog[]
-  playlists     Playlist[]
+
+  practiceLogs   PracticeLog[]
+  playlists      Playlist[]
+  workoutHistory UserWorkoutHistory[]
 
   @@unique([email])
   @@map("user")
@@ -150,4 +139,37 @@ model PlaylistVideo {
 
   @@unique([playlistId, videoId])
   @@map("playlist_video")
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  workouts Workout[]
+}
+
+model Workout {
+  id           String               @id @default(cuid())
+  title        String
+  description  String?
+  videoUrl     String
+  duration     Int
+  difficulty   String
+  thumbnailUrl String?
+  categoryId   String
+  category     Category             @relation(fields: [categoryId], references: [id])
+  history      UserWorkoutHistory[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+}
+
+model UserWorkoutHistory {
+  id          String   @id @default(cuid())
+  userId      String
+  workoutId   String
+  completedAt DateTime @default(now())
+  score       Int?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workout     Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workoutId, completedAt])
 }

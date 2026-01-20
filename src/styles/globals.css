@@ -4,3 +4,23 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+@layer base {
+  :root {
+    --background: 257 60% 97%;
+    --foreground: 257 30% 25%;
+    --card: 257 60% 100%;
+    --card-foreground: 257 30% 25%;
+    --primary: 257 88% 76%;
+    --primary-foreground: 257 40% 15%;
+    --secondary: 300 80% 85%;
+    --secondary-foreground: 300 40% 15%;
+    --accent: 230 90% 80%;
+    --accent-foreground: 230 40% 15%;
+    --radius: 0.75rem;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

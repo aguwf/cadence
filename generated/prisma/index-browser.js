@@ -121,14 +121,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
-};
-
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -212,6 +204,32 @@ exports.Prisma.PlaylistVideoScalarFieldEnum = {
   addedAt: 'addedAt'
 };
 
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.WorkoutScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  videoUrl: 'videoUrl',
+  duration: 'duration',
+  difficulty: 'difficulty',
+  thumbnailUrl: 'thumbnailUrl',
+  categoryId: 'categoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserWorkoutHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  workoutId: 'workoutId',
+  completedAt: 'completedAt',
+  score: 'score'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -233,7 +251,6 @@ exports.Difficulty = exports.$Enums.Difficulty = {
 };
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -241,7 +258,10 @@ exports.Prisma.ModelName = {
   Video: 'Video',
   PracticeLog: 'PracticeLog',
   Playlist: 'Playlist',
-  PlaylistVideo: 'PlaylistVideo'
+  PlaylistVideo: 'PlaylistVideo',
+  Category: 'Category',
+  Workout: 'Workout',
+  UserWorkoutHistory: 'UserWorkoutHistory'
 };
 
 /**
